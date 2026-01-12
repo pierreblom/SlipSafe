@@ -1,0 +1,6 @@
+[build]
+  command = "bash build.sh"
+  publish = "."
+
+[dev]
+  command = "python3 -m http.server"
