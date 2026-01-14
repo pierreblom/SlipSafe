@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SlipSafe Pro - Business & Tax Hub</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧾</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -26,16 +28,40 @@
         <h1 class="text-4xl font-black text-white mb-3">SlipSafe Pro</h1>
         <p class="text-blue-100 mb-10 max-w-xs text-lg opacity-90">Your AI-powered business hub & tax companion.</p>
 
+        <div id="email-auth-container" class="w-full max-w-xs space-y-4 mb-6">
+            <input type="email" id="auth-email" placeholder="Email Address"
+                class="auth-input w-full px-5 py-4 rounded-2xl focus:outline-none transition">
+            <input type="password" id="auth-password" placeholder="Password"
+                class="auth-input w-full px-5 py-4 rounded-2xl focus:outline-none transition">
+
+            <button id="auth-primary-btn" onclick="handleEmailAuth()"
+                class="w-full bg-white text-[#0077b6] font-bold py-4 rounded-2xl shadow-xl hover:bg-blue-50 transition active:scale-95">
+                Sign In
+            </button>
+
+            <p class="text-blue-100 text-sm">
+                <span id="auth-toggle-text">Don't have an account?</span>
+                <a href="#" onclick="toggleAuthMode()" id="auth-toggle-link" class="font-bold underline ml-1">Sign
+                    Up</a>
+            </p>
+        </div>
+
+        <div class="w-full max-w-xs flex items-center gap-4 mb-6 opacity-50">
+            <div class="flex-1 h-[1px] bg-white/30"></div>
+            <span class="text-white text-xs font-bold uppercase tracking-widest">OR</span>
+            <div class="flex-1 h-[1px] bg-white/30"></div>
+        </div>
+
         <button onclick="loginWithGoogle()"
-            class="w-full max-w-xs bg-white text-[#0077b6] font-bold py-5 rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:bg-blue-50 transition active:scale-95 text-lg">
-            <svg class="w-6 h-6" viewBox="0 0 24 24">
-                <path fill="#4285F4"
+            class="w-full max-w-xs bg-white/10 border border-white/20 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-white/20 transition active:scale-95">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                <path fill="#ffffff"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                <path fill="#34A853"
+                <path fill="#ffffff"
                     d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                <path fill="#FBBC05"
+                <path fill="#ffffff"
                     d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
-                <path fill="#EA4335"
+                <path fill="#ffffff"
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
             </svg>
             Continue with Google
@@ -386,6 +412,18 @@
                     </svg>
                     <p class="text-xs text-orange-700 leading-relaxed font-medium">SARS prevents VAT claims on
                         business lunches. The total will be used for Income Tax only.</p>
+                </div>
+
+                <div class="hidden bg-blue-50 p-5 rounded-3xl space-y-2 border border-blue-100">
+                    <div class="flex items-center gap-2 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="text-[10px] font-black uppercase tracking-widest">SARS Reasoning</span>
+                    </div>
+                    <p id="m-reasoning" class="text-xs text-blue-700 leading-relaxed font-medium"></p>
                 </div>
 
                 <div class="flex gap-4 pt-4">

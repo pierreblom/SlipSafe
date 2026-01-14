@@ -1,0 +1,668 @@
+ 
+ABC of Capital Gains Tax for Companies (Issue 9) 1 
+ 
+ABC of Capital Gains Tax 
+for Companies 
+Issue 11 
+Capital Gains Tax 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) i 
+ABC of Capital Gains Tax for Companies 
+Preface 
+This guide provides a basic introduction to capital gains tax (CGT) for “companies” as defined 
+in section 1(1) of the Income Tax Act 58 of 1962 (the Act) and should not be used as a legal 
+reference. 
+For more information, assistance and guidance you may – 
+• visit the SARS website to, amongst other things, consult the Comprehensive Guide to 
+Capital Gains Tax or the Tax Guide for Share Owners; 
+• contact the SARS National Service Centre (between 8am and 4.30pm South African 
+time except on Wednesdays when the service centre can be called between 9am and 
+4.30pm) – 
+➢ if calling locally, on 0800 00 7277; or 
+➢ if calling from abroad, on +27 11 602 2093;  
+• have a virtual consultation with a SARS consultant by making an appointment via the 
+SARS website; 
+• visit your nearest SARS service centre, preferably after making an appointment via the 
+SARS website; or 
+• contact your own tax advisor or tax practitioner. 
+Comments on this guide may be e-mailed to policycomments@sars.gov.za. 
+Leveraged Legal Products 
+SOUTH AFRICAN REVENUE SERVICE 
+18 March 2025 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) ii 
+Contents 
+Preface ................................ ................................ ................................ ................................ ... i 
+1. Introduction ................................ ................................ ................................ .............. 1 
+2. Overview of the core provisions of capital gains tax ................................ ............. 1 
+3. Determining a capital gain or capital loss ................................ ..............................  3 
+3.1 Asset ................................ ................................ ................................ .......................... 3 
+3.2 Disposal ................................ ................................ ................................ ..................... 3 
+3.3 Proceeds ................................ ................................ ................................ .................... 5 
+3.4 Base cost ................................ ................................ ................................ ................... 6 
+4. Base cost of assets acquired before 1 October 2001 ................................ ............ 7 
+4.1 “20% of proceeds” method ................................ ................................ ......................... 7 
+4.2 Market-value method ................................ ................................ ................................ .. 7 
+4.3 Time-apportionment base cost method................................ ................................ ....... 9 
+5. Exclusions ................................ ................................ ................................ .............. 12 
+6. Roll-over of capital gain or capital loss ................................ ................................  13 
+7. Aggregate capital gain or aggregate capital loss ................................ ................. 13 
+8. Net capital gain or assessed capital loss ................................ ............................. 13 
+9. Inclusion rate and taxable capital gain ................................ ................................ . 13 
+10. Effective rates of capital gains tax ................................ ................................ ........ 13 
+ 
+ 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 1 
+1. Introduction 
+Capital gains tax (CGT)  was introduced  in South Africa  with effect from 1  October 2001 
+and applies to the disposal of an asset on or after that date . South African residents are 
+subject to CGT on the disposal of assets not only in South  Africa, but anywhere in the 
+world.  
+All capital gains and capital losses  made on the disposal of assets are subject to CGT  
+unless specifically excluded.  
+Section  26A of the Act provides that the taxable capital gain must be included in taxable 
+income.  Capital gains tax  is therefore not a separate tax but forms part of income tax.  
+The CGT provisions are mostly contained in  the Eighth  Schedule  to the Act , although 
+some are in the main body of the Act, such as those dealing with change of residence, 
+ceasing to be  a controlled foreign company or becoming  a headquarter company  
+(section  9H), government grants (section  12P), international shipping (section  12Q) and 
+the corporate restructuring rules (sections 41 to 47) . 
+2. Overview of the core provisions of capital gains tax 
+The CGT Flowchart  below sets out the core steps in determining a taxable capital gain 
+to be included in taxable income or an assessed capital loss to be carried forward to a 
+subsequent year of assessment.  
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 2 
+ 
+ 
+… to be included in … 
+calculated per individual asset 
+section 26A 
+Eighth Schedule 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Taxable 
+capital gain 
+Net capital gain 
+ 
+Multiply by 
+inclusion rate 
+Assessed 
+capital loss 
+ 
+Carried forward 
+Capital gain 
+Apply exclusions 
+Apply roll-overs 
+Capital loss 
+Apply exclusions 
+Apply limitations 
+gross income 
+ 
+exemptions 
+ 
+income 
+ 
+deductions  
+ 
+taxable income 
+ 
+rates of tax  
+ 
+rebates  
+ 
+income (normal) tax 
+payable 
+INCOME TAX ACT 
+58 of 1962 
+Attribution 
+rules 
+carried  forward to next year of assessment 
+deduct/add prior year’s assessed  
+capital loss, as the case may be 
+disposal (or deemed disposal) of asset 
+ 
+proceeds (or deemed proceeds) 
+ 
+deduct base cost 
+aggregate 
+capital gain 
+aggregate 
+capital loss 
+sum of all capital gains and losses, 
+reduced by annual exclusion  
+(individuals/special trusts only) 
+> R 0               or            < R 0 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 3 
+3. Determining a capital gain or capital loss 
+The Eighth  Schedule contains  four key definitions (Asset, Disposal, Proceeds and Base 
+Cost) which form the basic building blocks in determin ing a capital gain or capital loss. 
+A person’s capital gain on  disposal of  an asset is the amount by which the proceeds 
+exceed the base cost of that asset. A capital loss is equal to the amount by which the 
+base cost of the asset exceeds the proceeds.  
+Example 1 – Determination of a capital gain or capital loss 
+ Gain Loss 
+ R R 
+Proceeds 10 000 Proceeds 10 000 
+Less: Base cost (5 000) Less: Base cost (20 000) 
+Capital gain 5 000 Capital loss (10 000) 
+3.1 Asset 
+An “asset” is widely defined and includes property of whatever nature , whether movable 
+or immovable, corporeal or incorporeal  and any right to, or interest in, such property . Any 
+currency is excluded from the definition of “asset”, but any coin made mainly from gold 
+or platinum is included. Capital gains tax  applies to all assets disposed of on or after 
+1 October 2001 (valuation date), regardless of whether the asset was a cquired before, 
+on, or after that date.  
+Nevertheless , only the capital gain or capital loss attributable to the period on or after  
+1 October 2001 must be brought to account  for CGT purposes . 
+3.2 Disposal 
+Capital gains tax  is triggered  by the disposal or deemed disposal of an asset. A wide 
+meaning is given to the term “disposal ”. The Eighth Schedule provides for  both disposal s 
+and deemed disposals. A disposal covers any event, act, forbearance or operation of law 
+which results in the creation, variation, transfer or extinction of an asset  or an y event, 
+act, forbearance or operation of law which is under the Act treated as the disposal of an 
+asset.  The following are some examples of events that are disposals  or that are treat ed 
+as disposals : 
+• Sale of an asset 
+• Donation of an asset 
+• Expropriation of an asset 
+• Loss or destruction of an asset 
+• Change in the use of an asset 
+• A company ceasing to be a controlled foreign company 
+• A person ceasing to be a resident 
+• A company becoming a headquarter company  
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 4 
+The following are some examples  of events  that are not regarded as disposal s: 
+• The transfer of an asset as security for a debt  and the transfer of such asset back to 
+the debtor upon the release of the security. 
+• The issue, cancellation or extinction of a share by a company . In the hands of the 
+shareholder, however, a share-buy-back by a company constitutes a disposal. 
+• The issue of any debt by or to a person. 
+•  The subdivision, consolidation or conversion of shares whe n the shareholder 
+receives only replacement shares so that the participation rights and the interest 
+of the person in the company remain unaltered.   
+The Eight h Schedule provides for situation s when only a part of an asset is disposed of , 
+for example, sub -division or disposal of part of land . In such a case only part of the base 
+cost of the asset  can be deducted from  the proceeds  derived from the part disposed of . 
+It is important to note that the Eighth Schedule specifies the time of disposal of an asset. The 
+time of disposal is important, since it determines when the capital gain or capital loss must be 
+accounted for. It also provides the corresponding date of acquisition by the acquirer of an 
+asset.  
+The table below summarises the time of disposal rules under paragraph 13.  
+Disposal Time of disposal 
+Disposal of an asset by means of a change of 
+ownership effected or to be effected from one 
+person to another because of an event, act, 
+forbearance or by operation of law such as: 
+ 
+Agreement subject to a suspensive condition  Date on which the condition is satisfied  
+Agreement not subject to a suspensive condition  Date on which agreement is concluded 
+The distribution of an asset of a trust by a trustee 
+to a beneficiary to the extent that the beneficiary 
+has a vested interest in the asset  
+Date on which the interest vests  
+The granting by a trust to a beneficiary of an 
+equity instrument contemplated in s 8C.  
+Time when the equity instrument vests in the 
+beneficiary as contemplated in s 8C  
+Donation of an asset  Date of compliance with all legal requirements 
+for a valid donation 
+Expropriation of an asset  Date on which the person receives the full 
+compensation agreed to or finally determined by 
+a competent tribunal or court  
+Conversion of an asset  Date on which that asset is converted  
+Granting, renewal or extension of an option  Date on which the option is granted, renewed or 
+extended  
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 5 
+Disposal Time of disposal 
+Exercise of an option  Date on which the option is exercised  
+Termination of an option to acquire a share, 
+participatory interest  or debenture of that 
+company  
+Date on which that option terminates  
+Any other case  Date of change of ownership  
+Extinction of an asset including by way of 
+forfeiture, termination, redemption, cancellation, 
+surrender, discharge, relinquishment, release, 
+waiver, renunciation, expiry or abandonment  
+Date of the extinction of the asset  
+Scrapping, loss or destruction of an asset  Date  
+• when the full compensation is received; 
+or  
+• if no compensation is payable, the later 
+of the date when the scrapping, loss or 
+destruction is discovered or the date on 
+which it is established that no 
+compensation will be payable  
+Distribution of an asset by a company to a 
+holder of shares  
+Date on which that asset is so distributed as 
+contemplated in para 75  
+Decrease of a person's interest in a company, 
+trust or partnership as a result of a ‘value 
+shifting arrangement  
+Date on which the value of that person's 
+interest decreases  
+Deemed disposals referred to in para 12 Date immediately before the day that the event 
+occurs  
+3.3 Proceeds 
+The amount received by or accrue d to the seller on disposal of an asset or any amount 
+that is treated as having been received by or accrued to the taxpayer (deemed disposal)  
+constitutes the proceeds.  Assets disposed of by donation, for a consideration not 
+measurable in money, or to a connected person at a non -arm’s-length price are treated 
+as being disposed of for an amount received or accrued equal to the market value of the 
+asset.  
+Proceeds will also be treated as being at market value when specified  deemed disposal 
+events occur, such as  – 
+• ceasing to be a resident; 
+• a company ceasing to be a controlled foreign company; 
+• a company becoming a headquarter company; 
+• the conversion of a capital asset to trading stock; and 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 6 
+• the distribution of an asset in specie . 
+Amounts included in income  or gross income  such as a recoupment of capital allowances  
+or dividends  constituting a share buy -back are excluded from proceeds.  
+3.4 Base cost 
+Broadly the determination of the base cost of an asset depends on whether the asset  
+was acquired  – 
+• before 1 October 2001; 
+• on or after 1 October 2001; 
+• by donation, for a consideration not measurable in money or from a connected person 
+at a non-arm’s length price; or 
+• in consequence of a deemed disposal event such as a distribution in specie , 
+ceasing to be a resident , a company ceasing to be a controlled foreign company,  
+a company becoming a headquarter company  or the conversion of a capital asset 
+to trading stock.  
+The assets described in the last two bullet points  above are generally treated as having 
+been acquired at a cost equal to their market value.  
+Assets acquired on or after 1 October 2001 
+The base cost of an asset acquired on or after 1  October 2001 generally comprises the 
+actual expenditure incurred on the asset. In order to qualify for inclusion in base cost , 
+such expenditure must qualify  under paragraph  20 of the Eighth  Schedule. Some of the 
+main costs that qualify to be part of the base cost of an asset include  – 
+• the costs of acquisition or creation of the asset; 
+• the cost of valuing the asset for the purpose of determining a capital gain or capital 
+loss; 
+• the following amounts actually incurred as expenditure directly related to the 
+acquisition or disposal of the asset, namely – 
+the remuneration of a surveyor, valuer, auctioneer, accountant, broker, agent, 
+consultant or legal advisor, for services rendered; 
+transfer costs; 
+securities transfer tax, transfer duty or similar tax or duty; 
+advertising costs to find a seller or to find a buyer; 
+the cost of moving the asset from one location to another; 
+installation costs including foundations and supporting structures; 
+donations tax limited by a formula; 
+cost of an option used to acquire or dispose of the asset;  
+• cost of establishing, maintaining or defending a legal title to or right in the asset; 
+• cost of effecting an improvement to or enhancement of the value of the asset; and 
+• value-added tax  incurred  on an asset and not claimed as an input tax credit for 
+value-added tax purposes . 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 7 
+Holding costs 
+Holding costs generally do not form part of the base cost of an asset. Expenditure on 
+repairs, maintenance, protection, insurance, rates and taxes, or similar expenditure is 
+specifically excluded. Borrowing costs  (including bond registration costs, bond 
+cancellation costs and raising fees)  are also generally excluded with one exception. 
+Under that exception a person is entitled to add to base cost one-third of the interest 
+incurred on borrowings used to acquire  listed shares and participatory interests in 
+collective investment schemes.  One-third of the i nterest incurred on borrowings used to 
+refinance such investments  may also be included. However, interest on borrowings used 
+to finance the acquisition of shares in an operating company contemplated  in 
+section  24O may possibly  not be included in the base cost of those shares since such 
+interest may be deductible against the borrowing company’s income  under that section . 
+Reduction of base cost 
+Any expenditure referred to above which is allowable against a company’s income must 
+be reduced in arriving at the base cost of an asset. For example, capital allowances  
+claimed as a deduction  will reduce the expenditure incurred in acquiring an asset.  
+4. Base cost of assets acquired before 1 October 2001 
+In order to exclude the portion of the capital gain relating to the period before 1  October 
+2001, the base cost of the asset as at that date must be determined according to any 
+one of the following methods:  
+• “20% of proceeds” 
+• Market value on 1 October 2001 
+• Time-apportionment base cost  
+4.1 “20% of proceeds” method 
+Under this method the valuation date value of the asset is equal to 20% of the proceeds 
+after first deducting from the proceeds any allowable expenditure incurred on or after 
+1 October 2001. This method would typically be used when no record of pre -valuation 
+date expenditure exists and no valuation was obtained at 1 October 2001.  
+4.2 Market-value method  
+Under the market -value method, the market value of the asset on 1  October 2001 must 
+be determined. Various requirements apply before  the market -value method can be  
+used. 
+Time limit for performing valuations 
+All valuations must have been completed  by 30 September 2004. If a company  failed to 
+perform a valuation by this date , it will not be permitted to use the market -value method. 
+Valuations must be performed as if done on 1 October 2001.  The prices on 1  October 
+2001 of specified  financial instruments such as S outh African -listed shares and 
+participatory interests in S outh African  collective investment schemes were determined 
+by SARS and published in the Government Gazette . A company  is required to use these 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 8 
+prices and therefore does not need to determine its own values for these assets. The 
+prices are also available on the SARS website. 1 
+Onus of substantiating a valuation 
+The Act does not prescribe who may perform a valuation. This task was the responsibility 
+of the company and the onus  of substant iating a valuation rests with the company.  A 
+company was, however, entitled to appoint a professional person to assist with the 
+valuation.  
+Methods to be adopted in valuing specified assets 
+In general the Act does not specify the methods to be used in performing valuations, 
+though there are some exceptions  which are  summarised in the table below.  
+Table 1 – Market value of assets on 1 October 2001 
+Type of asset Valuation method 
+General rule Market value = price based on willing buyer, willing seller 
+acting at arm's length in an open market 
+South African-listed securities Volume weighted average price for the five business days 
+preceding 1 October 2001F
+2 
+Foreign listed securities The ruling price (usually the last sell price) on the last 
+business day before 1 October 2001 
+Participation rights and 
+“property shares” in S outh 
+African collective investment 
+schemes 
+Average "sell to management company" price for the last 
+five trading days before 1 October 2001F
+3 
+Participation rights in foreign 
+collective investment schemes 
+Same as for S outh African collective investment 
+schemes, except based on last trading day before 
+1 October 2001 
+Controlling interest  in listed 
+company 
+The listed price at 1  October 2001 must be adjusted by 
+the control premium or discount at the time of sale 
+South African second-hand 
+endowment policies 
+Greater of  – 
+• Surrender value 
+• Insurer's market value (assume policy runs to 
+maturity) 
+Farm land Market value less 30% (under specified circumstances) or 
+price based on willing buyer, willing seller acting at arm’s 
+length in an open market. 
+ 
+1 Prices supplied in Government Gazette 23037 of 25 January 2002 and on SARS website under 
+Types of Tax / Capital Gains Tax / Market Values. 
+2 See above. 
+3 See above. 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 9 
+Submission requirements 
+Generally, proof of any valuation performed within the prescribed period must be retained 
+for five years after the date of submission of the return reflecting the disposal of the 
+asset. F
+4 However, with the high-value assets  described in the table below , the valuation 
+forms were required to be lodged with the first return of income submitted after 
+30 September 2004. If the value form  was not thus submitted,  the person disposing of 
+the asset will not be permitted to use the market -value method  for these assets . 
+Table 2 – Assets subject to early valuation submission requirements  
+Type of asset Applies Market value exceeds 
+Intangible assets (such as 
+goodwill and trade marks) Per asset R1 million 
+Unlisted shares All shares held by the 
+person in the company R10 million 
+All other assets Per asset R10 million 
+Limitation of losses 
+The Eighth  Schedule contains loss -limitation rules which apply when the market value of 
+an asset on 1 October 2001  has been determined, or has been published in the 
+Government Gazette  (the latter would apply, for example,  to South African -listed shares) . 
+Under specified  circumstances  a person’s ability to choose a method for determining the 
+valuation date va lue of an asset will be restricted  by these rules which are beyond the 
+scope of this guide .5 
+4.3 Time-apportionment base cost method 
+The time -apportionment base cost  method may be used when a company has  a record 
+of the date of acquisition and cost of an asset. The following formula is used to determine 
+the time -apportionment base cost of an asset : 
+Y = B + [(P – B) × N / (N + T)] 
+In which  – 
+Y = The amount to be determined  
+B = Allowable expenditure incurred before 1  October 2001  
+P = Proceeds on disposal of  the asset 
+N = Number of years or part of a year  before 1  October 2001  
+T = Number of years or part of a year  on or after 1  October 2001  
+ 
+4 Section 29(3)(a) of the Tax Administration Act  28 of 2011 read with paragraph  29(6) of the 
+Eighth Schedule. 
+5 See the Comprehensive Guide to Capital Gains Tax for commentary in this regard. 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 10 
+For pu rposes of this formula  the following should be borne in mind : 
+• Improvements or additions made before 1 October 2001 are deemed to have taken 
+place when the asset was acquired. 
+• A part of a year is treated as a full year. 
+• The period before 1 October 2001 is limited to 20 years when –  
+improvements have been made to an asset in more than one year of assessment 
+before 1 October 2001; and 
+the asset was acquired before 1 October 1981. 
+• The 20-year limit does not apply when no additions or improvements have taken place 
+before valuation date. 
+• The following adjustments must be made when capital allowances have been claimed 
+on an asset for normal tax purposes: 
+Proceeds must be reduced by the amount of any recoupments. 
+Expenditure must be reduced by the amount of any capital allowances claimed as a 
+deduction. 
+The following additional formula must be used to determine the value of “P” (proceeds) when 
+improvements to an asset occured on or after 1 October 2001: 
+P = R × B / (A + B) 
+In which  – 
+R = Amount received or accrued on disposal of the asset 
+B = Allowable expenditure incurred before 1  October 2001  
+A = Allowable expenditure incurred on or after 1  October 2001  
+A special “depreciable assets”  formula applies when  – 
+• capital allowances have been claimed on an asset; 
+• additions to the asset have occurred on or after 1 October 2001; and 
+• the proceeds from the disposal of the asset exceed all the allowable expenditure 
+on the asset.  
+The use of the special depreciable assets formula is illustrated in Example 3. 
+Selling expenses  (for example, estate agent’s commission)  are treated as a reduction in 
+proceeds for the purpose of determining the time -apportionment base cost. This aspect 
+is not illustrated in the examples which follow . 
+To assist taxpayers, SARS has made available a  time-apportionment base cost 
+calculator ( “TAB calculator” ) on its website which uses an Excel spreadsheet. The TAB 
+calculator does not apply when the special depreciable assets formulae are applicable. 
+More advanced examples can be found in the Comprehensive Guide to Capital Gains 
+Tax. 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 11 
+Example 2 – Determination of  time-apportionment base cost  (expenditure incurred 
+before 1 October 2001) and a capital gain 
+Facts: 
+Company A’s financial year ends on the last day of February . It purchased a machine for 
+R100 000 on 1 September 1999 and sold it for R150 000 on 29 February 2024. At the date of 
+sale, capital allowances of R100 000 had been claimed on the machine. 
+Result: 
+(a) Exclude  recoupment from  the amount received or accrued and capital allowances 
+from cost  
+ R 
+Consideration received or accrued 150 000 
+Less: Recoupment (100 000) 
+Proceeds for CGT purposes 50 000 
+Cost 100 000 
+Less: Capital allowances (100 000) 
+Cost for CGT purposes  0 
+(b) Determine time -apportionment base cost  
+Period 1 September 1999 – 30 September 2001 =   3 years 
+Period 1 October 2001 – 29 February 2024  = 23 years 
+Total period 1 September 1999 – 29 February 2024 = 26 years  
+Y = B + [(P − B) × N / (N + T)]  
+ = R0 + [(R50 000 − R0) × 3 / 26] 
+ = R0 + R5 769 
+ = R5 769 
+(c) Determine capital gain  
+ R 
+Proceeds 50 000 
+Less: Base cost (5 769) 
+Capital gain 44 231 
+ 
+Example 3 – Determination of  time-apportionment base cost  (expenditure incurred  
+before and after 1 October 2001) and a capital gain 
+Facts: 
+Company B’s financial year end s on the last day of February. It purchased a machine for 
+R100 000 on 1  September 1999. The machine was upgraded on 1  July 2021 at a cost of 
+R10 000. 
+The machine was sold for R150  000 on 29 February 2024. At the date of sale, capital 
+allowances of R100  000 had been claimed on the original cost of the machine while 
+allowances of R6 000 had been claimed on the cost of improvements. 
+ 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 12 
+Result: 
+(a) Exclude  recoupment s from proceed s 
+ R 
+Consideration received or accrued 150 000 
+Less: Recoupment (R100 000 + R6 000) (106 000) 
+Proceeds for CGT purposes  44 000 
+(b) Exclude  capital allowance s from cost  
+ Before After Total 
+ 1 October 2001 1 October 2001 
+ R R R 
+Cost 100 000 (B1) 10 000 (A1) 110 000 
+Less: Capital allowances (100 000) (6 000) (106 000) 
+Cost for CGT purposes  0 (B) 4 000 (A)  4 000 
+(c) Determine portion of proceeds relating to period before valuation date  
+P1 = R1 × B1 / (A1 + B1)  
+ = R150 000 × R100 000 / R110 000 
+ = R136 364 
+(d) Determine time -apportionment base cost  
+Y = B + [(P1 − B1) × N / (N + T)] 
+ = R0 + [(R136 364 − R100 000) × 3 / 26] 
+ = R0 + R4 196 
+ =  R4 196 
+(e) Determine capital gain  
+ R 
+Proceeds 44 000 
+Less: Valuation date value (time-apportionment base cost) (4 196) 
+ Cost after valuation date  (4 000) 
+Capital gain 35 804 
+5. Exclusions 
+Capital gains and  / or capital losses on the disposal of specified assets are excluded from 
+CGT, if specified requirements are met, and are disregarded when calculating the aggregate 
+capital gain or  aggregate capital loss . Some of the most common exclusions include the 
+following: 
+• Disposal by a creditor of debt owed by a connected person. 
+• A “registered micro business ” as defined under the Sixth  Schedule must disregard  
+for CGT purposes,  any capital gain or capital loss on disposal of any asset used 
+mainly for business purposes.  
+• A capital loss determined on the  disposal relating to prizes or winnings from 
+gambling, games or competitions.  
+• A donation or bequest of an asset to an approved public benefit organisation.  
+• Specified disposals of an interest of at least 10% in a foreign company.  
+• Land or the right to land  donated under land reform measures . 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 13 
+6. Roll-over of capital gain or capital loss 
+In some cases capital gains or capital losses are “rolled over”, that is, they are deferred to a 
+future year of assessment. Some examples include – 
+• involuntary disposal of an asset by operation of law, theft or destruction (does not apply 
+to financial instruments and is made at the election of the taxpayer; the capital gain will 
+be recognised when the replacement asset is sold, or if the replacement a sset is a 
+depreciable asset, over the period that the capital allowances are claimed on the 
+replacement asset); 
+• replacement of depreciable assets used for the purposes of trade (made at the election 
+of a taxpayer); and 
+• certain corporate actions (asset -for-share transactions, amalgamation 
+transactions , intra -group transactions,  unbundling transactions  and liquidation 
+distributions ). 
+7. Aggregate capital gain or aggregate capital loss  
+A company’s aggregate capital gain or aggregate capital loss is determined by adding 
+the capital gains and  capital  losses  on individual assets together  for a specific year of 
+assessment . 
+8. Net capital gain or assessed capital loss  
+A company’s net capital gain or assessed capital loss is determined by deducting any 
+assessed capital loss brought forward from the previous year of assessment  from the 
+aggregate capital gain or aggregate capital loss. An assessed capital loss may be 
+deducted only from capital gains and added to capital losses. It may not reduce taxable  
+income.  
+9. Inclusion rate and taxable capital gain 
+The taxable capital gain of a company is determined by multiplying the net capital gain 
+by the inclusion rate.  For years of assessment commencing on or after 1  March 201 6 the 
+inclusion rate f or a company is  generally  80% (see Table 3). 
+10. Effective rates of capital gains tax  
+The effective rate of CGT is determined by multiplying the inclusion rate  by the statutory 
+rate of income tax applicable to the company.  
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 14 
+Table 3 – Inclusion , statutory  and effective rates of tax (effective for years of 
+assessment ending on or after 31  March 2024)  
+Type of company Inclusion 
+rate 
+% 
+Statutory rate 
+ 
+% 
+Effective rate 
+ 
+% 
+Company & Close corporation 80 27 21,6 
+Small business corporation 80 0 – 7 – 21 – 27 0 – 5,6 – 16,8 – 21,6 
+Micro business3F
+6 50 0 – 1 – 2 – 3 0 – 0,5 – 1 – 1,5 
+Taxable income derived by 
+company in special economic 
+zone 
+80 15 12 
+Life Assurer – individual 
+policyholder fund 40 30 12 
+Life Assurer – company 
+policyholder fund 80 27 21,6 
+Life Assurer – untaxed 
+policyholder fund 0 0 0 
+Life Assurer – corporate fund 80 27 21,6 
+Life Assurer – Risk policy fund 80 27 21,6 
+ 
+Example 4 – Determination of a taxable capital gain and the effective rate of CGT 
+Facts: 
+Company  C declared  the following capital gains and  capital  losses  for its year  of 
+assessment  ending on  31 March 2024: 
+ R 
+Disposal of vacant land 50 000 
+Disposal of a trade mark 25 000 
+Loan waived (5 000) 
+Disposal of shares (10 000) 
+Aggregate capital gain  60 000 
+Company  C does not have an assessed capital loss  brought forward  from the previous 
+year of assessment.  
+ 
+6 Under paragraph 57A of the Eighth  Schedule a micro business’s assets are not subject to CGT. 
+However, under paragraph 6 of the Sixth Schedule 50% of the receipts of a capital nature from the 
+disposal of micro business assets are included in taxable turnover. 
+ 
+ABC of Capital Gains Tax for Companies (Issue 11) 15 
+ 
+Result: 
+ R 
+Aggregate capital gain 60 000 
+Less: Assessed capital loss brought forward  (0) 
+Net capital gain 60 000 
+Taxable capital gain (60 000 × 80% inclusion rate) 48 000 
+The taxable capital gain is included in taxable income and taxed at the  statutory income 
+tax rate of 27%, that is, R4 8 000 × 27% = R12 960. 
+The effective rate of CGT on the sum of the  capital  gains and  capital  losses  (the net 
+capital  gain) is 21,6% (R12 960 / R60 000 × 100). 
+ 

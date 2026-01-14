@@ -1,6 +1,7 @@
 // --- CONFIGURATION ---
+// Version: 1.0.1 (SARS 2025/26 Optimized)
 const supabaseUrl = 'https://fezppgnxhbxacuwcejma.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlenBwZ254aGJ4YWN1d2Nlam1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgyMTgyMjcsImV4cCI6MjA4Mzc5NDIyN30.5Hg11t5f3Io0CfPTozh8ptQ8pvdR4LXS0aSa3ksi2-8';
+const supabaseKey = 'sb_publishable_ZOns1RnJ9eCQijgcBe_aRg_09u0sYH2';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // --- STATE ---
@@ -9,6 +10,7 @@ let currentProcess = null;
 let currentUser = null;
 let currentScreen = 'home';
 let categoryChart = null;
+let authMode = 'login'; // 'login' or 'signup'
 
 const fileInput = document.getElementById('file-input');
 const loader = document.getElementById('loader');
@@ -26,6 +28,50 @@ async function checkUser() {
         fetchSlips();
     } else {
         authOverlay.classList.remove('hidden');
+    }
+}
+
+function toggleAuthMode() {
+    authMode = authMode === 'login' ? 'signup' : 'login';
+    const primaryBtn = document.getElementById('auth-primary-btn');
+    const toggleText = document.getElementById('auth-toggle-text');
+    const toggleLink = document.getElementById('auth-toggle-link');
+
+    if (authMode === 'login') {
+        primaryBtn.innerText = 'Sign In';
+        toggleText.innerText = "Don't have an account?";
+        toggleLink.innerText = 'Sign Up';
+    } else {
+        primaryBtn.innerText = 'Create Account';
+        toggleText.innerText = "Already have an account?";
+        toggleLink.innerText = 'Sign In';
+    }
+}
+
+async function handleEmailAuth() {
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
+
+    if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+    }
+
+    loader.classList.remove('hidden');
+    try {
+        if (authMode === 'login') {
+            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+        } else {
+            const { error } = await supabaseClient.auth.signUp({ email, password });
+            if (error) throw error;
+            alert("Signup successful! Please check your email for verification (if enabled) or sign in.");
+            toggleAuthMode();
+        }
+    } catch (err) {
+        alert("Auth failed: " + err.message);
+    } finally {
+        loader.classList.add('hidden');
     }
 }
 
@@ -59,13 +105,15 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 
 function updateProfileUI() {
     if (!currentUser) return;
-    document.getElementById('profile-name').innerText = currentUser.user_metadata.full_name || 'User';
+    const name = currentUser.user_metadata.full_name || currentUser.email.split('@')[0];
+    document.getElementById('profile-name').innerText = name;
     document.getElementById('profile-email').innerText = currentUser.email;
     const pic = document.getElementById('profile-pic');
+
     if (currentUser.user_metadata.avatar_url) {
         pic.innerHTML = `<img src="${currentUser.user_metadata.avatar_url}" class="w-full h-full rounded-full object-cover" referrerpolicy="no-referrer">`;
     } else {
-        pic.innerText = (currentUser.email[0] || '?').toUpperCase();
+        pic.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-blue-100 text-[#0077b6] text-2xl font-black rounded-full">${(name[0] || '?').toUpperCase()}</div>`;
     }
 }
 
@@ -150,20 +198,30 @@ async function analyzeSlip(fileObject) {
             throw new Error("You must be logged in. Please sign out and sign in again.");
         }
 
-        const { data, error } = await supabaseClient.functions.invoke('analyze-slip', {
+        // Use fetch directly to get better error visibility
+        const response = await fetch(`${supabaseUrl}/functions/v1/analyze-slip`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${session.access_token}`,
+                'apikey': supabaseKey
+            },
             body: formData
         });
 
-        if (error) {
-            console.error("Function Error:", error);
-            throw error;
+        const responseText = await response.text();
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (e) {
+            console.error("Failed to parse response JSON:", responseText);
+            throw new Error(`Server returned invalid JSON: ${responseText.substring(0, 100)}`);
         }
 
-        if (data && data.error) {
-            throw new Error(data.error);
+        if (!response.ok) {
+            console.error("Function Error Response:", data);
+            throw new Error(data.error || data.message || `Server error (${response.status})`);
         }
 
-        logToUI("Analysis Successful!");
         currentProcess = { ...data.data, imageData: data.data.image_url };
         await openModal();
         await fetchSlips();
@@ -310,10 +368,23 @@ async function openModal() {
     document.getElementById('m-deductible').checked = currentProcess.is_tax_deductible;
 
     const badge = document.getElementById('compliance-badge');
-    badge.innerText = currentProcess.is_tax_invoice ? "Valid Tax Invoice" : "Receipt Only";
-    badge.className = currentProcess.is_tax_invoice
-        ? "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700"
-        : "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-orange-100 text-orange-700";
+    const status = currentProcess.compliance_status || (currentProcess.is_tax_invoice ? "Valid" : "Receipt Only");
+    badge.innerText = status;
+
+    if (status === 'Valid' || status === 'Sufficient') {
+        badge.className = "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700";
+    } else if (status === 'Incomplete') {
+        badge.className = "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-orange-100 text-orange-700";
+    } else {
+        badge.className = "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-red-100 text-red-700";
+    }
+
+    // Show reasoning if available
+    const reasoningEl = document.getElementById('m-reasoning');
+    if (reasoningEl) {
+        reasoningEl.innerText = currentProcess.reasoning || "";
+        reasoningEl.parentElement.classList.toggle('hidden', !currentProcess.reasoning);
+    }
 
     toggleWarning();
     modal.classList.remove('hidden');
@@ -327,46 +398,77 @@ function toggleWarning() {
 function closeModal() {
     modal.classList.add('hidden');
     if (fileInput) fileInput.value = '';
+    const saveBtn = document.getElementById('save-btn');
+    if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = 'Save Slip';
+    }
 }
 
 const saveBtn = document.getElementById('save-btn');
 if (saveBtn) {
     saveBtn.onclick = async () => {
+        const merchant = document.getElementById('m-merchant').value;
+        const total = parseFloat(document.getElementById('m-total').value);
+        const vat = parseFloat(document.getElementById('m-vat').value);
+        const category = document.getElementById('m-category').value;
+        const is_tax_deductible = document.getElementById('m-deductible').checked;
+        const vat_number = document.getElementById('m-vatno').value;
+        const is_tax_invoice = document.getElementById('compliance-badge').innerText === "Valid" || document.getElementById('compliance-badge').innerText === "Sufficient";
+        const date = new Date().toISOString().split('T')[0]; // Default to today for manual
+
         const slipData = {
-            merchant: document.getElementById('m-merchant').value,
-            total: parseFloat(document.getElementById('m-total').value),
-            vat: parseFloat(document.getElementById('m-vat').value),
-            category: document.getElementById('m-category').value,
-            is_tax_deductible: document.getElementById('m-deductible').checked,
-            vat_number: document.getElementById('m-vatno').value,
-            is_tax_invoice: document.getElementById('compliance-badge').innerText === "Valid Tax Invoice",
-            date: new Date().toISOString().split('T')[0] // Default to today for manual
+            merchant,
+            total,
+            vat,
+            category,
+            is_tax_deductible,
+            vat_number,
+            is_tax_invoice,
+            date
         };
 
+        // Disable button and show loading
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span class="animate-spin mr-2">⏳</span> Saving...';
+
         let error;
-        if (currentProcess.id) {
-            // Update existing
-            const { error: updateError } = await supabaseClient.from('slips').update(slipData).eq('id', currentProcess.id);
-            error = updateError;
-        } else {
-            // Insert new manual entry
-            const { data: { user } } = await supabaseClient.auth.getUser();
-            const fingerprint = `${user.id}|${slipData.merchant}|${slipData.date}|${slipData.total}`;
+        try {
+            if (currentProcess.id) {
+                // Update existing
+                const { error: updateError } = await supabaseClient.from('slips').update(slipData).eq('id', currentProcess.id);
+                error = updateError;
+            } else {
+                // Insert new manual entry
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                const normalizedMerchant = merchant.trim().toLowerCase();
+                const fingerprint = `${user.id}|${normalizedMerchant}|${date}|${total}`;
 
-            const { error: insertError } = await supabaseClient.from('slips').insert([{
-                ...slipData,
-                user_id: user.id,
-                image_url: currentProcess.imageData,
-                fingerprint: fingerprint
-            }]);
-            error = insertError;
-        }
+                const { error: insertError } = await supabaseClient.from('slips').insert([{
+                    ...slipData,
+                    user_id: user.id,
+                    image_url: currentProcess.imageData,
+                    fingerprint: fingerprint
+                }]);
+                error = insertError;
+            }
 
-        if (!error) {
-            closeModal();
-            fetchSlips();
-        } else {
-            alert("Error saving: " + error.message);
+            if (!error) {
+                closeModal();
+                fetchSlips();
+            } else {
+                if (error.code === '23505') {
+                    alert("Duplicate Slip! You have already saved this receipt.");
+                } else {
+                    alert("Error saving: " + error.message);
+                }
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = 'Save Slip';
+            }
+        } catch (err) {
+            alert("An unexpected error occurred: " + err.message);
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = 'Save Slip';
         }
     };
 }

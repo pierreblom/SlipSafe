@@ -1,0 +1,446 @@
+GUIDE FOR EMPLOYERS  
+ 
+IN RESPECT OF TAX DEDUCTION TABLES  
+ 
+(2025 TAX YEAR) 
+ 
+ 
+EXTERNAL GUIDE 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+EXTERNAL GUIDE    
+GUIDE FOR EMPLOYERS IN RESPECT OF 
+TAX DEDUCTION TABLES  
+PAYE-GEN-01-G01  
+REVISION: 15 Page 2 of 7 
+ 
+REVISION HISTORY TABLE 
+ 
+Date Version Description 
+26-02-2020 10 2020 Budget Speech  
+24-02-2021 11 2021 Budget Speech  
+23-02-2022 12 2022 Budget Speech  
+22-02-2023 13 2023 Budget Speech  
+21-02-2024 14 2024 Budget Speech  
+12-03-2025 15 2025 Budget Speech  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+EXTERNAL GUIDE    
+GUIDE FOR EMPLOYERS IN RESPECT OF 
+TAX DEDUCTION TABLES  
+PAYE-GEN-01-G01  
+REVISION: 15 Page 3 of 7 
+ 
+TABLE OF CONTENTS  
+ 
+1 PURPOSE 4 
+2 SCOPE 4 
+3 PRESCRIBED TAX RATES 4 
+4 STATUTORY RATES OF TAX 5 
+5 DIFFERENT VERSIONS OF TAX DEDUCTION PROGRAMS 6 
+6 EXPLANATION ON HOW TO USE THE TAX DEDUCTION TABLES 6 
+7 REFERENCES 7 
+7.1 LEGISLATION 7 
+7.2 CROSS REFERENCES 7 
+8 DEFINITIONS AND ACRONYMS 7 
+ 
+  
+ 
+  
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+EXTERNAL GUIDE    
+GUIDE FOR EMPLOYERS IN RESPECT OF 
+TAX DEDUCTION TABLES  
+PAYE-GEN-01-G01  
+REVISION: 15 Page 4 of 7 
+ 
+1 PURPOSE 
+ 
+• This guide in its design, development, implementation and review phases is guided and underpinned 
+by the SARS Strategic Plan 2020/21 – 2024/25 and the applicable legislation. Should any aspect of 
+this guide  conflict with the applicable legislation the applicable legislation will take precedence.  
+ 
+• The purpose of this document is to assist employers in determining the amount of employees’ tax to 
+be deducted from remuneration paid/payable according to the prescribed tax deduction tables.  
+   
+2 SCOPE 
+ 
+• This basic guide is issued by the South African Revenue Service (SARS) to employers to assist them  
+in calculating the amount of employees’ tax deductible from the remuneration including variable 
+remuneration paid/payable to employees. It further explains the different methods that employers are 
+allowed to apply  in this calculation process.  
+ 
+3 PRESCRIBED TAX RATES  
+ 
+Reference to the Act  Paragraphs 9(1), (2), 10 and 11 of the Fourth Schedule  
+Sections 5 and 6 of the IT Act  
+Section 27(1) of the Public Finance Management Act.  
+ 
+Meaning The new tax rates chargeable shall be announced by the Minister of Finance in his / 
+her National Annual Budget as contemplated in the Public Finance Act with effect 
+from a date or dates mentioned in the announcement.  
+ 
+Any changes with regard to the rates shall come into effect on the date or dates 
+determined by the Minister of Finance in that announcement and continues to apply 
+for a period of 12 months from that date.  
+  
+When to use the 
+tables 
+In the absence of a tax directive to the contrary as prescribed in Paragraphs 10 and 
+11 of the Fourth Schedule, employers must make use of the deduction tables 
+prescribed by the Commissioner or use the statutory rates as an alternative.  
+ 
+Implementation of 
+new rates of tax  
+The new tax rates must be implemented by employers as soon as possible as 
+contained in the Government Gazette by no later than 1  April of a tax year and 
+employees' tax must be calculated according to these new rates.  
+ 
+Any over deduction of employees' tax arising as a result of the implementation of 
+new rates not in the employer’s possession on 1 March of each new tax year, may 
+be refunded to the employee as soon as new rates (tables) are implemented.  
+ 
+Any under deduction of employees' tax arising as a result of the implementation of 
+new rates not in the employer’s possession on 1 March of the new tax year, may be 
+adjusted over the remainder of the new tax year (from the date of implementation 
+until 28 February). 
+ 
+Employee leaves 
+employment before 
+introduction of new 
+tables 
+If an employee leaves your employment after 1  March of the new tax year but 
+before the implementation of the new rates, the employees' tax deductions made in 
+accordance with the previous rates are regarded as final.  
+ 
+Rebates for individuals which are prescribed in section 6 of the Income Tax Act are 
+deducted from the normal tax determined according to the statutory rates of tax.  
+ 
+EXTERNAL GUIDE    
+GUIDE FOR EMPLOYERS IN RESPECT OF 
+TAX DEDUCTION TABLES  
+PAYE-GEN-01-G01  
+REVISION: 15 Page 5 of 7 
+ 
+4 STATUTORY RATES OF TAX  
+ 
+Tax Tables for Individuals and Trusts  
+ 
+2025/2026 Tax Year (1 March 2025 to 28 February 2026) 
+ 
+ 
+TAXABLE INCOME (R) RATES OF TAX (R) 
+0                 –  R   237 100 18% of taxable income  
+R   237 101 – R   370 500 R 42 678 + 26% of taxable income above  R   237 100  
+R   370 501 – R   512 800 R 77 362 + 31% of taxable income above  R   370 500  
+R   512 801 – R   673 000 R121 475 + 36% of taxable income above R   512 800  
+R   673 001 – R   857 900 R179 147 + 39% of taxable income above R   673 000  
+R   857 901 – R 1  817 000 
+ 
+ 
+R251 258 + 41% of taxable income above R   857 900  
+R 1 817 001 and above  
+ 
+R644 489 + 45% of taxable income above R 1  817 000 
+ 
+ 
+Tax rebates applicable to individuals 2026 
+Primary rebate R17 235   
+Secondary rebate (for persons 65 years and older) 
+ 
+ 
+ R 9 444  
+Tertiary rebate (for persons 75 years and older) R 3 145 
+ 
+ 
+Tax thresholds applicable to individuals 2026 
+Persons under 65 years R  95 750 
+Persons 65 years and older R148 217 
+Persons 75 years and older R165 689 
+10030030
+00R135 R 
+ 
+  
+The rebates for individuals must be deducted from normal tax determined according to statutory rates of tax. 
+ 
+• The primary rebate is deductible for all individuals.  
+ 
+• The secondary rebate may only be applied for individuals who will be 65 years or older on the last day 
+of the relevant year of assessment.  
+ 
+• The tertiary rebate is deductible only for individuals who will be 75 years or older on the last day of the  
+relevant year of assessment.  
+ 
+• With effect from 1 March 2014, the Medical Scheme Fees Tax Credit for individuals is a rebate which  
+applies in respect of contributions paid by the taxpayer during the year of assessment to a registered 
+medical scheme. The amount of the rebate (tax credit) is based on the following values per month in the  
+year of assessment  in respect of which the contributions were paid in respect of the taxpayer  
+himself/herself, his/her spouse and any dependant of the taxpayer.  
+ 
+ 
+ 
+Medical scheme fees tax credit  2026 
+For the taxpayer  R364 
+For the first dependent  R364 
+For each additional dependent  R246  
+ 
+ 
+ 
+EXTERNAL GUIDE    
+GUIDE FOR EMPLOYERS IN RESPECT OF 
+TAX DEDUCTION TABLES  
+PAYE-GEN-01-G01  
+REVISION: 15 Page 6 of 7 
+ 
+5 DIFFERENT VERSIONS OF TAX DEDUCTION PROGRAMS  
+ 
+Differences 
+between tables 
+and tax programs  
+Small differences may occur between the manual tables, and other computer 
+programs based on the statutory rates of tax. These methods are acceptable in 
+terms of the Income Tax Act provided that the results are within the provisions of 
+this Act. 
+Other computer 
+programs 
+Employers may use computer programs that render the same results, as the results 
+that the employers receive when using the  statutory rates of tax.  
+Where an employer use a computerised payroll or his/her/its own created payroll 
+program, the instructions and guidelines as prescribed by SARS  must still be 
+followed . 
+6 EXPLANATION ON HOW TO USE THE TAX DEDUCTION TABLES  
+ 
+Weekly 
+tables 
+A weekly remunerated employee under the age of 65 receives a weekly wage of R3 600 and 
+contributes R160 to a pension fund as well as R 190 to a registered medical scheme in 
+respect of himself/herself and one dependant.  
+ 
+ Weekly wage         R3 600 
+ Less: allowable pension fund contributions                            R   160 
+ Balance of remuneration         R3 440 
+ Employees’ tax on balance of remuneration according to the weekly tax 
+tables 
+Less: Medical Scheme Fees Tax Credit (R364+R364 p/m ÷ 4 weeks) 
+Amount of Tax to be deducted  
+R   287 
+ 
+     R   182 
+   R   105 
+  
+ 
+Fortnightly 
+tables 
+A fortnightly remunerated employee under the age of 65 receives a fortnight wage of R8 980 
+and contributes R320 to a pension fund and R 150 to a retirement annuity fund as well as 
+R380 to a registered medical scheme in respect of himself/herself and one dependant.  
+ 
+Fortnight wage      R8 980 
+Less: allowable pension fund contributions                               R  320 
+Less: allowable retirement annuity fund contributions             R  150 
+Balance of remuneration        R8 510 
+Employees’ tax on balance of remuneration according to the fortnightly  tax 
+tables 
+    R   866  
+Less: Medical Scheme Fees Tax Credit ( R364+R364 p/m ÷ 2 weeks)      R  364 
+Amount of Tax to be deducted       R  502 
+ 
+ 
+ 
+ 
+Monthly 
+tables 
+ 
+ 
+A monthly remunerated employee under the age of 65 receives a salary of R 18 600 and 
+contributes R775 per month to a pension fund and R 325 per month to a retirement annuity 
+fund as well as R80 0 to a registered medical scheme in respect of himself/herself and one 
+dependant.  
+ 
+Monthly salary    R  18 600 
+Less: allowable pension fund contributions    R       775 
+Less: allowable retirement annuity fund contributions    R       325 
+Balance of remuneration    R  17 500 
+Employees’ Tax on balance of remuneration according to the monthly tax 
+tables 
+  R    1 705   
+Less: Medical Scheme Fees Tax Credit ( R364+364 p/m)   R       728 
+Amount of Tax to be deducted    R       977 
+ 
+ 
+EXTERNAL GUIDE    
+GUIDE FOR EMPLOYERS IN RESPECT OF 
+TAX DEDUCTION TABLES  
+PAYE-GEN-01-G01  
+REVISION: 15 Page 7 of 7 
+ 
+DISCLAIMER 
+The information contained in this guide is intended as guidance only and is not considered to be a legal 
+reference, nor is it a binding ruling. The information does not take the place of legislation and readers who are in 
+doubt regarding any aspect of the information displayed in the guide should refer to the relevant legislation, or 
+seek a formal opinion from a suitably qualified individual.  
+ 
+For more information about the contents of this publication you may:  
+• Visit the SARS website at www.sars.gov.za  
+• Visit your nearest SARS branch  
+• Contact your own tax advisor/tax practitioner  
+• If calling from within South Africa, contact the SARS Contact Centre on 0800 00 SARS (7277)  
+• If calling from outside South Africa, contact the SARS Contact Centre on +27 11 602 2093 (only between 
+8am and 4pm South African time).  
+ 
+ 
+ 
+Annual 
+tables 
+ 
+ 
+An employee under the age of 65 received a salary (retirement funding income) of R15 500 
+per month and contributes R300 per month to a pension fund as well as R800 per month to a 
+registered medical scheme in respect of himself/herself and one dependant.  
+ 
+Annual salary (R15 500 x 12)  R  186 000 
+Less: allowable pension fund contributions   R      3 600 
+Balance of remuneration   R  182 400 
+Employees’ tax on balance of remuneration according to the annual  tax 
+tables    
+ R    15 569 
+Less: Medical Scheme Fees Tax Credit (R 364+364 p/m x 12)   R     8 736 
+Amount of Tax to be deducted    R     6 833 
+ 
+7 REFERENCES 
+7.1 LEGISLATION 
+Legislation and Rules 
+administered by SARS:  
+Sections 5 and 6, Paragraphs 9(1), (2) and 10 of the Fourth Schedule to the 
+Income Tax Act No.58 of 1962 
+Section 27 of the Public Finance Management Act No. 1 of 1999 
+Tax Administration Act No. 28 of 2011 
+The Employment Tax Incentive Act No. 26 of 2013 
+Other Legislation:  None 
+7.2 CROSS REFERENCES 
+DOCUMENT # DOCUMENT TITLE 
+PAYE-GEN-01-G01-A01 Weekly tax deduction tables  
+PAYE-GEN-01-G01-A02 Fortnightly tax deduction tables  
+PAYE-GEN-01-G01-A03 Monthly tax deduction tables  
+PAYE-GEN-01-G01-A04 Annual tax deduction tables  
+PAYE-GEN-01-G02 Guide for Employers in respect of  Fringe Benefits  
+PAYE-GEN-01-G03 Guide for Employers in respect of Allowances  
+PAYE-GEN-01-G03-A01 Rate per Kilometre Schedule 
+PAYE-GEN-01-G03-A02 Subsistence Allowance in respect of Foreign Travel 
+PAYE-GEN-01-G20 Guide for employer in respect of Employees’ Tax for 2026  
+PAYE-GEN-01-G05 Guide for Employers in respect of Employment Tax Incentive  
+SDL-GEN-01-G01 Guide for Employers in respect of SDL  
+UIF-GEN-01-G01 Guide for Employers in respect of UIF  
+ 
+8 DEFINITIONS AND ACRONYMS  
+ 
+Link for centralised definitions, acronyms, and abbreviations: Glossary A-M | South African Revenue Service 
+(sars.gov.za)   
+ 

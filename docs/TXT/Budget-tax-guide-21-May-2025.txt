@@ -1,0 +1,471 @@
+This SARS Budget tax guide provides a summary of the most 
+important information relating to taxes, duties and levies for 
+2025/26, as updated on 21 May 2025.
+INCOME TAX: INDIVIDUALS AND TRUSTS
+T ax rates from 1 March 2025 to 28 February 2026:
+Individuals and special trusts
+T axable Income (R) Rate of T ax
+1 – 237 100 18% of taxable income 
+237 101 – 370 500 42 678 + 26% of taxable income above 237 100 
+370 501 – 512 800 77 362 + 31% of taxable income above 370 500 
+512 801 – 673 000 121 475 + 36% of taxable income above 512 800 
+673 001 – 857 900 179 147 + 39% of taxable income above 673 000 
+857 901 – 1 817 000 251 258 + 41% of taxable income above 857 900 
+1 817 001 and above 644 489 + 45% of taxable income above 1 817 000 
+Rebates
+Primary  R17 235 
+Secondary (Persons 65 years and older)  R9 444 
+T ertiary (Persons 75 years and older)  R3 145 
+Age            T ax threshold
+Below age 65  R95 750 
+Age 65 to below 75  R148 217 
+Age 75 and above  R165 689
+Trusts other than special trusts: rate of tax 45%.
+Provisional T ax
+A provisional taxpayer is any person who earns income that 
+is not remuneration, an allowance or advance payable by the 
+person’s principal; or income by way of remuneration from an 
+unregistered employer. An individual is not required to pay 
+provisional tax if he or she does not carry on any business, and 
+the individual’s taxable income:
+• will not exceed the tax threshold for the tax year; or
+•  from interest, dividends, foreign dividends, rental from 
+the letting of fixed property, and remuneration from an 
+unregistered employer, will be R30 000 or less for the tax 
+year.
+Deceased estates are not provisional taxpayers.
+Retirement Fund Lump Sum Withdrawal Benefits
+T axable income (R) Rate of tax
+1 – 27 500 0% of taxable income
+27 501 – 726 000 18% of taxable income above 27 500
+726 001 – 1 089 000 125 730 + 27% of taxable income above 726 000
+1 089 001 and above 223 740 + 36% of taxable income above 1 089 000
+Retirement fund lump sum withdrawal benefits consist of 
+lump sums from a pension, pension preservation, provident, 
+provident preservation or retirement annuity fund on 
+withdrawal (including assignment in terms of a divorce order).
+T ax on a specific retirement fund lump sum withdrawal benefit 
+(lump sum X) is equal to:
+•  The tax determined by the application of the tax table 
+to the aggregate of lump sum X, plus all other retirement 
+fund lump sum withdrawal benefits accruing from March 
+2009, all retirement fund lump sum benefits accruing from 
+October 2007, and all severance benefits accruing from 
+March 2011; less
+•  The tax determined by the application of the tax table to 
+the aggregate of all retirement fund lump sum withdrawal 
+benefits accruing before lump sum X from March 2009, all 
+retirement fund lump sum benefits accruing from October 
+2007, and all severance benefits accruing from March 
+2011.
+Retirement Fund Lump Sum Benefits or Severance Benefits
+T axable income (R) Rate of tax
+1 – 550 000 0% of taxable income
+550 001 – 770 000 18% of taxable income above 550 000
+770 001 – 1 155 000 39 600 + 27% of taxable income above 770 000
+1 155 001 and above 143 550 + 36% of taxable income above 1 155 000
+Retirement fund lump sum benefits consist of lump sums 
+from a pension, pension preservation, provident, provident 
+preservation or retirement annuity fund on death, retirement, 
+or termination of employment due to reaching the age of 
+55, sickness, accident, injury, incapacity, redundancy or 
+termination of the employer’s trade.
+Severance benefits consist of lump sums from or by 
+arrangement with an employer due to relinquishment, 
+termination, loss, repudiation, cancellation or variation of a 
+person’s office or employment.
+T ax on a specific retirement fund lump sum benefit or a 
+severance benefit (lump sum or severance benefit Y) is equal to:
+•  The tax determined by the application of the tax table to the 
+aggregate of amount Y, plus all other retirement fund lump 
+sum benefits accruing from October 2007, all retirement 
+fund lump sum withdrawal benefits accruing from March 
+2009, and all other severance benefits accruing from March 
+2011; less
+•  The tax determined by the application of the tax table to the 
+aggregate of all retirement fund lump sum benefits accruing 
+before lump sum Y from October 2007, all retirement fund 
+lump sum withdrawal benefits accruing from March 2009, 
+and all severance benefits accruing before severance 
+benefit Y from March 2011.
+Savings Withdrawal Benefits    
+On 1 September 2024 a new retirement system was introduced 
+that allocates retirement savings of members between a 
+retirement component, a savings component and a vested 
+component. Any withdrawal from the savings component is 
+taxed at the member’s marginal tax rate.
+Dividends
+Dividends received by individuals from South African 
+companies are generally exempt from income tax, but 
+dividends tax, at a rate of 20%, is withheld by the entities 
+paying the dividends to the individuals. Dividends received 
+by South African resident individuals from REITs (listed and 
+regulated property-owning companies) are subject to income 
+tax, and non-residents in receipt of those dividends are only 
+subject to dividends tax.
+Foreign Dividends
+Most foreign dividends received by individuals from foreign 
+companies (shareholding of less than 10% in the foreign 
+company) are taxable at a maximum effective rate of 20%. No 
+deductions are allowed for expenditure to produce foreign 
+dividends.
+Interest Exemptions
+ 
+Interest from a South African source, earned by any natural 
+person under 65 years of age or an estate of a deceased person, 
+up to R23 800 per annum, and persons who are 65 years 
+and older, up to R34 500 per annum, is exempt from income 
+tax. Interest earned by non-residents, who not physically 
+present in South Africa for more than 183 days during the 
+12-month period before the interest accrues or is received, 
+if the interest-bearing debt is not effectively connected to a 
+permanent establishment (such as a fixed place of business) in 
+South Africa, is exempt from income tax.
+Deductions
+Retirement fund contributions
+Amounts contributed to pension, provident and retirement 
+annuity funds during a year of assessment are deductible by 
+members of those funds. Amounts contributed by employers 
+and taxed as fringe benefits are treated as contributions by 
+the individual employees. The deduction is limited to 27.5% 
+of the greater of the amount of remuneration for employees’ 
+tax purposes or taxable income (both excluding retirement 
+fund lump sums and severance benefits). The deduction is 
+further limited to the lower of R350 000 or 27.5% of taxable 
+income, before the inclusion of a taxable capital gain. Any 
+contributions exceeding the limitations are carried forward 
+to the immediately following year of assessment, and are 
+deemed to be contributed in that following year. The amounts 
+carried forward are reduced by contributions set off against 
+retirement fund lump sums and retirement annuities
+Medical and disability expenses
+In determining tax payable, individuals are allowed to deduct 
+a rebate based on:
+•  Monthly contributions to medical schemes by the 
+individual who paid the contributions up to R364 for 
+each of the first two persons covered by those medical 
+schemes, and R246 for each additional dependent. This 
+rebate is referred to as a medical scheme fees tax credit; 
+and
+in the case of:
+•  An individual who is 65 years and older, or if an individual, 
+his or her spouse, or his or her child is a person with a 
+disability, 33.3% of the sum of qualifying medical expenses 
+paid and borne by the individual, and an amount by which 
+medical scheme contributions paid by the individual 
+exceed three times the medical scheme fees tax credits 
+for the tax year; or
+•  Any other individual, 25% of an amount equal to the sum 
+of the qualifying medical expenses paid and borne by 
+the individual, and an amount by which medical scheme 
+contributions paid by the individual exceed four times the 
+medical scheme fees tax credits for the tax year, limited 
+to the amount that exceeds 7.5% of taxable income 
+(excluding retirement fund lump sums and severance 
+benefits).
+  This rebate is referred to as an additional medical 
+expenses tax credit.
+Donations
+Deductions in respect of donations to certain public benefit 
+organisations are limited to 10% of taxable income (excluding 
+retirement fund lump sums and severance benefits). The 
+amount of donations exceeding 10% of the taxable income is 
+treated as a donation to qualifying public benefit organisations 
+in the following tax year.
+Allowances
+Subsistence allowances and advances
+Where the recipient is obliged to spend at least one night away 
+from his or her usual place of residence on business, and the 
+accommodation to which that allowance or advance relates is 
+in the Republic of South Africa, and the allowance or advance 
+is granted to pay for:
+•  Meals and incidental costs, an amount of R570 is deemed to 
+have been expended per day; or
+•  Incidental costs only, an amount of R176 is deemed to have 
+been expended per day.
+Where the accommodation to which that allowance or 
+advance relates is outside the Republic of South Africa, 
+a specific amount per country is deemed to have been 
+expended. Details of these amounts are published on the SARS  
+website (www.sars.gov.za), under Legal Counsel/Secondary 
+Legislation/ Income T ax Notices/2024/Notice 4458, published 
+on 1 March 2024.
+Where the recipient is, by reason of the duties of his or her office 
+or employment, obliged to spend a part of a day away from his 
+or her usual place of work or employment, a reimbursement 
+or advance for expenditure actually incurred by the recipient 
+is exempt if the recipient is allowed by his or her principal to 
+incur expenditure on meals and other incidental costs for that 
+part of the day, and the amount of the reimbursement does not 
+exceed R176.
+Travelling allowance
+Rates per kilometre, which may be used in determining the 
+allowable deduction for business travel against an allowance 
+or advance where actual costs are not claimed, are determined 
+using the following table:
+Value of the vehicle
+(including V AT) (R)
+Fixed cost
+(R p.a.)
+Fuel cost
+(c/km)
+Maintenance
+cost (c/km)
+0 - 100 000 33 940 146.7 47.4
+100 001 - 200 000 60 688 163.8 59.3
+200 001 - 300 000 87 497 177.9 65.4
+300 001 - 400 000 111 273 191.4 71.4
+400 001 - 500 000     135 048 204.8 83.9
+500 001 - 600 000     159 934 234.9 98.5
+600 001 - 700 000     184 867 238.9 110.5
+700 001 - 800 000     211 121 242.9 122.5
+exceeding 800 000    211 121 242.9 122.5
+Note:
+•  Eighty per cent of the travelling allowance must be 
+included in the employee’s remuneration for the purposes 
+of calculating PAYE. The percentage is reduced to 20% if 
+the employer is satisfied that at least 80% of the use of the 
+motor vehicle for the tax year will be for business purposes.
+•  No fuel cost may be claimed if the employee has not borne 
+the full cost of fuel used in the vehicle, and no maintenance 
+cost may be claimed if the employee has not borne the full 
+cost of maintaining the vehicle (e.g., if the vehicle is covered 
+by a maintenance plan).
+•  The fixed cost must be reduced on a pro-rata basis if the 
+vehicle is not used for business purposes for a full year.
+•  The actual distance travelled during a tax year, and the 
+distance travelled for business purposes, substantiated 
+by a logbook, are used to determine the costs that may be 
+claimed against a travelling allowance.
+Alternatively:
+Where an allowance or advance is based on the actual distance 
+travelled by the employee for business purposes, no tax is 
+payable on an allowance paid by an employer to an employee, 
+up to R4.76 per kilometre, regardless of the value of the vehicle.
+However, this alternative is not available if other compensation 
+in the form of an allowance or reimbursement (other than for 
+parking or toll fees) is received from the employer in respect 
+of the vehicle.
+BUDGETBUDGET
+TAX GUIDETAX GUIDE
+SARS.GOV.ZAin f
+Updated on 21 May 2025
+Other Deductions
+Other than the deductions set out above, an individual may only 
+claim deductions against employment income or allowances in 
+limited specified situations, e.g., bad debt in respect of salary.
+Fringe Benefits
+Employer-owned vehicles
+•  The taxable value is 3.5% of the determined value (the cash 
+cost, including Value-added T ax) of each vehicle per month. 
+Where the vehicle is:
+»  The subject of a maintenance plan when the employer 
+acquired it, the taxable value is 3,25% of the determined 
+value; or
+»  Acquired by the employer under an operating lease, the 
+taxable value is the cost incurred by the employer under 
+the operating lease plus the cost of fuel.
+•  Eighty per cent of the fringe benefit must be included in the 
+employee’s remuneration for the purposes of calculating 
+PAYE. The percentage is reduced to 20% if the employer is 
+satisfied that at least 80% of the use of the motor vehicle 
+for the tax year will be for business purposes.
+•  On assessment, the fringe benefit for the tax year is reduced 
+by the ratio of the distance travelled for business purposes, 
+substantiated by a logbook, divided by the actual distance 
+travelled during the tax year.
+•  On assessment, there is further relief for the cost of the 
+licence, insurance, maintenance and fuel for private travel, 
+if the full cost thereof has been borne by the employee and if 
+the distance travelled for private purposes is substantiated 
+by a logbook.
+Interest-free or low-interest loans
+The difference between interest charged at the official rate 
+and the actual amount of interest charged is to be included in 
+gross income.
+Residential accommodation
+•  The value of the fringe benefit to be included in gross 
+income is the lower of the benefit calculated by applying 
+a prescribed formula, or the cost to the employer 
+if the employer does not have full ownership of the 
+accommodation.
+•  The formula will apply if the accommodation is owned by the 
+employee, but it does not apply to holiday accommodation 
+hired by the employer from non-associated institutions.
+INCOME TAX: COMPANIES
+Years of assessment that end on any date between 1 April 
+2025 and 31 March 2026.
+Type Rate of T ax
+Companies 27% of taxable income
+INCOME TAX: SMALL BUSINESS CORPORATIONS
+Years of assessment that end on any date between  
+1 April 2025 and 31 March 2026.
+T axable Income (R) Rate of T ax (R)
+1 – 95 750 0% of taxable income
+95 751 – 365 000 7% of taxable income above 95 750
+365 001 – 550 000 18 848 + 21% of taxable income above 365 000
+550 001 and above 57 698 + 27% of the amount above 550 000
+TURNOVER TAX FOR MICRO BUSINESSES
+Years of assessment that end on any date between 1 March 
+2025 and 28 February 2026.
+T axable turnover (R) Rate of tax (R)
+1 – 335 000 0% of taxable turnover
+335 001 – 500 000 1% of taxable turnover above 335 000
+500 001 – 750 000 1 650 + 2% of taxable turnover above 500 000
+750 001 and above 6 650 + 3% of taxable turnover above 750 000
+TAXATION OF CAPITAL GAINS
+Capital gains on the disposal of assets are included in taxable 
+income.
+Maximum effective rate of tax:
+Individuals and special trusts  18%
+Companies   21.6%
+Other trusts   36%
+Events that trigger a disposal include a sale, donation, 
+exchange, loss, death and emigration. The following are some 
+of the specific exclusions:
+•  Two million rand gain or loss on the disposal of a primary 
+residence;
+• Most personal use assets;
+• Retirement benefits;
+•  Payments in respect of original long-term insurance 
+policies;
+•  Annual exclusion of R40 000 capital gain, or capital loss – 
+granted to individuals and special trusts;
+•  Small business exclusion of capital gains of R1.8 million for 
+individuals (at least 55 years old), when a small business 
+with a market value not exceeding R10 million is disposed 
+of; and
+•  The annual exclusion for individuals is increased to  
+R300 000 in the year of death.
+DIVIDENDS TAX
+Dividends tax is a final tax at a rate of 20%, in respect of dividends 
+paid by resident companies, and non-resident companies on 
+shares listed on the Johannesburg Stock Exchange or other 
+South African-licensed exchanges. Dividends are tax exempt 
+if the beneficial owner of the dividend is a South African 
+company, retirement fund, or other exempt person. Non-
+resident beneficial owners of dividends may benefit from 
+reduced tax rates in limited circumstances. The tax is to be 
+withheld by companies that pay the taxable dividends, or by 
+regulated intermediaries in the case of dividends on listed 
+shares. The tax on dividends in kind (other than in cash) is 
+payable and is borne by the company that declares and pays 
+the dividend.
+OTHER WITHHOLDING TAXES
+In limited circumstances, the applicable tax rate may be 
+reduced in terms of a tax treaty with the country of residence 
+of a non-resident.
+Royalties
+A final tax at a rate of 15% is imposed on the gross amount of 
+royalties from a South African source payable to non- residents.
+Interest 
+                         
+A final tax at a rate of 15% is imposed on interest from a South 
+African source, payable to non-residents. Interest is exempt 
+if payable by any sphere of the South African government, a 
+bank, or if the debt is listed on a recognised exchange.
+Foreign Entertainers and Sportspersons
+A final tax at the rate of 15% is imposed on gross amounts 
+payable to non-residents for activities that they exercise in 
+South Africa as entertainers or sportspersons.
+Disposal of Immovable Property
+A provisional tax is withheld on behalf of non-resident sellers 
+of immovable property in South Africa, to be set off against the 
+normal tax liability of the non-residents. The tax to be withheld 
+from payments to the non-residents is at a rate of 7.5% for a 
+non-resident individual, 10% for a non-resident company, and 
+15% for a non-resident trust that is selling the immovable 
+property.
+OTHER TAXES, DUTIES AND LEVIES
+Value-Added T ax (VAT)
+VAT is levied at the standard rate of 15% on the supply of goods 
+and services by registered vendors.
+A vendor that makes taxable supplies of more than R1 million 
+per annum must register for VAT. A vendor that makes taxable 
+supplies of more than R50 000, but not more than R1 million 
+per annum, may apply for voluntary registration. Certain 
+supplies are subject to a zero rate, or are exempt from VAT.
+Transfer Duty
+Transfer duty is payable at the following rates, with effect from 
+1 April 2025, on transactions that are not subject to VAT:
+Acquisition of property by all persons:
+Value of property (R) Rate
+1 – 1 210 000 0% of the value
+1 210 001 – 1 663 800 3% of the value above R1 210 000
+1 663 801 – 2 329 300 R13 614 + 6% of the value above R 1 663 800
+2 329 301 – 2 994 800 R53 544 + 8% of the value above R 2 329 300
+2 994 801 – 13 310 000 R106 784 +11% of the value above R2 994 800
+13 310 001 and above R1 241 456 + 13% of the value exceeding R13 310 000
+Estate Duty
+Estate duty is levied on the property of residents and the South 
+African property of non-residents, less allowable deductions. 
+The duty is levied on the dutiable value of an estate, at a rate 
+of 20%, on the first R30 million, and at a rate of 25% above R30 
+million.
+A basic deduction of R3.5 million is allowed in the determination 
+of an estate’s liability for estate duty, as well as deductions 
+for liabilities, bequests to public benefit organisations, and 
+property accruing to surviving spouses.
+Donations T ax
+•  Donations tax is levied at a flat rate of 20% on the 
+cumulative value of property donated since 1 March 2018, 
+not exceeding R30 million, and at a rate of 25% on the 
+cumulative value of property donated since 1 March 2018, 
+exceeding R30 million.
+•  The first R100 000 of property donated in each year by a 
+natural person is exempt from donations tax.
+•  In the case of a taxpayer who is not a natural person, the 
+exempt donations are limited to casual gifts not exceeding 
+R10 000 per annum in total.
+•  Dispositions between spouses, South African group 
+companies and donations to certain public benefit 
+organisations are exempt from donations tax.
+Securities Transfer T ax
+The tax is imposed at a rate of 0.25 % on the transfer of listed 
+or unlisted securities. Securities consist of shares in companies 
+or members’ interests in close corporations.
+Skills Development Levy (SDL)
+An SDL is payable by employers at a rate of 1% of the total 
+remuneration paid to employees. Employers that pay an annual 
+remuneration of less than R500 000 are exempt from paying 
+skills development levies.
+Unemployment Insurance Contributions
+Unemployment insurance contributions are payable monthly 
+by employers, based on a contribution of 1% by employers 
+and 1% by employees, based on the employees’ remuneration 
+below a certain amount.
+Employers that are not registered for PAYE or SDL must pay the 
+contributions to the Unemployment Insurance Commissioner.
+SARS INTEREST RATES
+Rate of interest (from 1 February 2025) Rate
+Fringe benefits – interest-free or low-interest loan in 
+rand (official rate)
+8.5% p.a.
+Rates of interest (from 1 May 2025) Rate
+Late or underpayment of tax 11% p.a.
+Refund of overpayment of provisional tax 7% p.a.
+Refund of tax on successful appeal or where the appeal 
+was conceded by SARS
+11% p.a.
+Refund of VAT after prescribed period 11% p.a.
+Late payment of VAT 11% p.a.
+Customs and Excise 11% p.a.
+Highlights
+Personal income tax rebates and 
+tax brackets are not adjusted.
+Increase of 6.75% in excise duties 
+on alcoholic beverages.
+Increase of 6.75% in excise duties on 
+cigars and pipe tobacco and 4.75% 
+on cigarettes and other tobacco 
+products.
+General fuel levy on petrol increases 
+by 16c per litre and on diesel  
+by 15c per litre on 4 June 2025.
+Transfer duty is adjusted for 
+the effect of inflation.
+No ad valorem excise duty on 
+lower value smartphones.
+VAT rate and zero-rated item 
+changes announced on 12 March 
+2025 withdrawn.

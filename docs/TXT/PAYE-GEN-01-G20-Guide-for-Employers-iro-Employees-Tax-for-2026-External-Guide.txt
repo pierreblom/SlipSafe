@@ -1,0 +1,4760 @@
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 1 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+  
+ 
+GUIDE FOR EMPLOYERS IN 
+RESPECT OF EMPLOYEES’ TAX 
+(2026) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ PAY AS YOU EARN 
+ 
+ SARS  External Guide  
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 2 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+TABLE OF CONTENTS   
+ 
+1 QUICK REFERENCE CARD 4 
+2 PURPOSE 6 
+3 SCOPE 6 
+4 BACKGROUND 6 
+5 REGISTRATION 7 
+5.1 REGISTRATION AS AN EMPLOYER 7 
+5.2 BRANCHES REGISTERED SEPARATELY 8 
+5.3 CHANGES OF REGISTERED PARTICULARS 8 
+5.4 DEREGISTRATION OF AN EMPLOYER 8 
+6 RECORD KEEPING 8 
+6.1 EMPLOYER RECORDS 8 
+6.2 RECORDS AND INFORMATION TO BE PROVIDED BY THE EMPLOYEE 9 
+7 DETERMINING THE EMPLOYEES’ TAX, SDL AND UIF LIABILITY 9 
+7.1 ELEMENTS REQUIRED BEFORE EMPLOYEES’ TAX MAY BE DEDUCTED 9 
+7.2 ANNUAL EQUIVALENT CALCULATION 9 
+7.3 DEDUCTION TO DETERMINE THE BALANCE OF REMUNERATION 10 
+7.3.1 RETIREMENT FUND CONTRIBUTIONS 10 
+7.3.2 DONATIONS 11 
+7.3.3 MEDICAL SCHEME FEES TAX CREDIT 11 
+7.4 EMPLOYEES’ TAX DEDUCTION 12 
+7.5 SDL LIABLE AMOUNT 12 
+7.6 UIF LIABLE AMOUNT 13 
+8 ESTIMATED ASSESSMENT 13 
+9 PAYMENTS 14 
+9.1 PAYMENT OF EMPLOYEES’ TAX, SDL AND UIF 14 
+9.2 INTEREST AND PENALTY 14 
+10 OFFENCES 15 
+11 TAX DIRECTIVES 15 
+11.1 PURPOSE OF A TAX DIRECTIVE 15 
+11.2 HARDSHIP DUE TO ILLNESS OR OTHER CIRCUMSTANCES 17 
+11.3 TAXATION OF MULTIPLE SOURCES OF INCOME 17 
+11.4 DIVIDENDS I.R.O EMPLOYEE-BASED SHARE SCHEMES 17 
+12 GAINS MADE I.R.O. RIGHTS TO ACQUIRE MARKETABLE SECURITIES 18 
+12.1 BROAD-BASED EMPLOYEE SHARE PLAN 19 
+12.2 VESTING OF EQUITY INSTRUMENTS 19 
+12.3 ARBITRATION AWARDS 21 
+12.4 LUMP SUM BENEFIT PAYMENTS 22 
+12.5 LUMP SUMS BY EMPLOYERS – SEVERANCE BENEFITS 23 
+12.6 LUMP SUM COMPENSATION FOR OCCUPATIONAL DEATH 24 
+12.7 EMPLOYER-OWNED INSURANCE POLICIES 24 
+13 CLASSIFICATION OF EMPLOYEES 25 
+13.1 LABOUR BROKER 25 
+13.2 INDEPENDENT CONTRACTOR 26 
+13.3 DIRECTORS OF PRIVATE COMPANIES/MEMBERS OF CLOSE CORPORATIONS 27 
+13.4 STANDARD EMPLOYMENT 28 
+13.5 SEASONAL WORKERS 29 
+13.6 EMPLOYEES BETWEEN 65 AND 74 YEARS 29 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 3 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+13.7 EMPLOYEES 75 YEARS OR OLDER 29 
+13.8 COMMISSION AGENTS 30 
+14 CLASSIFICATION OF PAYMENTS 31 
+14.1 BACKDATED (ANTEDATED) SALARIES AND PENSIONS 31 
+14.2 AMOUNTS RECEIVED BY PERSONAL SERVICE PROVIDER 31 
+14.3 RESTRAINT OF TRADE PAYMENTS 32 
+14.4 LEAVE PAY 32 
+14.5 SPECIAL REMUNERATION PAID TO PROTO TEAMS 33 
+14.6 ADVANCE SALARY 33 
+14.7 OVERTIME PAYMENTS 33 
+14.8 ANNUAL PAYMENTS/BONUS 34 
+14.9 VARIABLE REMUNERATION 35 
+15 ALLOWANCES AND FRINGE BENEFITS 36 
+15.1 ALLOWANCES 36 
+15.2 FRINGE BENEFITS 36 
+16 EXEMPTIONS 37 
+16.1 UNIFORMS (SPECIAL UNIFORMS) 37 
+16.2 TRANSFER COSTS 37 
+16.3 SHARE SCHEMES 38 
+16.4 BURSARIES AND SCHOLARSHIPS 38 
+16.4.1 PERSONS WITHOUT DISABILITY 38 
+16.4.2 PERSONS WITH DISABILITY 40 
+16.5 EMPLOYMENT INCOME EXEMPTIONS 41 
+16.6 EMPLOYER-PROVIDED LONG-TERM INSURANCE 42 
+17 REFERENCES 42 
+17.1 LEGISLATION 42 
+17.2 CROSS REFERENCES 42 
+18 DEFINITIONS AND ACRONYMS 43 
+ 
+ 
+                        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 4 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+1 QUICK REFERENCE CARD 
+ 
+In his Budget Speech on 12 March 2025, the Minister of Finance announced new tax rates, tax rebates, tax 
+thresholds and other tax amendments for individuals. Details of these proposals are listed below, and 
+employers must update their payroll systems accordingly. The deduction tables and instructions in this guide 
+came into effect on 1 March 2025. 
+ 
+ 
+Tax Tables for Individuals and Special Trusts 
+ 
+2025/2026Tax Year (1 March 2025 to 28 February 2026) 
+ 
+TAXABLE INCOME (R) RATES OF TAX (R) 
+0                 –  R     237 100 18% of taxable income  
+R   237 101 – R     370 500 R 42 678 + 26% of taxable income above  R    237 100 
+R   370 501 – R     512 800 R 77 362 + 31% of taxable income above  R    370 500 
+R   512 801 – R     673 000 R121 475 + 36% of taxable income above R    512 800 
+R   673 001 – R     857 900 R179 147 + 39% of taxable income above R    673 000 
+R   857 901 – R 1  817 000 
+ 
+ 
+R251 258 + 41% of taxable income above R    857 900 
+R 1 817 001 and above  
+ 
+R644 489 + 45% of taxable income above R 1 817 000 
+ 
+ 
+Tax rebates applicable to individuals  2026 
+Primary rebate R17 235   
+Secondary rebate (for persons 65 years and older) 
+ 
+ 
+ R 9 444  
+Tertiary rebate (for persons 75 years and older) R 3 145 
+ 
+ 
+Tax thresholds applicable to individuals 2026 
+Persons under 65 years R  95 750 
+Persons 65 years and older R148 217 
+Persons 75 years and older R165 689 
+10030030
+00R135 R 
+ 
+ 
+Medical scheme fees tax credit 2026 
+For the taxpayer R  364 
+For the first dependant R  364 
+For each additional dependant                                       R  246        
+ 
+ 
+Subsistence allowance (RSA only) 2026  
+Meals and incidental – day trip                                        R 176     
+Only incidental costs per day R  176      
+Meals and incidental costs per day   R  570 
+ 
+ 
+Official interest rate 
+In the case of a debt which is denominated in the currency of the Republic, a rate of interest equal to the South 
+African repurchase rate plus 100 basis points, if the country’s repurchase rate is 6%, the official interest rate 
+will be 7% (6% plus 100 basis points).   
+ 
+In the case of a debt, which is denominated in any other currency than the currency of the Republic, a rate of 
+interest will be the equivalents of the country’s repurchase rate plus 100 basis points. Where a new purchase 
+rate or equivalent rate is determined, the new rate of interest applies from the first day of the month following 
+the date on which that new purchase rate or equivalent rate came into operation.  
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 5 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+Residential accommodation 
+ 
+Abatement               R95 750 
+ 
+Travelling allowance 
+80% of the travel allowance is subject to the deduction of employees’ tax, meaning 80% of the travel allowance 
+must be included in the employee’s remuneration when calculating employees’ tax. Provided that where the 
+employer is satisfied that at least 80% of the use of the motor vehicle for a year of assessment will be for 
+business purposes, then only 20% of the allowance will be subject to employees’ tax.  
+ 
+ 
+Travel allowance cost scale table for 2026 tax year (from 01 March 2025) 
+8) 20142014Febra 
+ 
+Vehicle cost ceiling   R800 000 
+00000R The simplified rate per kilometer R4.76 
+ 
+ 
+Exempt Bursary 2026 
+Remuneration proxy  R600 000 
+Grade R to 12 and NQF level 1 to 4  (relative of employee without disability ) R20 000 
+Grade R to 12 and NQF level 1 to 4 (family member of employee with disability)  
+disability ) 
+R30 000 
+NQF level 5 to 10  (relative of the employee without disability )  R60 000 
+NQF level 5 to 10  (family member of employee with disability ) R90 000 
+ 
+Fringe benefit: employer - owned provided motor vehicles 
+With effect from 1 March 2011, the percentage rate for all employers - owned provided vehicles is 3.5 % per 
+month of the vehicle’s determined value. However, vehicles with maintenance plans included within the 
+purchase price at the time of purchase will trigger only a 3.25% monthly fringe benefit.  
+ 
+With effect from 1 March 2014, where the vehicle is acquired by the employer under an operating lease 
+concluded at arm’s length and that are not connected persons in relation to each other, the value of a fringe 
+benefit is the actual cost to the employer incurred under this lease plus the cost of fuel in respect of that vehicle. 
+ 
+Retirement Fund Contributions 
+The tax harmonization reforms for Pension fund, Provident fund and Retirement Annuity fund (retirement funds) 
+have been implemented from 1 March 2016. All individuals who contribute towards a retirement fund after 1 
+March 2016 will qualify for a tax deduction of the lesser of : 
+ 
+(a) R350 000; OR  
+(b) 27.5% of the higher of  -  
+i. Remuneration as defined in Fourth Schedule (excluding  retirement fund lump sum benefit, 
+retirement lump sum withdrawal benefit and severance benefit); or  
+ii.  Taxable income before allowing any deduction under ss11F, 6quat(1C) and 18A) (excluding 
+retirement fund lump sum benefit, retirement lump sum withdrawal benefit and severance benefit)  
+            OR 
+(c) Taxable income (before allowing any deduction under ss11F, 6quat(1C) and 18A) and before inclusion 
+of  any taxable capital gain (excluding retirement fund lump sum benefit, retirement lump sum withdrawal 
+benefit and severance benefit) . 
+ 
+ 
+Period for keeping records 
+Records need not be retained by the person after a period of five years from the date of the submission of the 
+return and after a period of five years from the end of the relevant tax period.  
+ 
+If the records are relevant to an audit or investigation or a person lodges an objection or appeal against the 
+assessment or decision made, the person must retain the records relevant to the audit, objection or appeal until 
+the audit is concluded or the as sessment or the decision becomes final.  
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 6 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+FURTHER INFORMATION 
+ 
+For more information  
+• Visit the SARS website www.sars.gov.za,  
+• Call the SARS Contact Centre on 0800 00SARS (7277), or  
+• Visit your nearest SARS branch.  
+ 
+ 
+2 PURPOSE 
+ 
+• The purpose of this document is to assist employers in understanding their obligations relating to 
+Employees’ Tax, Skills Development Levy (SDL) and Unemployment Insurance Fund (UIF) contributions. 
+ 
+ 
+3 SCOPE 
+ 
+• This basic guide is issued in terms of Paragraph 9(2) of the Fourth Schedule to the Income Tax Act No. 
+58 of 1962. 
+ 
+• This guide prescribes  the: 
+ Employees’ tax deduction tables as contemplated in Paragraph 9(1) of the Fourth Schedule to the 
+Income Tax Act;  
+ Manner in which the tables must be applied by the employer.  
+ 
+ 
+4 BACKGROUND 
+ 
+What is employees’ tax • Where an employer pays or becomes liable to pay remuneration to an employee, the 
+employer has an obligation to deduct or withhold employees’ tax from the remuneration 
+and pay the tax deducted or withheld to the South African Revenue Service (SARS) on 
+a monthly basis. In most instances, the employer is obliged to issue each employee with 
+an employees’ tax certificate [IRP5/IT3 (a)] at the end of each tax period which reflects, 
+amongst other details, the employees’ tax deducted.  
+• These subjects are fully dealt with later in this guide. In addition thereto, the employer is 
+obliged to submit an Employer Reconciliation Declaration (EMP501) to SARS . 
+• In terms of Paragraph 3 of the Fourth Schedule, employees’ tax receives preference 
+over any other deduction from the employee’s remuneration which the employer has a 
+right or is obliged to deduct otherwise than in terms of any law.  
+• Any reference to the start date and end date of a tax period is 1 March and 28/29 
+February. This guide will include the start and end date s of 2nd alternate period. An 
+alternate period is normally determined at the option of the employer which  may be 
+exercised in relation to all employees or any class of employee.  Where an employer 
+adopts the so -called alternate period, any remuneration paid to an employee during such 
+alternate period is regarded as having been paid to him/her during the corresponding 
+tax year. 
+ 
+What is SDL • This is a compulsory levy scheme for the purposes of funding education and training as 
+envisaged in the Skills Development Act, 1998. This levy came into operation on 1 April 
+2000 and is payable by employers on a monthly basis.   
+ 
+What are UIF 
+contributions  
+• This is a compulsory contribution to fund unemployment benefits. Since 1 April 2002, 
+the contributions deducted and payable by employers on a monthly basis have been 
+collected by SARS and are paid over to the UIF which is managed by the UI 
+Commissioner .  
+ 
+Liability of 
+representative employer 
+• The representative employer is not relieved from any liability, responsibility or duty of 
+the employer and is therefore subject to the same duties, responsibilities and liabilities 
+as the employer . 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 7 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+References to the Act • Paragraphs of the Fourth and Seventh Schedules and Sections referred to in this 
+publication are governed by the Income Tax Act. References to the Skills Development 
+Levies Act (the SDL Act) , Unemployment Insurance Contributions Act (the UIC Act) and 
+Tax Administrative Act (the TA Act) a re specifically indicated . 
+ 
+ 
+5 REGISTRATION 
+ 
+5.1 REGISTRATION AS AN EMPLOYER 
+ 
+References to the Act 
+ 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Application to register 
+ 
+Employers exempt from 
+paying the SDL levy 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Registration with the UI 
+Commissioner for UIF 
+purposes 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chapter 3 of the TA Act  
+Paragraph 15(1) of the Fourth Schedule, Sections 4 and 5 of the SDL Act  
+Sections 4 and 10 of the UIC Act  
+ 
+• Employer must apply for registration for employees’ tax purposes with SARS within 21 
+business days after he/she becomes an employer unless none of the employees are 
+liable for normal tax.  
+• Where an employer is liable to pay the SDL levy, the employer must register as an 
+employer with SARS and must indicate the jurisdiction of the SETA within which the 
+employer must be classified.  
+• Where an employer is liable to pay the UIF contribution, the employer must register with 
+SARS or the UIF office (whichever is applicable to such employer) for the payment of 
+the contributions.  
+ 
+• Application to register as an employer must be made via eFiling or at the SARS Branch.  
+ 
+• The following employers are exempt from paying the SDL , any: 
+ Public service employer in the national or provincial sphere of Government.  
+ Public service employer in the national or provincial sphere of Government.  
+ National or provincial public entity if 80% or more of its expenditure is paid directly or 
+indirectly from funds voted by Parliament.  
+Note: These employers must budget for an amount equal to the levies payable for training and 
+education of their employees  
+ Public benefit organisation, exempt from the payment of Income Tax in terms of 
+section 10(1)(cN), which solely carries on certain welfare and humanitarian (paragraph 
+1 of Part 1 of the Ninth Schedule), health care (limited to paragraph 2(a), (b), (c) and 
+(d) of Part1 of the Ninth Schedule), religion, belief or philosophy public benefit activities 
+(paragraph 5 of Part 1 of the Ninth Schedule) or solely provides funds to such a public 
+benefit organisation (paragraph 10 of Part 1 of the Ninth Schedule) and to whom a 
+letter of exemption has been issued by the SARS Tax Exemption Unit;  
+ Municipality in respect of which a certificate of exemption is issued by the Minister of 
+Labour. 
+• Although the above -mentioned employers are exempt from payment of levy, the y are 
+not absolved from registration. An employer is not required to register as an employer 
+for SDL purposes if there are during any month reasonable grounds for believing that 
+total leviable amount paid or payable by that employer to all its employees duri ng the 
+following 12 month period will not exceed R500 000 even though such employer is liable 
+to register with SARS for Employees’ Tax purposes . 
+ 
+• The following employers must register with the UI Commissioner:  
+ If employer  is not required to register for employees’ tax purposes at SARS;  
+ Employer who has not registered voluntarily as an employer for employees’ tax 
+purposes at SARS;  
+ Employer who  is not liable for the payment of SDL.  
+• Employer/employee is not required to contribute in following circumstances :  
+ An employee and his/her employer, where such employee is employed by the 
+employer for less than 24 hours a month;  
+ Employees and employers in the national and provincial spheres of Government who 
+are officers or employees as defined in Section 1(1) of the Public Service Act 1994 
+(Proclamation No. 103 of 1994);  
+ The President, Deputy President, a Minister, Deputy Minister, member of the National 
+Assembly, a permanent delegate to the National Council of Provinces, a Premier, a 
+member of an Executive Council or a member of a provincial legislature; and  
+ Any member of a municipal council, a traditional leader, a member of a provincial 
+House of Traditional Leaders and a member of the Council of Traditional Leaders.  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 8 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+5.2 BRANCHES REGISTERED SEPARATELY 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+Application form  
+ 
+ 
+Transferring between 
+branches 
+ 
+ 
+ 
+ 
+ 
+Chapter 3 of the TA Act  
+Paragraph 15 (1) of the Fourth Schedule  
+ 
+• Where employer has a pp lied for separate r egistration of branches of his/her 
+unde rtaking, each branch s hall be deemed to be a separate employer. 
+ 
+• App lication must be made on an EMP102 form . 
+ 
+• Where an employee is transferred between branches, the branch where the employee 
+has worked until date of transfer must issue an IRP5/IT3(a) for the period 1 March (or 
+date of commencement of employment if such date was after 1 March) up to the day 
+preceding the transfer. The branch to which the employee was transferred must issue a 
+further IRP5/IT3(a) to cover the period from date of transfer up to th e end of February 
+(or other date, e.g. where the employee’s service was terminated).  
+5.3 CHANGES OF REGISTERED PARTICULARS 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+Chap ter 3 of the TA Act 
+ 
+• An employer must inform SARS in writing within 21 business days of any change in 
+registered particulars:  
+ Postal address;  
+ Physical address;  
+ Representative taxpayer;  
+ Banking particulars used for transactions with SARS;  
+ Electronic address used for communication with SARS; or  
+ Such other details as the Commissioner may require by public notice . 
+ 
+5.4 DEREGISTRATION OF AN EMPLOYER 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+Paragraph 15(3) of the Fourth  Schedu le  
+ 
+• Every person who is registered as an employer shall within 14 days after ceasing to be 
+an employer, notify the Commissioner in writing of the fact of the employer have ceased 
+to be an employer.  
+ 
+ 
+6 RECORD KEEPING 
+ 
+6.1 EMPLOYER RECORDS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prescribed period for 
+keeping records 
+Chapter 4 of the TA Act  
+Paragraph 14(1)) of the Fourth Schedule  
+ 
+• The employer must keep a register and must contain personal particulars as well as financial 
+details of each employee and maintained in such a form, including any electronic form, as may 
+be prescribed by the Commissioner.  
+• The following records of all employees’ needs are to be maintained by the employer, as may 
+be prescribed by the Commissioner.  
+ Amount of remuneration paid;  
+ Employees’ tax deducted/withheld on all remuneration;  
+ UIF contributions;  
+ Income Tax reference number of that employee; and  
+ Such further information as the Commissioner may prescribe.  
+ 
+• The records must be kept for a period of five (5) years from the date of the submission of the 
+return and from the end of the relevant tax period if the person is not required to submit a tax 
+return but has earned some form of taxable income. The employer must retain such records 
+and make them available for scrutiny by the Commissioner.  
+• Employers who supply the tax certificate information on an electronic medium or electronically, 
+must also keep such records for the prescribed period . 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 9 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+6.2 RECORDS AND INFORMATION TO BE PROVIDED BY THE EMPLOYEE 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Written declaration by 
+employee 
+ 
+ 
+ 
+ 
+Paragraph 14(1) of the Fourth Schedule  
+ 
+• The employee must supply the following particulars to his/her employer to ensure that the 
+employer’s records are correct : 
+ Surname and full names ; 
+ Address;  
+ South African Identity number or passport number and date of birth;  
+ Income Tax reference number (if any);  
+ Written declaration where required.  
+ 
+• An employee is deemed to be in standard employment - 
+ Where such employee renders services to the employer for 22 hours or less in every 
+completed week;  
+ The employee furnishes the employer with a written declaration stating that he/she 
+does not or will not render services to another employer during the period he/she hold  
+such employment at the relevant employer. 
+ 
+ 
+7 DETERMINING THE EMPLOYEES’ TAX, SDL AND UIF LIABILITY  
+ 
+7.1 ELEMENTS REQUIRED BEFORE EMPLOYEES’ TAX MAY BE DEDUCTED 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+Definitions of employer, employee and remuneration in Paragraph 1 of the Fourth Schedule  
+ 
+• The Fourth Schedule requires the presence of the three elements before employees’ tax 
+may be deducted, namely, an  employer paying remuneration to an employee. 
+ The employer must determine the employment relationship to be able to classify the 
+worker  correctly in order to determine the rate which must be applied to deduct 
+employees’ tax from the remuneration of the specific employee.  
+7.2 ANNUAL EQUIVALENT CALCULATION 
+ 
+Reference to the 
+Act 
+ 
+Meaning 
+ 
+ 
+Prescribed 
+formula 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Determination of 
+annual 
+equivalent 
+ 
+Example: 
+Employee’s tax 
+period is shorter 
+than a full tax 
+year 
+ 
+ 
+ 
+Paragraphs 9(1) and 9(2) of the Fourth Schedule  
+Applicable Tax Deduction  Tables 
+  
+• An annual equivalent  must be determined when an employee's tax period is shorter than     a 
+full tax year in order to  determine amount of Employees’ Tax deductible.  
+ 
+• The following formula must be used to determine the annual equivalent:  
+ 
+Total remuneration received/accrued  X
+  
+Total pay period s in tax year 
+      Total pay period s worked 
+ 
+• Although  the annual tax is determined on an annual equivalent, the employee will no t be 
+liable for tax on the ann ual equivalent, but for the pro-rata po rtion which represents the 
+employees’ tax dedu ctible on the remuneration which was actually received or accrued. 
+This is don e by dividing it by the ratio which a full year bears to the period s in respect of 
+which the remuneration was received or accrued. 
+  
+• An annual equivalent need on ly be determined when an e mployee’s tax period is shorter 
+than a full tax year. 
+ 
+• A monthly paid employee: (unde r 65) worked for 7 full months at one employer and 
+received R110, 000 for the period worked. The annual equivalent must be determined in order 
+to do a final employees’ tax calculation . 
+ 
+Calculating annual equivalent: R110,000 ÷ 7 x 12 = R188,571 
+Tax on annual equivalent of R188,571 according to  annual tax      
+table                    
+Tax on R110,000 for 7 mon ths worked: R16 741 ÷ 12 x 7 
+                
+R 16 741 
+ 
+R   9 766 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 10 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+Examples: 
+Employee is 
+employed for a 
+portion of a pay 
+period 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• Weekly paid employee: A weekly remunerated employee (under 65) starts working on the 
+5th day of a week. He receives R1 090 for the 3 days worked during the first week. The 
+employee’s week consists of 7 days.  
+ 
+ 
+Determine the decimal po rtion of the pay period : 3 ÷ 7 = 0.4285  
+Calculating annual equivalent: R1 090 ÷ 0.4285 x 52 =  R132 275  
+Tax on annual equivalent of R132 275 according to annual tax 
+table 
+R6 551  
+Tax on R1 090 for 3 days worked: R6 551 ÷ 52 x 0.4285 R54 
+ 
+• Fortnightly  paid employee: A fortnightly remunerated employee (under 65) starts working 
+on the 7th day of a fortnight period. He receives R3 244 for the 8 days worked during the first 
+fortnight period.  The employee’s week consists of 14 days . 
+ 
+Determine the decimal po rtion of the pay period : 8 ÷ 14 = 0.5714  
+Calculating annual equivalent:  R3 244 ÷ 0.5714 x 26 = R147 609  
+Tax on annual equivalent R147 609 according to annua l tax table   R9 346  
+Tax on R3 244 for 8 days worked:  R9 346 ÷ 26 x 0.5714 R205 
+ 
+• Monthly paid employee: A monthly remunerated employee (under 65) starts working on 
+the 16th day of a month which consists of 30 days. He receives R6 500 for the 15 days worked 
+during the first month.  
+ 
+Calculating annual equivalent:  R6 500 ÷ 0.5 x 12 = R156 000  
+Tax on annual equivalent R156 000 according to annual  tax table  R10 879  
+Tax on R6 500 for 15 days worked: R10 879 ÷ 12 x 0.5 R453 
+ 
+ 
+ 
+ 
+  
+7.3 DEDUCTION TO DETERMINE THE BALANCE OF REMUNERATION 
+ 
+ 
+7.3.1 RETIREMENT FUND CONTRIBUTIONS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Limitation 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph 2(4)(a) , (b) and (‘ ’bA) of the Fourth Schedule  
+Section 11 F 
+ 
+• The employer must deduct contributions  made by the employee to any pension fund , 
+provident fund or/and retirement annuity fund  (RAF) which the employer is entitled or 
+required to deduct from the employee's remuneration.  
+• From 1 March 2016, contributions  made or amount paid by the employer  of the person 
+on behalf of or for the benefit of that person will be a taxable fringe benefit and a deemed 
+contribution in the hands of the employee. Therefore,  current contributions  = 
+contributions actually made by the employee plus  employer contributions  / payments 
+(deemed employee contributions) . 
+ 
+• Allowable deduction must be limited to the deduction to which employee is entitled under 
+section 11 F having regard to the remuneration and period (e.g. current or arrear 
+contributions) i .r.o. of which it is payable.  Provided that at any time during year of 
+assessment , the amount of contribution to be deducted i.t.o paragraphs (a), (b) and (bA) 
+must not exceed an amount that bears to amount stipulated in section 11F(2)(a) same ratio 
+as period  during which remuneration was paid by employer to employee bears to a whole 
+year. 
+• Current contributions — The dedu ction must be limited to the lesser of :  
+• R350 000; OR  
+• 27.5% of the higher of  -  
+ Remuneration as defined in Fourth Schedule (excluding retirement fund lump sum 
+benefit, retirement lump sum withdrawal benefit and severance benefit); or  
+ Taxable income before allowing any deduction under ss11 F, 6quat(1C) and 18A) 
+(excluding retirement fund lump sum benefit, retirement lump sum withdrawal benefit and 
+severance benefit)  
+                       OR 
+• Taxable income (before allowing any deduction under ss11 F, 6quat(1C) and 18A) and 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 11 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+before inclusion of any taxable capital gain (excluding retirement fund lump sum benefit, 
+retirement lump sum withdrawal benefit and severance benefit).  
+ 
+• Total current pension fund contributions  reflect under code 4001 (current plus arrear 
+contributions ). 
+• Total  current  provident fund contributions  reflect under code 4003.  
+• Only  provident fund contributions made on or after 1 March 2016 are allowable as a 
+deduction. Contributions made pre - 1 March 2016 are not allowed  as a deduction.     
+• Total  current  retirement annuity fund contributions  reflect under code 4006 (current plus 
+arrear contributions) . 
+• A partner in a partnership must be deemed to be an employee of a partnership and a 
+partnership must be deemed to be the employer to the partners in that partnership with 
+effect from 1 March 2016.  
+ 
+7.3.2 DONATIONS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+Limitation 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+COVID 19 – Tax Relief : 
+Donations to Solidarity 
+Fund  
+ 
+Paragraph 2(4)(f) of the Fourth Schedule  
+Section 18A(2)(a)  
+ 
+• The employer must deduct so much of any donation deductible from the remuneration of 
+the employee in terms of section 18A(2)(a) and pay such amount to relevant approved 
+organisation on behalf of the employee . 
+ 
+• Deduction may not exceed 5% of remuneration after deducting pension, provident and 
+retirement annuity fund contributions. The deduction i s onl y allowed if employee has 
+provided employer  with receipt which reflects details as prescribed in section 18A(2)(a). 
+ 
+• Reflect under code 4030 and not only the allowable po rtion deducted from remuneration. 
+ 
+• In order to alleviate cash  flow problems for employees who make donations through the 
+employer, the maximum deduction of 5% is increased.  An additional limit of up to a 
+maximum of 33,3%  for three months or 16,66%  for six months depending on the 
+employee’s circumstances , is available.  
+• This amendment is effective from 1 April 2020 up until 30 September 2020.  
+ 
+ 
+7.3.3 MEDICAL SCHEME FEES TAX CREDIT  
+ 
+Reference to the Act  
+ 
+ 
+Meaning 
+ 
+ 
+Medical scheme fees tax 
+credit 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph 9(6) of the Fourth  Schedu le 
+Section 6A,6B(3)(a)(i)(ii) 
+ 
+• Effective from 1 March 2014, the medical scheme fees tax credit applies to all taxpayers. Visit 
+website www.sars.go v.za for a full explanation on the Medical Scheme Fees Tax Credit. 
+ 
+• The tax cr edit app lies in respect of fees paid by the taxpayer to a r egistered medical 
+scheme. The number of person s (dependants) for whom you make con tributions to a 
+medical scheme will determine the value of the credit. The amoun t of the medical 
+scheme fees tax credit for 2026 tax year is: 
+ R364 in respect of benefits to the taxpayer;  
+ R364 in respect of benefits the taxpayer’s first dependent;  
+ R246 in respect of benefits to each additional dependent.  
+ 
+• Additional medical expenses tax credit related to medical scheme contributions for 
+taxpayers above age of 65 must be taken into account to calculate monthly PAYE . This 
+is only available from 20 17 tax year onwards.  
+ 
+• Where more than one person pay medical fees in respect of the benefits to a person or 
+dependant , the amount allowable in respect of the medical scheme fees tax credit must 
+be apportioned in the same ratio as the amount of the fees paid by that person bears 
+to the total amount of fees payable.   
+ 
+• The Minister of Finance may announce in national annual budget, the amounts allowed 
+to a natural person by way of rebates with effect from a date or dates mentioned in the 
+announcement. If Minister makes an alteration to the amount/ s, that alteration comes 
+into effect from the date or dates determined by the Minister in that announcement and 
+continues to apply for a period of twelve (12) months  from the date or dates.   
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 12 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+• A con tribution made by the employer on behalf  of employee is a taxable fring e benefit 
+in the hand s of an employee. These contributions are deemed to be paid by employee 
+and the same value included as a taxable benefit (cod e 3810) should be adde d to value 
+of the con tribution s made by the employee (cod e 4005). 
+ 
+• Information relating to medical scheme contributions must be reported as follows:  
+ 
+ Paid contributions Fringe benefit Deemed contributions 
+Employee Medical Tax Credit 
+= R (IRP5/IT3(a) code = 4474 ) 
+Medical Tax Credit 
+= R (IRP5/IT3(a)  code = 3810 ) 
+Medical Tax Credit 
+= R (IRP5/IT3(a) code = 4005 ) 
+ 
+ 
+ 
+7.4 EMPLOYEES’ TAX DEDUCTION 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+Amount on which 
+employees’ tax is 
+deductible 
+ 
+Voluntary additional 
+employees’ tax 
+deduction 
+ 
+ 
+Agreement between 
+employer and employee 
+ 
+ 
+Remittance of 
+employees’ tax 
+ 
+    
+IRP5/IT3(a) details 
+Paragraphs 2(1), 2(2), 2(4), 2(5)(c), 3 and 7 of the Fourth Schedule  
+Section 7B  
+ 
+• Must be deducted from any amount that is paid by way of remuneration . 
+ 
+• Deduction is calculated on the balance of remuneration after the deduction of all allowable 
+deductions ( e.g. Retirement annuity  fund contribution, provident fund contribution, pension 
+fund contribution  and  donations ).  
+ 
+• For various reasons, employees may find that they have to pay in fairly large amounts upon 
+receipt of their assessments. To reduce the amount payable on assessment or avoid having 
+to pay in an additional amount, such employees may request (in writing) thei r employers to 
+deduct from their remuneration a greater amount of employees’ tax than is required.  
+ 
+• Employer and employee may under no circumstances conclude an agreement whereby 
+employer undertakes not to deduct or withhold employees’ tax or UIF contributions. Such 
+agreement is void in terms of Paragraph 7 of Fourth Schedule.  
+ 
+• The employer must remit the amount deducted or withheld to SARS with his/her Monthly 
+Employer Declaration (EMP201).  
+ 
+ 
+• Reflect under code  the following codes — 
+ Code 4102 – The PAYE component of the employees’ tax deducted  / withheld including 
+any voluntary additional employees’ tax deducted;  
+ Code 4103 – The total of code 4101 . 
+ 
+ 
+7.5 SDL LIABLE AMOUNT 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+Amount on which SDL is 
+determined 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sections 3(1) and (4) of the SDL Act  
+Paragraph 2(5) of the Fourth Schedule  
+ 
+• Employer must pay SDL at the following rates : 
+ From 1 April 2000, at a rate of 0,5 per cent of the leviable amount, and  
+ From 1 April 2001, at a rate of one per cent of the leviable amount. 
+• If the Minister makes changes to the rate, the new rate will apply with effect from the 
+date announced by the Minister  by notice in the  Government g azette.   
+ 
+• The leviable amount is the total amount of remuneration, paid or payable, or deemed to 
+be paid or payable, by an employer to its employees during any month, as determined 
+in accordance with the Fourth Schedule provisions for purposes of determining the 
+employe r’s liability for Employees’ Tax.  
+• SDL is therefore determined on the balance of remuneration after the deduction of all 
+allowable deductions (i.e. pension  or provident  fund contributions, RAF contributions  
+and donations).  
+ 
+Note: All remuneration no t included in the definition of remuneration for SDL purposes 
+shou ld be excluded from the balance of remuneration result.  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 13 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+Remuneration excluded 
+for the purposes of SDL  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+• Remuneration for the purposes of calculating SDL excludes  amounts : 
+ Paid or payable as contemplated in paragraphs ‘(c) and (d) of the definition of “employee” 
+in paragraph 1 of the Fourth Schedule,  to whom a certificate of exemption has been 
+issued in terms of paragraph 2(5)(a) of that schedule,  
+ Paid or payable to any person by way of any pension, superannuation allowance or 
+retiring allowance,  
+ In terms of paragraph (a), (d), (‘e) or (‘eA) of definition of “gross income” in section 1,  
+ Payable to a learner in terms of a contract of employment as contemplated in section 18 
+(3) of the SDL Act . 
+ 
+• Reflect unde r cod e 4142  
+ 
+ 
+7.6 UIF LIABLE AMOUNT 
+ 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Amount on which UIF 
+contributions is 
+determined 
+ 
+ 
+Remittance of 
+employees’ tax 
+ 
+IRP5/IT3(a) details 
+Sections 5 and 6 of the UIC Act 
+ 
+• The employer and employee must on a mon thly basis con tribute 1% of the 
+remuneration paid or payable to the relevant employee during any mon th to UIF.  
+• Minister of Finance determines UI F contribution t hreshold and published it in Gazette.  
+ 
+Effective date  Amounts 
+With effect from 1  April  2002 R  8 099 per month (R97 188 annually)  
+With effect from 1 April 2003  R  8 836 per month (R106 032 annually)  
+With effect from 1 October 2005  R10 966 per month (R131 592 annually)  
+With effect from 1 July 2006  R11 662 per month ( R139 944 annually)  
+With effect from 1 February 2008 R12 478 per month (R149 736 annually)  
+With effect from 1 October 2012  R14 872 per month (R178 464 annually)  
+With effect from 1 June 2021  R17 712 per month (R212  544 annually)  
+ 
+• Amount on  which  UIF contribution is based  is total  amount of remuneration as defined 
+for UIF purp oses.  All remuneration no t included in the definition of remuneration for 
+UIF purpo ses should be excluded from the remuneration for purpo ses of determining the 
+UIF liable amoun t 
+ 
+• The employer must remit the UIF  amount l i abl e to SARS with his/her mon thly EMP201 
+payment . 
+ 
+• Reflect under code 4141 .  
+ 
+ 
+8 ESTIMATED  ASSESSMENT 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+Chap ter 8 of the TA Act 
+Section 9A of the UIC Act 
+ 
+• Employees’ tax must be dedu cted from any amoun t that is paid by way of remuneration 
+• The Commissioner may estimate the amoun t (based on information readily available)  
+of Employees’ tax, SDL or UIF due by employer where employer  has: 
+ Failed to furnish an EMP201 as required; or  
+ Submitted a return or information that is incorrect or inadequate . 
+• If taxpayer is unable to submit an accurate return, a senior SARS official may agree 
+in writing with taxpayer as to an  amoun t of tax c hargeable and issue an assessment 
+accordingly. A ssessment is final and  cannot be subjected  to an objection and appeal. 
+• Employer shall be liable to th e Commissioner for payment of amoun t of employees’ 
+tax, SDL or UIF con tributions estimated as if such an amoun t was dedu cted / withheld 
+as required by the provision s of the relevant Tax Acts. 
+• The estimate amoun t payable by employer is subject to objection and appeal unless 
+both employer  and Commissioner in terms of section 95(3) of Tax Administration Act 
+agree in writing to said estimate assessment(s).  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 14 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+9 PAYMENTS 
+ 
+9.1 PAYMENT OF EMPLOYEES’ TAX, SDL AND UIF 
+ 
+Reference to the Act 
+ 
+ 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+Monthly declaration 
+ 
+ 
+ 
+ 
+ 
+ 
+Requesting an EMP201 
+ 
+ 
+ 
+ 
+Employer personally 
+liable 
+ 
+Payments 
+ 
+ 
+Allocation of payments  
+ 
+ 
+ 
+ 
+ 
+Chapter 10 of the TA Act  
+Paragraphs 2(1), 5(1) and 14(2) of the Fourth Schedule   
+Section 6 of the SDL Act  
+Section 7(4) and 8 of the UIC Act  
+ 
+• The employees’ tax and UIF contributions as well as SDL must be paid over to SARS 
+within seven days after the end of the month during which the amount was deducted or 
+due or such longer period as the Commissioner determines.  
+• Where the seventh day falls on a Saturday, Sunday or public holiday, the payment must 
+be made not later than the last business day prior to such day. These cut -off dates apply 
+to SDL and UIF contributions as well.  
+ 
+• The employer must submit such declaration as the Commissioner may prescribe when 
+making any payment.  The prescribed EMP201 must be requested by the employer for 
+payment purposes each month.  
+• Payments in respect of employees’ tax, SDL and UIF contributions must be reflected 
+correctly and separately on the EMP201 in order to avoid the incorrect allocation of these 
+payments and the unnecessary issue of final demands.  
+ 
+• Employer must request EMP201 declaration  from SARS: 
+ via eFiling ; 
+ via e@syFile™ Employer; or 
+ At a SARS Branch.  
+ 
+• An employer who fails to deduct or withhold the full amount of Employees’ tax and / or 
+UIF contributions is personally liable for the shortfall . 
+ 
+• Please refer to SARS Payment Rules – Reference Guide available on the SARS 
+website: www>sars.gov.za  
+ 
+• Where any payment is made by an employer in respect of Employees’ Tax, SDL and 
+UIF, such payment will be allocated in  the following order:  
+ Penalty; 
+ Interest, to the extent to which the payment exceeds the amount of penalty;  
+ Employees’ tax or additional penalty, to the extent to which the payment exceeds the 
+amount of penalty and interest.  
+• Where there is a shortfall after the allocation of penalties and interest and the 
+outstanding tax has not been covered in full, interest will continue to accrue on the 
+outstanding tax. These rules are also applicable to SDL and UIF contribution payments.  
+• SARS may allocate any payment against the oldest tax and/or the oldest interest where 
+no designation on an account has been received excluding amount not yet due . 
+ 
+ 
+9.2  INTEREST AND PENALTY 
+ 
+Reference to the Act 
+ 
+ 
+ 
+ 
+ 
+Meaning 
+Chapter 15 of the TA Act  
+Paragraph 6(1) of the Fourth Schedule  
+Section 89bis(2)  
+Sections 11, 12(1) and 12(3) of the SDL Act  
+Section 13(1) of the UIC Act  
+ 
+• Interest and  pena lty may be impo sed on late payments or outstand ing amoun ts. 
+ A penalty equal to 10% in addition to the interest will be imposed on late 
+payments or outstanding amounts . 
+ Interest is payable at the prescribed rate if any amount of Employees’ tax, 
+SDL or UIF contributions is not paid in full within the prescribed period for 
+payment of such amount.  
+ If employer fails to pay an amount with intent to evade his/her obligation, he/she 
+may be liable to pay penalty not exceeding an amount equal to twice amount of 
+employees’ tax, SDL or UIF contributions which employer so failed to pay.  
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 15 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+10 OFFENCES 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Penalty clause 
+ 
+ 
+Chapters 15, 16 and 17 of the TA Act  
+Paragraph 30(1) of the Fourth Schedule  
+ 
+• Any person will be guilty of an offence and liable on conviction to a fine or imprisonment 
+where he/she: 
+ Fails to:  
+o Deduct employees’ tax from remuneration or to pay tax to the Commissioner within 
+the prescribed period;  
+o Deliver IRP5/IT3(a) to employees or former employees within the prescribed periods  
+o Apply for registration as an employer;  
+o Comply with a written request for information;  
+o Notify the Commissioner of a change of address; or that he/she has ceased to be an 
+employer;  
+o Comply with the conditions for using a mechanised system for printing IRP5/IT3(a) to 
+be issued to employees or former employees;  
+o Maintain a record of remuneration paid and tax deducted  
+o Comply with any condition prescribed by the Commissioner in regard to the manner in 
+which IRP5/IT3(a) may be used, the surrender of unused stocks of certificates, 
+accounting for used, unused and spoiled IRP5/IT3(a) when required by the 
+Commissioner to do s o or to surrender unused IRP5/IT3(a) when ceasing to be an 
+employer;  
+o Comply with an Income Tax directive issued by  Commissioner  
+ Uses/applies employees’ tax deducted or withheld, for purposes other than the payment of 
+such amount to the Commissioner;  
+ Permits a false IRP5/IT3(a) to be issued or knowingly is in possession of or uses a false 
+IRP5/IT3(a); 
+ Alters an IRP5/IT3(a) issued by any other person, purports to be employee named on any 
+IRP5/IT3(a) or obtains a credit for his/her own advantage or benefit in respect of employees’ 
+tax deducted or withheld from another person’s remuneration;  
+ Not being an employer and without authority from an employer issues or causes to be issued, 
+any document purporting to be an IRP5/IT3(a);  
+ Furnishes false information or misleads his/her employer regarding the amount of employees’ 
+tax to be deducted in his/her case;  
+ Defaults in rendering a return.  
+ 
+• An employer shall be guilty of an offence may be fined or sentenced to imprisonment for 
+a period no t exceeding 12 months. 
+11 TAX DIRECTIVES  
+ 
+11.1 PURPOSE OF A TAX DIRECTIVE 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+Rules related to tax 
+directives 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph 9( 3) of the Fourth Schedule  
+ 
+• A directive is an authorisation issued by SARS to the employer/ fund administrator on 
+how to deduct employees’ tax from certain payments.  
+ 
+• Tax calculations according to the tax directive shall be calculated and be determined 
+by the Commissioner . 
+ 
+• The following rules relate to a tax directive: 
+ A tax directive is only valid for the tax year or period stated thereon;  
+ Employers may not act upon photocopies of directives;  
+ Employers may under no circumstances deviate from the instructions of the directive;  
+ Tax directives issued to electronic clients via the SARS Interface are valid directives;  
+ Employers must apply the percentage of employees’ tax as indicated on the directive 
+prior to taking into account allowable deductions for employees’ tax purposes (e.g. 
+pension, retirement annuity fund contributions, etc.) . 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 16 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+Application forms  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+• App lication forms have been developed for purpo ses of app lying for a specific tax 
+directive and are available on SARS website www.sars.gov.za. Form A & D, Form B, 
+Form C and Form E are samples of forms to be used by fund s and fund administrators 
+must add their own log o and address when submitting appl ication s forms. 
+• When app lying for a tax directive, the employer/fund administrator must ensure that 
+the correct appl ication form is used according to reason for the exit from 
+fund/employer’s service and nature of amoun t payable to employee/member of fund . 
+• The forms available are: 
+ IRP3(a) - Severance benefit paid by employer (e.g. death/retirement/retrenchment). The 
+form must also be used for share options without obligation, Two Pot Savings withdrawal 
+benefit or other lump sums;  
+ IRP3(b) – Employees’ tax to be deducted at a fixed percentage (e.g. commission 
+agents/personal service provider);  
+ IRP3(c) – Employees’ Tax to be deducted at a fixed amount (e.g.  Paragraph 11 of  the 
+Fourth Schedule (hardship) / assessed loss carried forward);  
+ IRP3(s) – Employees' tax to be deducted on any amount to be included under section 
+8A or 8C of the Income Tax Act.  
+ Form A & D – Lump sum benefits paid by pension and/or provident fund. (e.g. death 
+before retirement/retirement due to ill health/retirement);  
+ Form B – Lump sum benefits paid by pension or provident fund on 
+resignation/withdrawal/winding up/transfer or payment as defined in  Paragraph (eA) of 
+the definition of gross income/future surplus apportionment/unclaimed benefit/divorce 
+payments);  
+ Form C – Lump sum benefits paid by a RAF to a member (e.g. death before retirement / 
+retirement due to ill health/transfer from one RAF to another before retirement);  
+ Form E – Lump sum benefits payable after retirement (e.g. Death Member/Former 
+Member after Retirement, Par. (c) Living Annuity Commutation, Death - Next Generation 
+Annuitant, Next Generation  Annuitant Commutation, Gn16: Existing Annuity ). 
+ 
+• To avoid a delay in the issuing of a directive, certain minimum information is required 
+on the relevant application form. For more information refer to Guide for Tax Directives - 
+External on the SARS website:  www.sars.gov.za. 
+ 
+• Normal termination of service: The lump sum paid by an employer to an employee 
+is treated as an annual payment (for example, service bonu s) and the app licable formula 
+is used for the calculation of employees’ tax. A gratuitous payment (leave pay that the 
+employee is not entitled to but which is paid out voluntarily by the employer) upon 
+termination of employment that is c alculated with reference to leave days, do es not 
+con stitute leave pay and could be included in the severance benefit amoun t. 
+• Leave pay is a payment in respect of services rendered and  the amount  does 
+not form part of a severance benefit. 
+ 
+• Retrenchment , retirement or death: A tax directive must be obtained from SARS 
+preferably  where employee is registered for Income Tax purpo ses. The app licable 
+exemption shall be determined by SARS with the processing of tax directive application. 
+ 
+• Normal  termination of service: PAYE calculation must be don e at the end of the tax 
+period to determine the PAYE. 
+ 
+• Retrenchment, retirement or death: L ump sum amoun t paid due to retrenchment, 
+retirement, etc. r eflect on IRP5/IT3(a) certificate unde r cod e 3901. 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 17 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+11.2 HARDSHIP DUE TO ILLNESS OR OTHER CIRCUMSTANCES 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+Reason for directive 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Application form  
+ 
+Paragraph  11 of the Fourth Schedule  
+ 
+• The Commissioner may, having regard to the circumstances of the case, issue a 
+directive autho rising the employer to: 
+• Refrain from deducting any employees’ tax from the remuneration of an employee;  
+• Deduct a specified amount of employees’ tax from the remuneration of an employee;  
+• Deduct an amount of employees’ tax determined in accordance with a specified rate or 
+scale. 
+ 
+This type of directive is issued: 
+ 
+• In order to alleviate hardship to that employee due to circumstances outside the control 
+of the employee;  
+• To correct any error in regard to the calculation of employees’   tax; 
+• In case of remuneration constituting commission  (IRP3(b) application form) ; 
+• Where remuneration is paid to a personal service provider  (IRP3(b) application form) ; 
+ 
+• Either an IRP3(b) or IRP3(c) app lication form must be submitted in respect of the above. 
+ 
+11.3 TAXATION OF MULTIPLE SOURCES OF INCOME 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+Reason for directive 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph 2 (2B) of the Fourth Schedule  
+ 
+• Where the person or a taxpayer receives remuneration from more than one 
+employer  particularly  retirement income in a tax year, are often left with a tax debt 
+due to under payment of PAYE.  
+ 
+         This type of directive is issued:  
+ 
+• In order to alleviate the burden, the person that is a pension fund, pension 
+preservation fund, provident fund, provident preservation fund, retirement annuity 
+fund  when deducting or withholding employees’ tax in respect of any year of 
+assessment , apply the fixed tax rate that the commissioner directs must be used 
+in determining the amount of employees’ tax to be withheld where the person to 
+whom that annuity is paid receives an amount of remuneration from more than one 
+employer.   
+ 
+ 
+11.4 DIVIDENDS I.R.O EMPLOYEE-BASED SHARE SCHEMES 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph (g)  defin ition of “remuneration” of the Fourth Schedule  
+Section 10(1)(k)(i): provis o (dd), (ii), (jj)  and (kk) , section 31(3)(b)(i)  
+ 
+• Effective f rom 1 March 2017  (2018 year of assessment) , where any dividend is 
+received or accrued to a person by way of dividend contemplated in the following 
+provisos, these amounts must be included in remuneration and employees’ tax MUST 
+be deducted.   
+• Pre 1 March 2017 these amounts were only taxable on assessment.  From 
+1 March 2018 in terms of paragraph 11A(4) of the Fourth Schedule, the employer must 
+ascertain from the Commissioner the amount of employees’ tax to be deducted or 
+withheld . The updated tax directive application  
+ 
+Paragraph (dd) of the proviso to section 10(1)(k)(i)  
+ 
+• Dividends received or accrued i.r.o of services rendered or be rendered or i.r.o or by 
+virtue of employment or the holding of any office are taxable as ordinary revenue, 
+unless the: 
+ Dividend received i.ro. of restricted equity instrument as defined in s8C;  
+ Share is held by the employee , or 
+ Restricted equity instrument constitutes an interest in a trust.  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 18 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• Reflect under code 3719. Code 3769 MUST only be used for local dividends linked to 
+foreign services . 
+ 
+ 
+Paragraph (ii) of the proviso to section 10(1)(k)(i)  
+ 
+• Exemption in s10(1)(k)(i) will not apply to any dividend received by or accrued to a 
+person i.r.o. services rendered or to be rendered i.r.o. of or by virtue of employment or 
+the holding of any office, other than a dividend received or accrued i.r.o a restricted 
+equity instrument as defined in s8C held by that p erson or in respect of a share held by 
+that person.  
+• Reflect under code 3720. Code 3770 MUST only be used for local dividends linked to 
+foreign services . 
+ 
+Paragraph (jj) of the proviso to section 10(1)(k)(i)  
+ 
+• Dividends i.r.o.  of restricted equity instruments will not be exempt if the value of the 
+underlying shares is liquidated in full or in part by means of a distribution before the 
+restrictions on the shares are lifted.  
+• The exemption will NOT apply where the dividend is derived directly or indirectly from, 
+or constitutes:  
+ Amount transferred /applied by a company as consideration for the acquisition or 
+redemption of any share in that company;  
+ Amount received /accrued in anticipation of, or in course of winding up, liquidation, 
+deregistration or final termination of a company; or  
+ Equity instrument that is not a restricted equity instrument as defined in s8C, that will, 
+on vesting, be subject to that section .  
+• Reflect under code 3721. Code 3771 MUST only be used for local dividends linked to 
+foreign services.  
+ 
+Paragraph (kk) of the proviso to section 10(1)(k)(i)  
+ 
+• The exemption shall not apply to any amount received as dividend  as defined in section 
+8C that was acquired in circumstances contemplated in section 8C(1) if that dividend is 
+derived directly or indirectly from – 
+ An amount transferred or applied by a company as a consideration for the acquisition 
+or redemption of any share in that company;  
+ An amount received or accrued in anticipation or in the course of the winding up, 
+liquidation, deregistration or final termination of a company.  
+Note: paragraph (kk) came into operation on 1 March 2017. 
+• Reflect under code 3723. Code 3773 MUST only be used for local dividends linked to 
+foreign services.  
+ 
+ 
+12 GAINS MADE I.R.O. RIGHTS TO ACQUIRE MARKETABLE SECURITIES 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+Taxable portion 
+ 
+ 
+ 
+Application form 
+ 
+IRP5/IT3(a) details 
+Paragraph 11A of the Fourth Schedule  
+Section 8A  
+ 
+• The employer must app ly for an IRP3 tax directive in order to ascertain the amount of 
+employees’ tax to be dedu cted or withhe ld from any gain made by the exercise, cession 
+or release of any righ t to acquire any marketable security as con templated in section 
+8A which app lies if the righ t was obtained before 26 October 2004. 
+ 
+• A tax liability will arise on the day on which the right is exercised or otherwise dealt with 
+and will be calculated as the difference between the amount paid for the marketable 
+security and the market value at that date.  
+ 
+• IRP3(a) app lication form must be submitted in respect of the abov e. 
+ 
+• Reflect unde r cod e 3707 on the certificate. 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 19 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+12.1 BROAD-BASED EMPLOYEE SHARE PLAN 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exchange for other 
+qualifying equity share 
+ 
+ 
+ 
+ 
+ 
+Acquisition of equity 
+shares 
+ 
+ 
+ 
+Employees’ tax 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+Paragraph 11A of the Fourth Schedule  
+Section 8B  
+ 
+• Employees’ tax must be dedu cted from any amount received by or accrued to the 
+employee during the year from any gain made from the disposal of any quali fying equity 
+share or any righ t or interest in a qualifying equity share as con templated in section 8B, 
+which — 
+ Was acquired in terms of a broad -based employee share plan;  
+ Is disposed of by the employee within 5 years from the date of grant of that quali fying 
+equity share, otherwise than: 
+o In exchange for another qualifying equity share;  
+o On the death of the employee;  
+o On the insolvency of the employee . 
+ 
+• If an employee disposes of a quali fying equity share in exchange solely for any other 
+equity share, that other equity instrument in exchang e is deemed to be: 
+ A qualifying equity share which was acquired by the employee on the date of grant of the 
+qualifying equity share disposed of in exchange;  
+ Acquired for a consideration equal to any consideration given for the qualifying equity 
+share disposed of in exchange . 
+ 
+• If an employee acquires any equity share by virtue of any qualifying equity share held 
+by the employee, that other equity share so acquired is deemed to be a qualifying equity 
+share which was acquired on the date of grant of the qualifying equity share so held by 
+the employee. 
+ 
+• Employers must calculate the employees’ tax dedu ctible from any amoun t received by 
+or accrued to the employee during the year from any gain made from the disposal 
+of any quali fying equity share or any righ t or interest in a qualifying equity share, 
+in the same manne r as tax on an annual payment (bonu s). 
+ 
+• Reflect unde r cod e 3717 on the certificate.  
+ 
+ 
+12.2 VESTING OF EQUITY INSTRUMENTS 
+ 
+Reference to the Act 
+ 
+ 
+ 
+ 
+ 
+Reference to  
+Interpretation Note  
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph 11A of the Fourth Schedule  
+Paragraph 13(1)(a)(iiB) of the Eighth Schedule  
+Paragraph s 64C and 64E of the Eighth Schedule  
+Paragraph 80 (1) and 80(2A)  of the Eighth Schedule  
+Section 8C  
+ 
+Note: These provisions are on ly app licable to any equity instrument acquired on or after 26 
+October 2004. See Interpretation Note 55 .  
+ 
+• A gain  or loss must be included in or deducted from income for a year of assessment in 
+respect of vesting  of any equity instrument  during that year, which was acquired by that 
+taxpayer – 
+ Through his/her employment or holding of office by a director of any company or any 
+associated institution in relation to that company or from any person by arrangement with 
+the taxpayer’s employer or by any person employed or is a director of that company or 
+associated institution;  
+ By virtue of any restricted equity instrument held by that taxpayer in respect of which 
+section 8C will apply upon vesting.  
+• An amoun t (including any taxable benefits) received by or accrued to an employee 
+unde r a share incentive scheme ope rated for benefit of employees which was derived: 
+ Capital distributions that include further restricted equity instruments are treated as non-
+events, and the new restricted equity instrument is subject to section 8C. (became 
+effective in respect of any capital distribution or dividends received or accrued on or after 
+1 January 2011); 
+ An employer’s involvement in swaps of equity instruments is no longer a pre-requisite for 
+rollover treatment. As long as the new instrument is treated as a restricted equity 
+instrument by the employer or associated institution, the new instrument will be s ubject 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 20 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exclusions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Disposal 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gain 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Loss 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax 
+ 
+ 
+ 
+ 
+ 
+ 
+to the provisions of section 8C and the swap is a non -event. (applies to acquisitions 
+occurring on or after 1 January 2011 ); 
+ An anti -avoidance provision was included to guard against situations where co -
+employees and directors collude to avoid the deferment of taxation that section 8C 
+achieves. With effect from 1 January 2011, rollover treatment will apply to equity 
+instruments acquired from employees or directors of same employer.  
+• Any amount received by or accrued to a taxpayer during year of assessment relating 
+to a restricted equity instrument must be included in taxpayer’s income, if that amount 
+does not constitute:  
+ A return of capital or foreign return of capital by way of distribution of a restricted equity 
+instrument; or  
+ A dividend or foreign dividend in respect of that equity instrument; or  
+ Any amount that must be taken into account for purposes of calculating a gain or loss for 
+purposes of section 8C . 
+ 
+• Any equity instrument which was previously taxed and subsequently acquired by the 
+exercise or conversion of, or in exchange for the disposal of any other equity instrument is 
+excluded.  
+• Any capital gain arising from the disposal of an asset by a trust and a trust beneficiary  
+(employee)  has a vested right to an amount derived from th at capital gain, th e trust must 
+exclude any amount which is already been included in the income of the  trust beneficiary 
+in terms of section 8 C. This exclusion is deemed to have come into operation with effect 
+from 1 March 2017.   
+• This section in effect, exempts from tax the benefit that is commonly called the stop loss 
+benefit that can accrue in terms of share incentive schemes.  
+ 
+• An equity instrument acquired is deemed to vest in the case of : 
+ An unrestricted equity instrument, when the employee acquires it.  
+ A restricted equity instrument, at the earliest of: 
+o When all relevant restrictions cease;  
+o Immediately  
+▪ Before employee disposes of it (except for disposals discussed hereunder);  
+▪ After it terminates (if it is an option);  
+▪ Before employee dies if all restrictions relating to that equity instrument are or 
+may be lifted on or after death;  
+o At the time of disposal where the equity instrument is disposed  of for an amount 
+less than the market value or where disposal by way of release, abandonment  or 
+lapse of an option or financial instrument occurs.  
+ 
+• The gain to be included in the income of the taxpayer , in the case of : 
+ A disposal, the amount received or accrued in respect of that disposal which exceeds 
+the sum of any consideration in respect of that equity instrument;  
+ Any other, the sum of: 
+• Amount by which the market value of the equity instrument determined at the time that 
+it vests in that employee exceeds the sum of any consideration in respect of that equity 
+instrument;  
+ Excess  amount (if any) which exceeds the consideration in respect of the restricted 
+equity instrument where the consideration includes an amount  other than restricted 
+equity instruments . 
+  
+• In the case of a disposal  - the amount by which the sum of any consideration in respect 
+of that equity instrument exceeds that amount received or accrued in respect of that 
+disposal;  
+• In any other case  - the amount by which the consideration in respect of the equity 
+instrument exceeds the market value of that equity instrument determined at that time 
+that it vests in that taxpayer . 
+ 
+• Where the taxpayer (employee or director) disposes an acquired restricted equity 
+instrument to any person by either a non -arm’s length disposal or the disposal to a 
+connected person this will not be regarded as vesting of the equity instrument and will 
+not attract a taxable gain or loss. The vesting event (i.e. a gain or loss) will continue to 
+remain in the hands of the employee/director.  
+• The time of disposal of an equity instrument is the time that the equity instrument vests 
+in the beneficiary as contemplated in section 8C.  
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 21 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+Capital gains 
+implications  
+ 
+ 
+ 
+ 
+No value 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Application form  
+ 
+IRP5/IT3(a) details 
+• Any capital gain or loss must be disregarded in respect of any restricted equity 
+instrument where:  
+ Restricted equity instrument is replaced with another restricted equity instrument; or  
+ Taxpayer disposes the restricted equity instrument to any person by a non -arm’s 
+length disposal or a disposal to a connected person.  
+ 
+• Where a capital gain/loss is determined in respect of the vesting by a trust of an asset 
+for a resident trust beneficiary, the gain/loss must be disregarded in the trust and must 
+be taken into account in the hands of the beneficiary.  
+• When the equity instrument vests in the taxpayer , the gain will be subject  to the 
+dedu ction of employees’ tax. The full gain must be shown on the IRP5  certificate . 
+Th e employer must app ly for an IRP3 tax directive in order to ascertain the amoun t of 
+employees’ tax to be dedu cted or withheld from any gain in respect of the vesting of any 
+equity instrument as defined in section 8C. 
+ 
+• An IRP3(a) app lication form must be submitted in respect of the above.  
+ 
+• Reflect under code 3718 on the certificate.  
+ 
+ 
+ 
+12.3 ARBITRATION AWARDS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+Classification 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Application form 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+Paragraph s (c), (d) and (f) of the definition of gross income in section 1  
+Paragraph 9(3) of the Fourth Schedule  
+ 
+• Awards (e.g. CCMA and labour court awards) are remuneration as defined if it can be 
+established that the award is actually in respect of services rende red. 
+ 
+• Unfair dismissals 
+ Amounts awarded in respect of unfair dismissals are remuneration as defined in the 
+Fourth Schedule and are therefore subject to deduction of Employees’ Tax.  
+ Such amounts are received or accrued in respect of the relinquishment, termination , 
+loss, repudiation , cancellation or variation of any office or employment or of any 
+appo intment to any office or employment. 
+• Termination of employment contract prior to its expiry date 
+ Amounts awarded in respect of termination of an employment contract prior to its 
+expiry date are remuneration as defined in the Fourth Schedule and are therefore 
+subject to the deduction of Employees’ Tax.  
+ Such amounts are received or accrued in commutation of amounts due under a 
+contract  of employment or service or in respect of cancellation or variation of any office 
+or employment 
+• Unfair labour practices 
+ Amounts paid or accrued as a result of  unfair labour practice, may be included in 
+remuneration as defined.  
+ SARS will examine the facts of the case and the nature of amoun ts awarded when 
+the app lication for a tax directive is received from the employer. 
+ 
+• An employer must app ly for a tax directive to determine the amoun t of employees’ 
+tax to be dedu cted in respect of the amoun t payable to an employee or former employee 
+as a result of any arbitration award.  
+• The reason “other” must be used on the directive application  and the amount must be 
+entered in the “Arbitration / CCMA Award” amount field .  
+Note: The source code reflected on the tax directive must be used on the IRP5  
+certificate  to avoid the rejection of the employees ’ return.  
+ 
+• The relevant taxable and no n-taxable po rtions of an arbitration award reflect on 
+certificate unde r: 
+ Code 3608 (taxable amount); and  
+ Code 3602 (non -taxable amount ). 
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 22 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+12.4 LUMP SUM BENEFIT PAYMENTS  
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+Application form 
+ 
+ 
+ 
+Lump sum payments in 
+respect of withdrawal  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Second Schedule to the Income Tax Act  
+ 
+• The provisions of Paragraph s 2(1) and 9(3) of the Fourth  Schedule prescribe that 
+trustees or fund administrators must app ly for a tax directive at SARS before a lump sum 
+benefit from a pen sion, pen sion preserv ation, provident, provident preservation or 
+retirement ann uity fund may be paid. 
+ 
+• The relevant app lication forms A and D, B, C or E are furnished by the administrators 
+of the relevant fund s in accordance with the instructions contained in the Government 
+Gazette No. 22577 (no tice no . 1893) dated 24 August 2001. 
+ 
+• In respect of withd rawal (e.g. resigna tion, transfer, future surpluses, divorce, housing 
+loan payments, emigration withd rawal, Visa expiry or discon tinued con tribution s): 
+• Lump sum payments with a date of accrual prior to 1 March 2009: 
+ From a Pension, Pension preservation or RAF must  reflect under code 3902 on the 
+certificate;  
+ From a Provident or Provident preservation fund must be reflected under code 3904 on 
+the certificate;  
+ Due to surplus apportionments after 1 January 2006 and NOT paid in terms of section 
+15B of the Pension Funds Act of 1956 must be reflected  under code 3902 or 3904 
+(according to the fund type) on certificate;  
+ Due to a court order in respect of a divorce or housing loan must be reflected under code 
+3902 or 3904 (according to the fund type) on certificate.  
+ 
+• Lump sum payments with a date of accrual after 1 March 2009: 
+ Withdrawals from a Pension, Pension preservation, Provident, Provident preservation or 
+RAF must be reflected  under code 3920 on certificate except for paragraph (eA ) of the 
+definition of gross income in section 1;  
+ Future surplus paid in terms of section 15C of the Pension Funds Act of 1956 reflect 
+under code 3921 on the certificate;  
+ Due to a court order in respect of a divorce orders, reflect under code 3920 on certificate; 
+ Due to a withdrawal after retirement from a living annuity in terms of paragraph (c) of the 
+definition of living annuity, where the value of the assets become less than the amount 
+prescribed by the Minister in the Gazette, reflect under code 3921 on certificate .  
+ With effect from 1 March 2011, the retirement lump sum rate of tax is applicable to the 
+commutation of a living annuity and source code 3915 with the tax code 4115 must be 
+used on the certificate . 
+• Lump sum payments prior to 1 October 2007 from a: 
+ Pension or RAF reflect under code 3903  
+ Provident Fund reflect under code 3905  
+• Lump sum payments after 1  October 2007 from a P ension , Pension preservation, 
+Providen t, Providen t preserv ation or RAF reflect unde r cod e 3915  
+• Lump sum payments by unapproved fund s reflect unde r cod e 3907  
+• Unclaimed benefits with date of accrual  prior to 1 March 2009 and in terms of the 
+provisions of Interpretation Note 99 reflect unde r cod e 3909. This code is applicable from 
+2007 to 2009 years of assessment.  
+• Retirement lump sum benefits paid according to paragraph (eA) of the definition of 
+gross income in section 1 reflect unde r cod e 3614. These types of benefits include: 
+ A member of a public sector fund who transfer from a Pension Fund to a Provident Fund 
+while the member remains effectively in the employment of the same employer;  
+ Any amount which has become payable to the member of a public sector fund or is being 
+utilised to redeem a debt while remain ing effectively in employment of same employer.  
+• Lump sum payments accruing after 28 February 2009 from a Pension or Provident 
+Fund in respect of termination of services per subpar. 2(1)(a)((ii)(AA) or (BB) of Second 
+Schedu le to Income Tax Act (e.g. retrenchment) reflect unde r cod e 3915. 
+• Lump Sum payments due to retrenchment accruing before 1 March 2009 must  be dealt 
+with as withdrawal benefit and average rate in terms of section 5(10) of the Income Tax 
+Act is applicable.  
+ Either source code 3902 or 3904 must be used.  
+• The tax po rtion according to the relevant tax directive must be reflected  under : 
+ Code 4102 if the lump sum payment reflect s under code 3902, 3903, 3904, 3905, 3907, 
+3908, 3909 or 3614; 
+ Code 4115 if the lump sum payment reflect s under code 3915, 3920 , 3921, 3922, 3923 
+(to 2024 year of assessment)  and 3924. 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 23 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+12.5 LUMP SUMS BY EMPLOYERS – SEVERANCE BENEFITS 
+ 
+Reference to the Act 
+ 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exclusion 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Leave payment  
+ 
+ 
+ 
+Application form 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Definition of “ Severance benefit” in section 1 
+Definition of “ Gross income” in section 1 
+Paragraph 9(3) of the Fourth Sc hed ule 
+ 
+• Severance benefit means any amoun t (other than a  lump sum benefit or an amoun t 
+con templated in paragraph (d) (ii) or (iii) of definition of gross income) received by or 
+accrued to a person by way of lump sum from or by arrange ment with person’s employer 
+or an associated institution in relation to that employer in respect of relinqu ishment, 
+termination , loss, repud iation, cancellation or variation of person’s office or employment 
+or of person’s appo intment (or righ t or claim to be appo inted) to any office or 
+employment, if such :  
+ Person has attained the age of 55 years;  
+ Relinquishment, termination, loss, repudiation, cancellation or variation is due to the 
+person becoming permanently incapable of holding the person’s office or employment 
+due to sickness, accident, injury or incapacity through infirmity of mind or body;  
+ Termination or loss is due to: 
+o Person’s employer having ceased to carry on or intending to cease carrying on the trade 
+in respect of which the person was employed or appointed;  
+o Person having become redundant in consequence of a general reduction in personnel 
+or a reduction in personnel of a particular class by the person’s employer, unless, where 
+the person’s employer is a company, the person at any time held ; 
+o More than five per cent of the issued share capital ; or 
+o Members’ interest in the company.  
+• Provided  that any such amoun t which becomes payable in con sequence of or following 
+upo n the death of a person must be deemed to be an amoun t which accrued to such 
+person immediately prior to his or her death.  
+ 
+• Any amount paid/payable due to services rendered should not be included in the 
+severance benefit amount on the tax directive application form,  
+ For an example amounts in terms of paragraph (c) or (f) of gross income or bonuses 
+or pro -rata bonus.    
+• ‘Notice pay’ should also be excluded from the ‘severance benefit’ amount on the tax 
+directive application form.   
+• The amount must be included as normal income on the IRP5 certificate.  
+ 
+• Please no te that leave pay is a payment in respect of services rende red and does 
+no t form part of a severance benefit. The no rmal bonu s calculation should be used to 
+calculate the tax. The leave payment amount should not be included on the directive 
+since it must be included in the normal income . 
+ 
+• An IRP3(a) application form must be submitted in respect of the above.  
+• Paragraph 9(3) of the Fourth Schedule prescribes that the employer must submit a 
+directive application before paying out a lump sum to the employee.  
+• The severance benefit reasons (e.g. severance benefits – retrenchment, severance 
+benefits – death, etc.) must be used.  
+ 
+• The severance benefit rates will be applicable where the employer uses the severance 
+benefit reasons on the IRP3(a) directive application form and source code 3901 must 
+be used on the IRP5/IT3(a) certificate.  
+• The full amoun t reflect unde r cod e 3901 and the tax unde r cod e 4115 on the IRP5 
+certificate . If IT3(a) certificate  is issued, reason code 04 must be used.  
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 24 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+12.6 LUMP SUM COMPENSATION FOR OCCUPATIONAL DEATH 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Application form 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+Exemption 
+ 
+ 
+ 
+Section 10(1)(gB)(iii) 
+ 
+• Lump sum payments accruing after 1  March  2011 from a compen sation fund in 
+respect of lump sum compen sation paid by the employer as a direct result of an 
+occupationa l death of an employee.  
+• These payments must be in terms of the Compen sation for Occupational Injuries and 
+Diseases Act, 1993 and within the requirements of Section 10(1)(gB)(iii) of the Income 
+Tax Act, as amended . 
+• Provided that any such amoun t which becomes payable in con sequence of or following 
+upo n the death of a person must be deemed to be an amoun t which accrued to such 
+person immediately prior to his/her death. 
+ 
+• An IRP3(a) appl ication form must be submitted in respect of the above. 
+ 
+• The tax po rtion according to the relev ant tax directive reflect as follows: 
+ Unde r cod e 4115 if the lump sum payment reflects unde r cod e 3922 on the 
+IRP5/IT3(a) with effect from 2012 year of assessment. 
+ 
+• The death lump sum benefit will be exempt if: 
+ The death benefit is paid in terms of the Compensation for Occupational Injuries 
+and Diseases Act;  
+ The employer must pay this amount;  
+ A maximum amount of R300 000 will be exempt . 
+ 
+ 
+12.7 EMPLOYER-OWNED INSURANCE POLICIES  
+ 
+Reference to the Act 
+ 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+ 
+Paragraphs 2(e), 2(k) and 12C of the Seventh Schedule  
+Paragraph 2(4) of the Fourth Schedule  
+Sections 10(1)(gH) and 10(1)(gI)  
+ 
+• Employers  enter into insurance policies arrangements for the benefit of employees or 
+directors, or for their dependan ts and no minees.  
+ These policies make payment upon the death, disability or severe illness of an 
+employee of such employer.  
+ Employer incurs premiums in respect of a policy of insurance that relates to the 
+death, disability or severe illness of employees for direct or indirect benefit of those 
+employees.  
+ Employers are entitled to a premium deduction in respect of such policy.  
+ However the payment of these insurance premiums shall give rise to a simultaneous  
+fringe  benefit inclusion for employees. 
+• Where  the employer is the named beneficiary and has an arrange ment 
+with  employee  to  pay  over  the  proceeds  to  the  employees,  the  tax treatment should 
+be the same as for payments made directly by the insurer to the employee.  
+ The fring e benefit will arise on a mon thly basis in respect of employer- owned 
+insurance po licies for the direct and indirect benefit of employees. 
+• Lump sum payments accruing o n  o r  after 1  March  2012 in r espect of policy of 
+insurance  are exempt from income tax in terms of section 10(1)(gH) – 
+ If the policy relates to death, disablement or severe illness of an employee or director, or 
+former employee or director of the person that is a policy holder; and 
+ No amount of premiums payable for that policy  was tax deductible  with effect from 1 
+March 2012 from the income of the policy holder (employer).  
+• Section  10(1)(gI) exempts any lump sum payment received or accrued in respect of policy  
+of insurance  relating to death, disablement, illness or unemployment of the person who is a 
+policy holder  or an employee of a policy holder  in respect of that policy  of insurance to an 
+extent that the benefits from that policy are paid as a result of death, disablement, illness or 
+unemployment,  with effect from 1 March 2015.  
+ 
+• Taxable fringe benefit reflects  under income source code 3801 on IRP5/IT3(a) certificate.  
+• Lump  sum  proceeds  in  respect  of  the  employer -owned  insurance policies must be 
+reflected  under the income source code 3908 on the IRP5/IT3(a) certificate where the 
+premiums w ere included as a fringe benefit and the lump sum   is not taxable.  
+• Lump sum proceeds in respect of employer -owned insurance policies that should be 
+taxable must be reflected  under income source code 3907 on the IRP5/IT3(a) certificate.  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 25 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+Application form 
+ 
+• An employer is required to apply for a tax directive where any lump sum amount in respect 
+of the employer -owned policy proceeds is payable to an employee.   
+ 
+ 
+13 CLASSIFICATION OF EMPLOYEES  
+ 
+13.1 LABOUR BROKER 
+ 
+Reference to the Act 
+ 
+ 
+ 
+Meaning 
+ 
+ 
+Client 
+ 
+ 
+ 
+ 
+ 
+ 
+Labour broker 
+ 
+ 
+ 
+ 
+ 
+Workers 
+ 
+ 
+ 
+ 
+ 
+ 
+Exemption certificate 
+(IRP30) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Labour broker and employee definition in Paragraph 1 of the  Fourth Schedule  
+Paragraph 2(5) of the Fourth Schedule  
+Paragraph (cA) of the definition of gross income in Section 1  
+ 
+• The provision or procurement of workers as opp osed to the provision of service is of 
+impo rtance.  
+ 
+• Typically, a labour broker arrangement will involve three parties, namely the client, the 
+labour broker and the worker(s). 
+• The person who specifies the workers required.  
+ A written or oral service con tract would arise between the client and the labour 
+broker where the service condi tions of the workers may or may no t be stipulated.  
+ Payments for the workers' services are made to the labour broker 
+ 
+• The labour broker is a natural person wh o, for reward, provides and remunerates workers 
+for a client and is either in or no t in po ssessi on of an exemption certificate (IRP30).  
+ The labour broker either makes available his/her own employees to perform work for 
+a client or procures workers for a client.  
+ The labour broker pays the workers. 
+ 
+• These workers can be any person, including 
+ Members and/or employees of a close corporation;  
+ Directors and/or employees of a company;  
+ Trustees and/or employees of a trading trust;  
+ Proprietors and/or employees of a business ; 
+ Partners and/or employees of a partnership . 
+ 
+• Fourth Schedule makes provision for an exemption certificate to  be issued by SARS to 
+a labour broker, which will absolve employers from having to deduct Employees’ tax 
+from any payments made to such labour brokers.  
+ 
+• SARS shall not issue an exemption certificate if more than 80% of the gross income of 
+labour broker during the tax year consists of amounts received from any one client, 
+unless labour broker employs three or more full -time employees throughout tax year : 
+ Who are not connected persons in relation to that labour broker, or  
+ Who are on a full -time basis engaged in the business of that labour broker of providing 
+persons to or procuring persons for clients of that labour broker  
+ The labour broker provides to any of its clients the services of any other labor broker; or 
+ The labour broker is contractually obliged to provide a specified employee of the labour 
+broker to render any service to such client  
+• An exemption certificate is only valid from the date of issue until the end of the tax year.  
+• The labour broker must apply annually on an IRP30(a) form for a new exemption 
+certificate at a SARS branch at least two months before the expiring of his/her current 
+exemption certificate.  
+• If the issue of an exemption certificate is delayed for longer than a calendar month, the 
+date of validity will be altered from the date of issue to the date the application was 
+received.  
+ In such cases any employees’ tax deducted  is refundable by the relevant employer.  
+• An exemption certificate will only be valid if it: 
+ Is not outdated;  
+ Bears a labour broker reference number beginning with a 7;  
+ Has been computer printed;  
+ The labour broker is in possession of the original; and  
+ Has not been altered in any way.  
+• If a labour broker is in po ssession of a valid exemption certificate and unde rgoes 
+a change of name, the original certificate must be returned to the relevant SARS 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 26 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+        
+               
+Employees’ tax 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+branch toge ther with an appl ication for a new certificate, which indicates the changed 
+particulars. 
+• If an exemption certificate has been lost or misplaced, application for a replacement 
+certificate must be made to SARS Head Office and the replacement certificate will only 
+be issued during the period of validity of the original certificate.  
+• If a labour broker is not in possession of  a valid exemption certificate (IRP30), all 
+payments made to the labour broker will be subject to employees’ tax . 
+ 
+ 
+• An employer who do es not dedu ct employees’ tax from a payment to a labour broker 
+must be in possession of a certified  copy of an exemption certificate (IRP30) that must 
+be retained for inspection purpo ses. 
+• The dedu ction is classified in the following catego ries: 
+ Labour broker with exemption certificate - no employees’ tax must be deducted;  
+ Labour broker without an exemption certificate - employees’ tax must be deducted 
+according to the applicable deduction tables;  
+ Labour broker with a tax directive - employees’ tax must be deducted according to the 
+instructions on the tax directive  
+• The employees’ tax dedu cted for a labour broker whether calculated according to the 
+dedu ction tables or a tax directive must be reflected as PAYE. 
+ 
+• The remuneration reflect unde r cod e 3619 on the IRP5/IT3(a) certificate  in the case of a 
+labour broker with exemption certi ficate. 
+• The remuneration reflect unde r cod e 3617 on the IRP5/IT3(a) certificate  in the case of a 
+labour broker without exemption certi ficate. 
+• The reason code for non-deduction of employees’ tax (where app licable) reflect as 07 
+on the IRP5/IT3(a) certificate.  
+ 
+ 
+13.2 INDEPENDENT CONTRACTOR 
+ 
+Reference to the Act  
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Deemed independent 
+contractor 
+ 
+ 
+ 
+Exceptions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Income earned by an independent contractor is specifically excluded from the definition of 
+remuneration in Paragraph 1 of the Fourth Schedule  
+ 
+• In distinguishing between an employee and an independent contractor / trader on e must 
+commence with an analysis of the employment con tract.  
+• The object of the con tract (or the parties' righ ts and obligations under the contract) 
+must be established . 
+ The object of the con tract is no t a mere indicator, but determines the legal nature of 
+the con tract.  
+ The object to be established is the pre-eminen t object, for example, if the object is the 
+surrende r of productive capacity (whether capacity to provide a service or to produce 
+thing s), then the con tract is for employment of an employee.  
+ The essence of an employee’s con tract (con tract of service) is the placing of one 
+person’s services (labour) at the disposal of ano ther, enabling the acquisition of that 
+service itself and no t simply the fruits of that produ ctive capacity. 
+• If the object is the acquisition of the result of dep loyed produ ctive capacity (of a 
+produ ced thing or of a provided service), then the con tract is for the employment of an 
+independen t contractor. The essence of an independen t con tractor’s con tract (contract 
+for services or work) is that the independen t contractor only commits himself/herself to 
+deliver the produ ct or end result of that capacity. 
+ 
+• The person will be deemed to be an independen t con tractor if he/she throughout 
+the year of assessment employs three or more employees (other than any employee 
+who is a con nected person in relation to such person) who are on a full-time basis 
+engage in the business of persons rendering any such service and providing that 
+neither of the above two proviso’s under exception s are app licable 
+ 
+• The Fourth Schedule  prescribes that the independ ent contractor’s income will be 
+deemed to be remuneration and will therefore be subject to Employees’ Tax, if — 
+ The services are required to be performed mainly at the premises of the person by whom  
+the remuneration is paid/payable or of the person to whom such services were or are to 
+be rendered;  
+ The person who renders or will render the service is subject to the control and 
+supervision of any other person as to the manner in which his/her  duties are performed 
+or to be performed or as to his/her hours of work  
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 27 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+Important 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax  
+ 
+ 
+IRP5/IT3(a) details  
+ 
+• The employer, being a party to the employment con tract, is in the best po sition to 
+determine whether or no t the employee is an independ ent con tractor. SARS has 
+therefore provided certain guide lines in order to assist the employer with this 
+respo nsibility. 
+• These guidelines are av ailable in Interpretation Note 17 and can be obtained on the 
+SARS website www.sars.go v.za. 
+ 
+• The employees’ tax dedu cted for an independent contractor  whether c alculated 
+according to the dedu ction tables or a tax directive must be reflected  as PAYE. 
+ 
+• Reflect unde r cod e 3616 on the IRP5/IT3(a) certificate.  
+13.3 DIRECTORS OF PRIVATE COMPANIES/MEMBERS OF CLOSE CORPORATIONS 
+ 
+Reference to the Act 
+ 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Right of recovery 
+ 
+ 
+ 
+ 
+ 
+ 
+Director status changes 
+to employee 
+ 
+ 
+ 
+Director appointed 
+during tax year 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+Non - Executive Director 
+(NED) 
+ 
+ 
+ 
+Employee definition in Paragraph 1 of the Fourth Schedule  
+Paragraph 2(1) of the Fourth Schedule ,  Section 7B  
+Definition of a company in Section 1  
+ 
+• The definition of employee includes a director of a private company.  
+ Any remuneration paid or payable to a director of a private company or a member of 
+a close corporation is therefore subject to the deduction of Employees’ Tax from 1 
+March 2002. 
+• The definition of a company includes a close corporation and therefore, the same rules 
+for the deduction of employees’ tax from the remuneration of directors of private 
+companies apply to members of close corporations.  
+This  definition includes a person who, in respect of a close corporation, holds any office 
+or performs any functions similar to the functions of a director of a company other than a 
+close corporation . 
+• Effective from 01 March 2017, any variable remuneration  received by a director  will 
+accrue on the date on which it is paid  to the director.  
+ 
+• The employer has the right to recover the PAYE on the deemed remuneration paid by 
+the compan y from the director. This recovery may, in add ition to any other righ t of 
+recovery, be recovered from any amoun t which is or may become payable by the 
+compan y to the director. The director is no t entitled to receive anIRP5/IT3(a) in respect 
+of the amoun t of employees’ tax paid by the company on the deemed remuneration if 
+the company has no t recovered the employees’ tax from the director. 
+ 
+• Where  the person ceases to be a director but remains an employee of the company, 
+section 7B  wi l l  no longer be used and PAYE must be deducted from remuneration that 
+is actually paid or is payable to the employee. Only on e IRP5/IT3(a) needs to be issued 
+for the year. 
+ 
+• Where  a person is appo inted as a director of a private compan y during the tax year and 
+the director was no t previously an employee of that company, PAYE will be payable on 
+the actual r emuneration which is paid or i s payable to the director during that tax 
+year. 
+• The remuneration shown must be the amount of actual remuneration which is paid / 
+payable to the director for the tax year.  
+• The amount of PAYE will be the sum of the PAYE that was deducted from the actual 
+remuneration of the director and the PAYE paid by the company in respect of the deemed 
+remuneration of that director.  
+ 
+• Salaries paid to directors reflect under code 3615 (only applicable from 2003 to 2018 years 
+of assessment) and all other components of the remuneration (bonus, allowance, benefits, 
+etc.) must be reflected against the existing codes.  Code 3601 must be used from 2019 
+year of assessment.  
+ 
+• The director ’s fees received by a resident NED are not regarded as remuneration and 
+the employer is not obligated to deduct/withhold employees’ tax. The director can request 
+a voluntary deduction of employees’ tax.  
+ If the voluntary deduction is requested, then this income must reflect unde r cod e 3620 
+on the IRP5/IT3(a) certificate . 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 28 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+• Should  the resident NED choose not to voluntary pay employees’ tax (PAYE), the 
+employer should not deduct tax and not issue an IRP5/ IT3 (a) certificate.   
+• Where the NED is a non-resident, the directors’ fee received is regarded as 
+remuneration and the employer must deduct employees’ tax on the amount of directors’ 
+fees payable  
+ The remuneration must reflect unde r cod e 3621 on the IRP5/IT3(a) certificate.  
+ 
+13.4 STANDARD EMPLOYMENT 
+ 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+Deemed Standard 
+Employment 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Non-standard 
+employment 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraph s 1 and 9(1) of the Fourth Sc hedu le  
+ 
+• Any employment where an employee (including a scholar or student), is required to render 
+services to a single employer for a period of at least 22 hours in every full week provided that: 
+ Periods of temporary absence of an employee is due to leave or exceptional circumstances; 
+or 
+ Temporary reduction in working hours is due to a reduction in the demand of the company‘s 
+product where the employer imposes a temporary working week of less than 22 hours.  
+ 
+• Where  an employee does not fall within the definition of standard employment,  an employee 
+will be deemed to be in standard employment if  the employee:  
+ Is required to work for less than 22 hours a week and the employee furnishes a written 
+declaration/affidavit to the employer that he/she will not render services to any other 
+employer, during the period of such employment;  
+o Is required to work for at least 5 hours per day and is paid remuneration of less than 
+R383 per day. 
+• Where the employer conducts business in such a manner that employees render 
+services on a regular or frequent basis for such periods as may be required by the 
+employer, the Commissioner may, after consultation with the employer , anybody or 
+association on which the employer is represented, direct that the employment of such 
+employees shall be standard employment.   
+• The Commissioner may further instruct the employer as to which manner the 
+Employees‘ tax  must be deducted.  
+ 
+• Any employment which cannot be classified under Standard or Deemed Standard 
+employment.  
+• Workers  are employed on a daily basis and are paid daily, for example:  
+ Casual commissions paid, such as spotter‘s fees;  
+ Casual payments to casual workers for irregular services rendered or occasional services; 
+ Fees paid to part -time lecturers;  
+ Honoraria paid to office bearers of organisations, clubs, etc.  
+Note: The list is not exhaustive.  
+ 
+• Standard Employment income   
+ The weekly, fortnightly and monthly tables , as published each year after the Budget 
+Speech must be used to determine the amount of employees’ tax to be withheld  from 
+the balance of remuneration for each pay period . The annual table must be used at 
+the end of the tax period or year of assessment to determine the final amount of 
+employees’ tax payable for the full year or period of assessment ,.  
+  
+• Non-standard employment income  
+ The Commissioner prescribes tax deduction tables for such classes of employees as 
+the Commissioner may determine and also prescribe the manner in which they may 
+be applied.  
+ Employees‘  tax must be calculated and deducted  at 25% on the balance of 
+remuneration.  
+ 
+• Tax Directive  
+ Where the employer is in possession of a tax directive in respect of an employee who 
+is in non -standard employment, employees’ tax must be deducted in accordance with 
+the directive.  
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 29 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+Summary  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+Scenario  Employees’ tax  
+ 
+Employee  is required to work at least 22 hours a week (standar d 
+employment) and earns remuneration which exceed s the annual tax 
+threshold ( R95 750  if less than 65 years old  / R148 217 if 65 year s or 
+older /R165 689  if 75 years or older )   
+Use tax deduction tables  
+ 
+Employee is required to work at least 22 hours a week (standar d 
+employment) and earns remuneration which does not exceed the 
+annual tax threshold (R95 750 if less than  65 years old / R148 217  if 65 
+years or older / R165 689  if 75 years or older)     
+No employees’ tax to be 
+deducted  
+Employee is in non -standard employment , required to work at least 5 
+hours per day and earns less than  R383 for that  day 
+No employees’ tax to be 
+deducted  
+Employee is in non -standard employment, required to work at least 5 
+hours per day and earns more than R 383 for that day  
+25% deduction  
+Employee is in non -standard employment,  required to work less than 5 
+hours per day and earns less than R383 for that day  
+25% deduction  
+ 
+• Employees’ tax deducted reflect under code 4102 .  
+ 
+ 
+13.5 SEASONAL WORKERS 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+Employee definition in Paragraph 1 of the Fourth Sc hedu le 
+ 
+• A seasona l worker is a person who is only employed during a peak period for a specific 
+period , for example: 
+ Persons employed on a fruit farm during the picking season to pick and pack fruit;  
+ Persons employed on a sheep farm to assist with either the lambing or shearing;  
+ Factories that require additional help during the canning season.  
+• A tax period commences at the date employee was employed and end s on date 
+his/her employment was terminated. 
+ 
+• If the season extend s over the following tax year, the employer must issue two 
+IRP5/IT3(a) in respect of the two tax period s. For example -  
+ Employee will have two periods where a season extends from  15 November to 20 May, 
+namely  15 November to 28 February (1st   tax year) and 1 March to 20 May (2nd  tax year). 
+Two IRP5/IT3(a)s must be issued for the two periods as the employee has two tax periods 
+in one  service period . 
+ 
+ 
+13.6 EMPLOYEES BETWEEN 65 AND 74 YEARS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+Section 6(2)(b)  
+Paragraph 2(4) of the Fourth Schedule  
+ 
+• Employees’ tax deductions for persons between the ages of 65 and 74 y ears must be 
+made according to tables from the beginning of the tax period (e.g. 1 March) during 
+which the employee turns 65 and no t as from the mon th the qualifying age between the 
+ages of 65 and 74 years is attained . 
+ 
+ 
+13.7 EMPLOYEES 75 YEARS OR OLDER 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+Section  6(2)(c’) 
+Paragraph 2(4) of the Fourth Schedule  
+ 
+• Employees’ t ax dedu ctions for persons 75 years or older must be made according to 
+the tables from the beginn ing of tax period (e.g. 1 march) during which employee turns 
+75 and no t as from the mon th quali fying age of 75 is attained . 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 30 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+13.8 COMMISSION AGENTS 
+ 
+Employee works for 
+commission only  
+ 
+ 
+Employee works for 
+salary and 
+commission  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Application form 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+Example 
+ 
+ 
+• If the employee is in po ssession of a tax directive, the employer MUST dedu ct 
+employees’ tax  according to the instructions on the tax directive and the employees’ 
+tax dedu cted reflect as PAYE on the IRP5/IT3(a). 
+ 
+• If the employee is in po ssession of a tax directive, the employer MUST dedu ct 
+employees’ tax  according to the instructions on the tax directive and the employees’ 
+tax dedu cted reflect as PAYE on the IRP5/IT3(a). 
+ 
+• If the employee is not in possession of a tax directive, the employer MUST combine 
+the salary and commission and deduct employees’ tax according to the applicable 
+tax deduction tables and a PAYE calculation must be done at the end of the tax year 
+or tax peri od.  Under  no circumstances may 25% or any other percentage for that 
+matter, be deducted from remuneration, unless the tax directive so directs.  
+ 
+• An employee earning commission may only apply for a tax directive where his/her 
+remuneration consists mainly in the form of commission based on the employee’s  
+sales or turnover attributable to him/her.  
+ 
+• Commission income reflect under code 3606 and the salary income under code 
+3601. 
+ 
+• Employees’ tax on quarterly commission: An employee (under 65) received a 
+monthly salary and according to the results he also received commission every three 
+months. Remuneration and employees’ tax details are as follows : 
+ 
+ 
+Month Salary Commission Employees’ tax  
+April R17 185   R1 651  
+May R17 185   R1 651  
+June R17 185  R13 500 To be calculated  
+ 
+ 
+Divide the quarterly commission by the months in which  
+it was earned (R 13 500  ÷ 3)  
+ 4 500  
+Add: salary for June  17 185   
+ 21 685   
+Tax on R21 685  (salary and commission) according to the 
+monthly tables  
+ 
+2 62 4 
+ 
+Less: Tax on R 17 185 (monthly salary)  1 65 1 1 65 1 
+Tax on commission for one month    973  
+  
+ 
+ 
+Multiply tax on commission for one month with the months in which it was 
+earned ( R973 x 3) 
+ 2 919 
+Employees’ tax deductible for  June  R4 5 70 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 31 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+14 CLASSIFICATION OF PAYMENTS 
+ 
+14.1 BACKDATED (ANTEDATED) SALARIES AND PENSIONS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+Accrued in the current 
+tax year 
+ 
+ 
+Accrued in the previous 
+year 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+Example - the accrual is 
+only in the current year  
+ 
+ 
+ 
+ 
+Paragraph 9(3) (a) of the Fourth Schedule  
+Section  7A  
+ 
+• Employees’ tax (taxable) accrued in the previous year/s  
+• A settlement agreement or arbitration award or court -order that relates to previous years. 
+This also includes awards granted via settlements out of court and Labour Court 
+disputes. The employer must apply for a tax directive to determine the amount of 
+employees’ tax to be deducted . 
+ 
+• Where the backdated salary/pen sion relates to period s in the current tax y ear, the 
+employees’ tax must be c alculated by adding the backdated salary/pen sion to the 
+remuneration received.  The employer do  not have to submit a directive application.  
+ 
+• Employers must submit a directive application.   
+• SARS will determine the employees’  tax to be deducted in the same manner as tax on 
+a bonus, using the current year’s tax deduction tables.   The employer must ensure the 
+annual income of the application form is correct to ensure SARS is calculating the 
+employees’ tax correct.  
+ 
+• Backdated salary (excluding any bonus) reflect on the certificate as follows:  
+ Code 3601 - Portion of salary which relates to periods in current tax year;  
+ Code 3907 - Portion of salary which relates to periods in previous tax years (a tax  
+directive application must be submitted  to SARS). 
+ 
+• Employee (under 65) receive salary of R 28 000 per month for period July to December. 
+An increase of R300 per month (backdated from 1 July) is paid in December.  
+ 
+ 
+Increased salary received at the end of December  
+(R28 000 + R300) 
+28 300  
+Add: backdated increased salary for the months July to November (R300 x 5)   1 500  
+Total remuneration for December  29 800  
+Tax on R28 300 (December salary) according to the monthly tables         4 331        4 331 
+Less: Tax on R28 000 (salary before increase)          4 252  
+Tax on increased salary (R300) per month    79  
+Tax on total backdated increased salary of  
+R1 500 (R300 x 5)   = R79 x 5 
+          
+         395 
+Employees’ tax dedu ctible for December        4 726 
+ 
+  
+ 
+14.2 AMOUNTS RECEIVED BY PERSONAL SERVICE PROVIDER 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+Employees’ tax 
+ 
+IRP5/IT3(a) detail 
+Remuneration definition in paragraph 1 of the Fourth Schedule  
+Paragraph ( cA) of the definition of gross income in Section  1 
+ 
+• Where a paym ent was received or accrued to  a personal service provider  (i.e. personal 
+service company or personal service trust ). 
+ 
+• Calculate Employees’ tax from such  payments in the same manner as tax on a bonus.  
+ 
+• Payments reflect under code 3601 on the certificate.  
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 32 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+14.3 RESTRAINT OF TRADE PAYMENTS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+Remuneration definition in paragraph 1 of the Fourth Schedule  
+Paragraph (cB) of the definition of gross income in Section 1  
+ 
+• Payments made in respect of a restraint of trade (i.e. sterilisation of a person ’s income 
+earning capacity) to any natural person must  be included  in definition of remuneration . 
+• The amount received or accrued to a natural person  shall be included in the definition of 
+remuneration as   restraint of trade  if: 
+ Employment or the holding of any office; or  
+ Any past or future employment or the holding of an office.  
+ 
+• Reflect unde r cod e 3613 on the certificate 
+ 
+ 
+14.4 LEAVE PAY 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Accrued leave 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Unpaid leave 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+Definition of  “remuneration” in Paragraph 1 of the Fourth Schedule  
+ 
+• Is remuneration as defined and is fully subject to deduction of employees’ tax.  
+ Leave days accrue as an employee works. Employees are allowed to encashment of 
+value of accrued leave without actually taking leave - this encashment constitutes taxable 
+remuneration.  
+ Only when leave is paid it is included in remuneration of employee. No value is placed 
+on accrued leave until the encashment thereof . 
+ Unpaid leave taken or forfeited leave do not constitute remuneration, as there is no value 
+attached thereto .  
+ 
+• Can be paid to an employee, and thus become taxable remuneration, when:  
+ Employee dies and accrued leave is paid to the employee’s estate;  
+ Employment is terminated for any reason,  e.g. retirement, resignation;  
+ Is encashed for any reason, such as when too much leave has accrued;  
+ Employee becomes insolvent;  or 
+ It is encashed due to internal arrangements  e.g. employee is appointed in a more senior 
+post or promoted . 
+• Leave pay is a payment in respect of services rendered and does not form part of a 
+severance benefit  
+ 
+• The fact that an employee has taken unpa id leav e of any type (including maternity 
+leave), has no effect on the employee’s tax period . 
+ The tax period continues until the end of the tax year, unless the employee resigns or 
+dies before the end of the tax year. 
+ When the tax period does end and the final tax calculation is performed to calculate 
+PAYE, it will be foun d that the employee has probably paid too much Employees’ 
+Tax due to he/she being absent withou t pay during the tax period . 
+ 
+• Must be calculated differently on leave that is taken where an advance is paid and 
+accrued leave that is encashed: 
+ Where leave is taken and an advance is paid for leave period, the advance mus t 
+be treated as advanced salary;  
+ Accrued leave that is encashed must be tax ed in same manner as a bonus . 
+ 
+• Accrued leave which has been encashed must reflect unde r code  3605 if it accrued as 
+a result of encashment or resignation . 
+ If a tax directive application was submitted, code 3907 on the tax directive must then be 
+reflected on the certificate as well as the tax directive number.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 33 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+14.5 SPECIAL REMUNERATION PAID TO PROTO TEAMS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+Remuneration definition in Paragraph 1 of the Fourth Schedule  
+Section 5(9) and 5(10)  
+ 
+• Amoun ts paid to proto team members as special remuneration are subject to the 
+dedu ction of Employees’ tax. 
+• Special remuneration is defined as any amoun t received by or accrued to any 
+mineworker over and above his/her normal remuneration and any regular allowance in 
+respect of special services rendered by him/her (otherwise than in the course of his/her 
+no rmal duties) in combating any fire, flood , subsiden ce or other disaster in a mine 
+or in rescuing persons trapped in a mine or in performing any hazardous task during 
+any emergen cy in a mine. 
+ 
+• Employers  must calculate the employees’ tax  dedu ctible from this special remuneration 
+in the same manner as tax on a bonus is calculated.  
+• The special remuneration paid to proto teams is subject to the rating formula contained 
+in Section 5(10) which can only be applied on assessment.  
+ 
+• Reflect unde r cod e 3906 on the IRP5/IT3(a). 
+ 
+ 
+14.6 ADVANCE SALARY 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+ 
+Employees’ tax 
+ 
+ 
+IRP5/IT3(a) detail 
+ 
+Example 
+ 
+ 
+ 
+Remuneration definition in Paragraph 1 of the Fourth  Schedule  
+ 
+• Advance salary can be seen as an amount of future remuneration paid by the employer prior 
+to actual date on which such remuneration becomes payable.  
+ 
+• An advance payment will be subject to the deduction of employees’ tax when it is paid 
+by the employer to the employee.  
+ 
+• Reflect under code 3601 on the certificate.  
+ 
+• A monthly paid employee (below 65) received R 84 000 in October in respect of 
+remuneration that is due to accrue to him in October, November and December.  
+ 
+Tax on R28 000 (salary per month) according to the monthly tables 4 252 
+Employees’ tax on the advance salary of R84 000 (R4 252 x 3) is  12 7 56 
+ 
+  
+ 
+ 
+14.7 OVERTIME PAYMENTS 
+ 
+Reference to the Act 
+ 
+Meaning 
+ 
+Employees’ Tax 
+ 
+ 
+ 
+IRP5/IT3(a) detail 
+ 
+Example 
+ 
+ 
+ 
+ 
+Remuneration definition in Paragraph 1 of the Fourth  Schedu le  
+ 
+• Overtime amounts paid to employees are subject to the deduction of employee’s tax  
+ 
+• Employees’ tax on overtime payments is not calculated differently from tax on salaries. 
+Any overtime payment must be added to the salary for the specific period and the 
+employees’ tax must be determined by using the applicable tax deduction tables.  
+ 
+• Reflect under code 3607  on the IRP5/IT3(a) 
+ 
+• A mon thly paid employee (below 65) received R16 000 salary and R900 ov ertime 
+in June 
+ 
+Tax on R 16 900 (salary and overtime) according to the monthly tables   R 1 614 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 34 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+14.8 ANNUAL PAYMENTS/BONUS 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+ 
+ 
+Examples of annual 
+payments 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax 
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+Example 
+ 
+ 
+ 
+ 
+ 
+ 
+Paragraphs 9(1) and 9(2) of the Fourth Schedule  
+Applicable Tax Deduction Tables  
+ 
+• An annual payment is an amount : 
+ Of net remuneration that is, in accordance with the employee’s conditions of service or the 
+employer’s practice, paid in a lump sum to the employee; or  
+ That is calculated without reference to a period.  
+ 
+• Examples of annual payments or payments made withou t reference to a period are: 
+ Annual bonus;  
+ Incentive bonus;  
+ Leave pay on resignation;  
+ Encashment of leave;  
+ Merit awards;  
+ Backdated payments in respect of salary / wages (accrued in previous tax years);  
+ An amount paid to a mineworker for picking up a diamond;  
+ An amount paid to an employee for a proposal to simplify procedures; and  
+ A bonus or an incentive amount paid to an employee to retain his/her services for a specific 
+period. Where this amount is repayable by the employee on termination of his/her service 
+prior to the end of the contract period, the Employees’ Tax paid on this a mount may under 
+no circumstances be refunded to the employee.  
+ 
+• The employees’ tax on an annual payment is basically determined by calculating the 
+annual equivalent of the remuneration earned during the tax period by the employee and 
+adding the annual payment to the result.  
+• The difference  between tax on the total result (annual equiv alent plus annual payment) and  
+tax on the annual equivalent will result in employees’ tax dedu ctible from annual payment. 
+ 
+• Reflect unde r cod e 3605 on the IRP5/IT3(a). 
+ 
+• The month  in which the annual payment is paid / accrued: A mon thly paid employee 
+(below 65) received a salary of R28 000 and a bon us of R14 800 in October. 
+ 
+Tax on R28 000 (salary) according to the monthly table 4 252 
+    Annua l equivalent of salary (R28 000 x 12) 336 000    
+Add: bonu s (annua l payment) 14 800    
+Total remuneration for October 350 800    
+   
+Tax on R350 800 (total remuneration) according to the annua l tables 54 9 37  
+Less: Tax  on R336 000  (annua l equivalent) according to annua l tables 51 033  
+Tax on bonu s (R14 800 )   3 904    3 904 
+   Employees’ Tax dedu ctible for October  is      R 8 156 
+ 
+• Tax on annual payment spread over the tax year:  The same figures as in the previous 
+example are used.  The employee is for the full year in employment of the employer. The 
+tax on the bonu s must be calculated at the beginn ing of the employee’s tax period and 
+then spread over the remainde r of the pay periods of the employee for the specific tax year. 
+ 
+• Production bonus paid in a following pay period:  A monthly paid employee (below 
+65) earns a produ ction bonu s in July but this bonu s i s on ly paid in the following pay 
+period (August). The remuneration and Employees’ Tax details are as follows: 
+ 
+Month Salary Production bonus Employees’ Tax  
+July R28 000    4 252 
+August  R28 000  12 500  To be calculated  
+Tax on R40 500 (salary and production bonus for July) according to monthly 
+tables 
+7 988   
+Less: tax deducted for July according to the monthly tables  4 252  
+Tax on production bonus of R 12 500 (paid in August)   3 736 
+Add: tax on salary (R 28 000) for August according to the monthly table  4 252 
+Employees’ Tax deductible for August  7 988  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 35 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+• Note: If the production bonus was paid during the same pay period in which it was earned, 
+it must be added to the salary and employees’ tax must be determined according to the 
+appropriate weekly, fortnightly or monthly table. This bonus relates to a specific period (period 
+during which it was earned).  
+ 
+• Monthly production bonus paid to a weekly remunerated employee: A weekly paid employee 
+(below 65) earns a monthly production bonus in May but this bonus is only paid in the 
+following month (3rd week of June). May had 4 weeks. The remuneration and Employees ’ 
+Tax details are as follows:  
+ 
+Month Week  Production 
+bonus 
+Employees’ Tax 
+May 4 R13 287    3 252  
+June 1 R13 287    3 252  
+ 2 R13 287    3 252  
+ 3 R13 287  R1 200 To be calculated 
+ 4 R13 287    3 252 
+ 
+Tax on R13 287 for week 3’s wage in June according to the weekly table R 3 252  
+  
+Divide the production bonu s by the weeks in which it was 
+earned (R1 200 ÷ 4) 
+300   
+Add: wage for week 3 in June 13 287   
+Total remuneration for week 3 in June 13 587   
+ 
+Tax on R13 587 according to the weekly tables   3 360   
+Less: tax on R13 287  (weekly wage) according to the weekly tables  3 252   
+Tax on production bonu s for one week (R300)    108  
+ Multiply the tax on the bonu s for one week with weeks in which it was earned 
+(R108 x 4)  
+    432 
+Employees’ Tax deductible for week  3 in June  
+ 
+  R3 684  
+   
+ 
+ 
+14.9 VARIABLE REMUNERATION 
+Reference to the Act 
+ 
+ Section 7B  
+   
+• The section matches the timing between accrual and payment of various forms of 
+remuneration. Amounts are deemed to have accrued to the employee when they are 
+paid by the employer.  
+ 
+• The following amounts must be included in the employee’s remuneration in the year 
+when it is actually  paid  to the employee : 
+ 
+From 1 March 2013 -  
+ Overtime pay, bonus  or commission contemplated in the definition of “remuneration” 
+in paragraph 1 of the Fourth Schedule;  
+ Payment for any period of  leave not taken by the employee ; 
+ 
+From 1 March 2020 -  
+ Allowance or advance paid in respect of motor vehicle expenses;  
+ Any reimbursement amount paid  to the employee  in respect of motor vehicle 
+expenses,  
+ Any night shift allowance;  
+ Any standby allowance ; 
+ 
+From 1 March 20 23 - 
+ Performance -based payments.  
+ 
+• Where the employee is deceased before the date of payment, the date of accrual is 
+deemed to be the day before the employee’s death.  
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 36 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+15 ALLOWANCES AND FRINGE BENEFITS 
+ 
+15.1 ALLOWANCES 
+ 
+Reference to the Act 
+ 
+ 
+Meaning 
+ 
+ 
+Types of allowances 
+ 
+ 
+ 
+ 
+ 
+ 
+Other references 
+ 
+ 
+Remuneration definition in Paragraph 1 of the Fourth Schedule  
+Section 8(1)  
+ 
+• Certain amounts must be included in the employee’s taxable income and these amounts are 
+normally referred to as allowances . 
+ 
+• The following type of allowances may be paid by an employer to an employee: 
+ Travel allowance;  
+ Subsistence allowance  
+ Allowance to a holder of a public office; and/or  
+ Other allowances received by virtue of the employee’s office or duties (e.g. uniform 
+allowance, etc.).  
+ 
+• Special provisions exist for travel, subsistence and public office allowances.  Please 
+refer to annexures attached to  Guide for Employers in respect of Allowances – External 
+Guide  for a detailed explanation in respect of these allowances. 
+ 
+ 
+15.2 FRINGE BENEFITS 
+ 
+Reference to the Act 
+ 
+ 
+Fringe benefits 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Other references 
+Remuneration definition in Paragraph 1 of the Fourth Schedule  
+All paragraphs of the Seventh Schedule  
+ 
+• A taxable benefit is deemed to have been granted by the employer if, as a benefit or 
+advantage of, or by virtue of such employment or as a reward for services rende red or 
+to be rendered, the employee is granted one of the benefits described in Paragraph 2 of 
+the Seventh Schedu le, namely: 
+ Acquisition of an asset at less than the actual value (money excluded);  
+ Right of use of a motor vehicle;  
+ Right of use of an asset (excluding a motor vehicle and residential accommodation);  
+ Meals, refreshments or meal and refreshment vouchers  
+ Residential accommodation;  
+ Free or cheap services;  
+ Low or interest free loans;  
+ Subsidy in respect of loans (interest or capital repayments);  
+ Payment of employee’s debt or release of the employee from the obligation to pay a debt; 
+ Medical fund contributions paid on behalf of an employee;  
+ Medical costs (other than contributions) paid for the benefit of an employee;  
+ Contributions to a benefit fund;  
+ Contribution to bargaining council;  
+ Payment to an insurer under an insurance policy ; and/or;  
+ Any benefit granted to the relative of employee and others . 
+ 
+• Special provisions exist for determining the amount which must be included in the 
+taxable remuneration of an employee due to any of these benefits being granted to the 
+employee. For more information refer to Guide for Employers in respect of Fringe 
+Benefits – External Guide  which is available on the SARS website www.sars.go v.za. 
+ 
+ 
+ 
+ 
+• Note:  For purposes of determining taxable income, the above stated amounts will 
+constitute expenditure for the employer, in the year that the employer pays that 
+amount to the employee. For purposes of determining  taxable income, t he above 
+stated amounts will constitute expenditure for the employer, in the year that the 
+employer pays that amount to the empl oyee. 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 37 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+16 EXEMPTIONS 
+ 
+16.1 UNIFORMS (SPECIAL UNIFORMS) 
+ 
+Reference to the Act 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details  
+Section 10(1)(nA)  
+ 
+• Where it is cond ition of employment that employee is required whilst on duty to wear a 
+special uniform which is clearly distinguishable from ordinary clothing, the value of such 
+uniform given to employee or any allowance made by the employer to the employee 
+in lieu of such uniform as is reasonable, is exempt from tax. 
+ 
+• Reflect under code 3714 on the IRP5/IT3(a).  
+ 
+Note: The no value rule in para graph  6(4) will not apply in respect of clothing with effect 
+from 1 March 2018 . 
+ 
+ 
+      
+16.2 TRANSFER COSTS 
+ 
+Reference to the Act 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Expenditure exempt  
+from tax  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Taxable benefit  
+ 
+ 
+ 
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+Example 
+ 
+Section 10(1)(nB)  
+ 
+• Any benefit received by an employee by reason of the fact that his/her employer has 
+borne certain expenditure incurred in consequence of  employee’s relocation from one 
+place of employment to another or on appointment of the employee or on termination 
+of the employee’s employment, will be exempt from tax.  
+• A transfer that does not necessitate a change of residence does not fall within the ambit 
+of the exemption.  
+• Where the employer has borne the expenses (costs) set out below (whether the 
+employer paid  the creditors directly or reimburses the employee for cost s paid), such 
+benefit shall be exempt from employees’ tax  
+ 
+• The following expenses qualif ies for exemption:  
+ Transportation of employee, members of his/her household and  their  personal goods 
+and possessions  from his/her previous place of residence to his/her new place of 
+residence;  
+ Costs incurred by employee in respect of sale of his/her previous residence and in 
+settling in permanent residential accommodation at his/her new place of residence;  
+ Cost of renting temporary residential accommodation for employee and members of 
+his/her household during a period which ends 183 days after his/her transfer took 
+place or after his/her date of appointment.  
+• Items exempt from tax if employer reimburses employee for actual expenditure 
+incurred : 
+ Bond registration and legal fees paid in respect of a new residence that has been 
+purchased;  
+ Transfer duty paid in respect of the new residence;  
+ Cancellation fees paid for bond cancellation  on previous residence; and  
+ Agent’s commission  paid on  sale of previous residence ; 
+ New school uniforms;  
+ Replacement of curtains;  
+ Motor vehicle registration fees;  
+ Telephone, water and electricity connection . 
+ 
+• The following shall constitute a taxable benefit if payments are made by the employer  
+and be subject ed to the deduction of employees’ tax:  
+ Payments to reimburse the employee for loss on the sale of a previous residence 
+during transfer;  and  / or 
+ Architect’s fees for the design or alteration of a new residence.  
+ 
+• If expenditure is exempt from tax (e.g. reimbursement of actual expenses and settling -
+in costs) the amount reflect under code 3714. 
+• In cases where expenditure is taxable , the amount must reflect under code 3713 . 
+ 
+• The employer transfers his employee from Pretoria to Cape Town.  
+• The employer has already paid for the transfer of the employee’s personal goods and 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 38 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+made arrangements for the employee and members of his household to stay in a hotel 
+on the employer’s account for the six months during which the employee’s new house is 
+being built.  
+• The employee claims the following expenses for which he was fully reimbursed by the 
+employer : 
+ 
+No Description Amount 
+1 New school uniforms purchased 1 750.00 
+2 Curtains made for new residence 8 360.00 
+3 Motor vehicle registration fees 216.00 
+4 Telephone , water and electricity conne ctions 1 015.00 
+5 Loss on the sale of the previous residence 12 000.00 
+6 Architect’s fees for the design of the new residence 7 600.00 
+7 Bond registration and legal fees for the new residence 6 800.00 
+8 Transfer duty on new residence 25 000.00 
+9 Agent’s fee on sale of previous residence 16 397.00 
+ TOTAL R79 138.00 
+ The employer must deduct employees’ tax  from items 5 and 6 as they are not exempt 
+from tax and the value of these two items must be reflected  under code 3713;  
+ All other items (except for items 5 and 6) are exempt from the deduction of employees’ 
+tax and their total value must be reflected  under code 3714 . 
+ 
+ 
+16.3 SHARE SCHEMES 
+ 
+Reference to the Act 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax 
+ 
+IRP5/IT3(a) details  
+Section 10(1)(nE)  
+ 
+• An amoun t (including any taxable benefits) received by or accrued to an employee 
+unde r a share incentive scheme ope rated for the benefit of employees which was derived 
+upon : 
+ Cancellation of a transaction under which the employee purchased the shares under the 
+scheme; 
+ Repurchase by the employee at a price not exceeding the selling price to him/her of the 
+shares under the scheme. 
+ Is exempt from tax if the employee does not receive or become entitled to receive any 
+compensation or a consideration other than the repayment of any portion of the purchase 
+price actually paid by him.  
+• This section in effect, exempts from tax the benefit that is commonly called the stop loss 
+benefit that can accrue in terms of share incentive schemes. 
+ 
+• Employees’ tax must no t be dedu cted from the exempted amoun t 
+ 
+• Reflect under code 3714. 
+ 
+ 
+16.4 BURSARIES AND SCHOLARSHIPS 
+ 
+16.4.1 PERSONS WITHOUT DISABILITY 
+ 
+Reference to the Act 
+ 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+Taxable benefit 
+ 
+ 
+ 
+ 
+ 
+Section 10(1)(q)(ii)(aa  and (bb)   
+Paragraph s 1 and 2(h) of the Seventh Schedule  
+ 
+• Any bursary or bon a fide bursary or scho larship other than any scholarship or bursary 
+contemplated in paragraph (qA)  granted to enable or assist any person to study at a 
+recogn ised educational or research institution may be exempt in terms of Section 
+10(1)(q). 
+ 
+• If the bursary or scholarship granted by the employer to the relative of the employee is 
+subject to an element of salary sacrifice , the amount granted by the employer as a 
+bursary or scholarship is taxable in the hands of the employee. However, the employer 
+can still claim the deduction in respect of this bursary or scholarship.  The effective date 
+is 01 March 2021.  
+ 
+• If the scho larship or bursary has been granted to the employee  or to a relative of such 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 39 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Employees’ tax  
+ 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+ 
+Exempt from tax  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Bursaries and study 
+loans taxed as a fringe 
+benefit 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+employee the exemption shall not apply if the following cond ition s are present:  
+ In the case of a scholarship or bursary granted to employee to enable or assist any such 
+employee, unless the employee agrees to reimburse the employer for any scholarship 
+or bursary granted to him/her if he/she fails to complete his/her  studies for reasons other 
+than death, ill -health or injury;  
+ In the case of a scholarship or bursary granted to enable or assist any such relative of 
+an employee to study, if the remuneration proxy derived by the employee during the tax 
+year exceeded R600,000; and  
+ To so much of a bursary as in the case of such relative  exceeded R20,000 during the 
+year of assessment for : 
+o Grade R to grade twelve as contemplated in definition of ‘school’ in section 1 of South 
+African Schools Act, 1996 (Act No. 84 of 1996);  or 
+o A qualification to which an NQF level from 1 up to and including 4 has been allocated 
+in accordance with Chapter 2 of National Qualifications Framework Act, 2008 (Act No. 
+67 of 2008); and  
+o R60,000 in respect of  higher  education (NQF level 5 up to 10) .   
+ 
+• The taxable benefit of a bursary is regarded as an annual payment for PAYE 
+purpo ses. 
+ 
+• It is only the taxable portion of bursaries that must reflect under codes 3809  for grade 
+R to 12 and NQF level 1 to 4 and 3820 for NQF levels 5 to 10.  
+• The non -taxable portion of bursaries must reflect  under codes 3815  for grade R to 12  
+and 3821 NQF levels 5 to 10 . 
+ 
+• Expendi ture in conne ction with internal or on-the-job training or courses presented 
+by other institutions on behalf of the employer, doe s no t represent a taxable benefit in 
+the hand s of the employees, provided that the training is job-related and ultimately 
+for the employer’s benefit.  
+• The following are examples of this type of training: 
+ Computer and word processing courses;  
+ Management and administration courses;  
+ Bookkeeping courses;  
+ Sales courses;  
+ Courses in operating office and technical equipment; and  
+ Language  courses for employees.  
+ 
+• To the extent that a bon a fide bursary does no t qualify for the exemption , it is taxable in 
+the employee’s han ds. 
+• The following is an ind ication of bursaries and study loan s that will be taxed as a 
+fring e benefit: 
+ Low-interest or interest -free loans granted by the employer to further the employee’s 
+studies are not regarded as bursaries, but as low or interest -free loans upon which no 
+value is placed;  
+ Where the employee is not required to repay the loan, he/she will have received a taxable 
+benefit in terms of Paragraph 2(h) of the Seventh Schedule (payment of employee’s debt 
+or release employee from obligation to pay debt) and employees’ tax must be deducted.  
+ This  taxable benefit is seen as an annual payment for PAYE purposes;  
+ Where an employer rewards an employee for obtaining a qualification, successful 
+completion of a study course or reimburses the employee for study expenses, such 
+reward or reimbursement of study expenses will represent, in the case of the reward, 
+taxable remuneration and in the case of the reimbursement of study expenses, a taxable 
+benefit in terms of Paragraph 2(h) of the Seventh Schedule (payment of employees debt 
+or release employee from obligation to pay debt);  
+ Only the taxable portion of bursaries paid to an employee or a family member of an 
+employee is subject to the deduction of employees’ tax;  
+ Any bursary, which is granted subject to the condition of repayment, due to non-fulfilment 
+of conditions stipulated in a written agreement, will be treated as a bona fide bursary until 
+such time as the non -compliance provisions of the agreement are invoked .  
+ In the tax year in which such provisions are invoked, the amount of the bursary will be 
+regarded as a loan and any benefit which an employee may have received by way of an 
+interest -free or low -interest loan will constitute a taxable benefit in terms of Par agraph 
+2(f) of the Seventh Schedule.  
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 40 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+Example  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Other references 
+ 
+• An employer granted a bursary of R24,000 to each of the employee’s two children for 
+their basic education . The employee earns an annual salary of R390 000, a bonus 
+of R18 000 and a ho using subsidy of R8 000. The employer do es no t operate a bursary 
+scheme that is ope n to the gene ral public. 
+ Although  the employee’s remuneration does not exceed R600 000 per annum, the 
+bursaries are paid in consequence of services rendered by him. 
+ The bursaries of R24 000 each exceed the exemption limit of R20,000 per relative, but 
+only the taxable portion of R8 000 ( R48,000 less R40,000) is subject to the deduction 
+of employees’ tax in the hands of the employee.  
+ If the employee’s remuneration however , exceeds R600 000 per annum, the bursaries 
+(R48 000) will be taxable in full.  
+ 
+• In addition to re -stating the statutory provisions, Interpretation Note 66 was issued.  
+This interpretation  note contains the interpretation of words and phrases (e.g. bona 
+fide scholarship or bursary granted , tax implications and other forms of study 
+assistance).  
+ 
+ 
+16.4.2 PERSONS WITH DISABILITY  
+  
+Reference to the Act 
+ 
+ 
+ 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Taxable benefit  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section 10(1)( qA)  
+Section 6B(1)  
+Paragraph 1 of the Seventh Schedule  
+Paragraph 2(h) of the Seventh Schedule  
+ 
+• Any bona fide bursary or scholarship granted to enable or assist any person who is a 
+person with disability as defined in section 6B(1)  to study at a recogniz ed 
+educational or research institution may be exempt.  
+ 
+• The disability that will qualify, is a disability as defined in s6B(1). Therefore, for the 
+employee to prove this disability, t he employee MUST submit the  signed  ITRDD form 
+to the employer to confirm his / her disability is as defined in section 6B(1).   
+ 
+• This bursary or scholarship for a family member is limited to family members whom the 
+employee is liable for family care and support.  
+ 
+• If the bursary or scholarship granted by the employer to the relative of the employee is 
+subject to an element of salary sacrifice, the amount  granted by the employer  is taxable 
+in the hands of the employee. However, the employer can still claim the deduction in 
+respect of this bursary or scholarship. The effective date is 01 March 2021.  
+ 
+• If the scholarship or bursary has been granted to the employee  with disability  or to a 
+qualifying family member of employee, the exemption shall not apply if the following 
+conditions are present:  
+ In the case of a scholarship or bursary granted to the employee  to enable or assist any 
+such employee, who is a person with disability as defined in section 6B(1) unless the 
+employee agrees to reimburse the employer for any scholarship or bursary granted to 
+him/her if he/she fails to complete his/her  studies for reasons other than death, ill-health 
+or injury;  
+ In the case of a scholarship or bursary granted to enable or assist any person with a 
+disability  who is a family member of an employee whom that employee is liable for 
+family care and support , to study  - 
+o If remuneration proxy derived by employee during tax year exceeded R600,000; 
+and  
+o To so much of a bursary as in the case of such family member exceeded R30,000 
+during the year of assessment for:  
+➢ Grade R to grade twelve as contemplated in the definition of ‘school’ in section 1 
+of the South African Schools Act, 1996 (Act No. 84 of 1996); or  
+➢ A qualification to which an NQF level from 1 up to and including 4 has been 
+allocated in accordance with Chapter 2 of the National Qualifications Framework 
+Act, 2008 (Act No. 67 of 2008); and  
+o R90,000 in respect of higher education (NQF level 5 up to 10).   
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 41 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+IRP5/IT3(a) details 
+ 
+ 
+ 
+• It is only the taxable portion of bursaries that must reflect under codes 3829 for Grade R  
+and NQF level from 1 to 4 and 3831  for NQF level 5 up to 10 .  
+• The non -taxable portion of bursaries must reflect under codes 3830 for Grade R and NQF 
+level from 1 to 4 and 3832 for NQF level 5 up to 10 .  
+ 
+ 
+16.5 EMPLOYMENT INCOME EXEMPTIONS 
+ 
+Reference to the Act 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exemptions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Officer or crew member 
+of a ship 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Other references 
+Section 10(1)(o) 
+ 
+• For the purposes of coun ting these days, a person will still be regarded as being outside 
+South Africa where the person i s in transit throug h South Africa between two places 
+outside South Africa and he/she does not formally enter South Africa through a port of 
+entry or at any other place, in the case of a person autho rised by the Minister of Home 
+Affairs. 
+• This exemption does no t apply in respect of any remuneration derived by the ho lder of 
+any public office. Further, it is no t app licable to any person in r espect of services 
+rende red or work or labour performed in terms of section 9(2)(h), that is who are 
+employed in the nationa l, provincial or local sphere of government, any con stitutional 
+institution , a public entity or a municipality entity. 
+• Where remuneration is received by or accrues to any employee during any year of 
+assessment in r espect of services in more than on e year of assessment, the 
+remuneration is deemed to have accrued evenly over the period that those services were 
+rende red 
+ 
+• Exempts from tax any remuneration derived by an employee in respect of services 
+rende red outside the Republic for an employer if such person was outside the Republic 
+for : 
+ A period or periods exceeding 183 full days in aggregate during any 12 month period; 
+and  
+ Continuous period exceeding 60 full days during that period; and those services  were 
+rendered during that period or periods.  
+•  
+•  Remuneration derived by an officer or crew member of a ship engage d: 
+ In the international transportation for reward of passengers or goods ; 
+ In the prospecting for, or the mining of, any minerals from the seabed outside the 
+continental shelf of the Republic, where such officer or crew member is employed on 
+board such ship solely for purposes of  the passage of  such ship as defined in the 
+Marine Traffic Act; 
+ Is exempt from tax if such person was outside the Republic for a period or periods 
+exceeding 183 full days in aggregate during the year of assessment;  
+ Where remuneration is received by or occurs to an officer or crew member of ship as 
+mentioned above during any year of assessment in respect of services rendered by 
+that employee in more than one year of assessment, the remuneration is deemed to 
+have accrue d evenly over the period that those services where rendered  
+ The question of whether an employee will qualify for the exemption or not is a question 
+of fact that can be answered once the requisite number of days has been met.   
+ Directives are therefore not issued for such taxpayers.  
+• Where the employer is satisfied that the employee will meet the necessary  criteria for the 
+exemption to be granted, the employer is at liberty not to deduct Employees’ Tax provided 
+that a copy of each page of the  employee’s passport and a copy of the relevant contract 
+for the services to  be rendered in a foreign country are kept.  
+ Should it transpire that the employee does not qualify for the exemption; the employer will be     
+held personally liable for any losses that SARS may suffer due to the non-deduction of the full 
+amount of employees’ tax. 
+ 
+• For more information refer to the app licable Interpretation Notes (numbers 16 and 34) 
+on the SARS website www.sars.gov.za 
+ 
+ 
+ 
+ 
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 42 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+16.6 EMPLOYER-PROVIDED LONG-TERM INSURANCE 
+ 
+Reference to the Act 
+ 
+Meaning  
+ 
+ 
+ 
+ 
+ 
+Other references 
+Paragraph 13(2)(bA) of the Seventh Schedule  
+ 
+• Including  Deferred Compensation Schemes)  
+• No value shall be placed on the value of any taxable benefit derived by reason of the 
+fact that an employer has paid insurance premiums ind emnifying an employee solely 
+against claims arising from negligent acts or omissions on the part of the employee in 
+rende ring services to the employer. 
+ 
+• For more information refer to the applicable Interpretation Note on the SARS website 
+www.sars.gov.za . 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+17 REFERENCES 
+ 
+17.1 LEGISLATION 
+ 
+TYPE OF REFERENCE REFERENCE 
+Legislation and Rules 
+administered by SARS:  
+Income Tax Act No. 58 of 1962 : 
+Second Schedule, Fourth Schedule, Seventh Schedule . 
+Skills Development Levies Act No. 9 of 1999 . 
+Unemployment Insurance Contributions Act No.4 of 2002 . 
+Tax Administration Act No. 28 of 2011 . 
+The Employment Tax Incentive Act No. 26 of 2013 . 
+Other Legislation:  
+ 
+ 
+Companies Act No. 71 of 2008 . 
+Skills Development Act No. 97 of 1998 .   
+Medical Schemes Act No. 131 of 1998 . 
+Public Finance Management Act No.1 of 1999 . 
+ 
+ 
+17.2 CROSS REFERENCES 
+ 
+DOCUMENT # DOCUMENT TITLE 
+PAYE-AE-06-G06 Guide for Codes Applicable to Employees Tax Certificates  
+PAYE-AE-06-G08 Guide for Completion and Submission of Employees Tax  Certificates  
+PAYE-GEN-01-G01 Guide for Employers in respect of Tax Deduction Tables 
+PAYE-GEN-01-G01-A01 Weekly Tax Deduction Tables  
+PAYE-GEN-01-G01-A02 Fortnightly Tax Deduction Tables  
+PAYE-GEN-01-G01-A03 Monthly Tax Deduction Tables  
+PAYE-GEN-01-G01-A04 Annual Tax Deduction Tables  
+PAYE-GEN-01-G01-A05 Other Employment Tax Deduction Tables  
+PAYE-GEN-01-G02 Guide for Employers in respect of Fringe Benefits  
+PAYE-GEN-01-G03 Guide for Employers in respect of Allowances  
+PAYE-GEN-01-G03-A01 Rate per Kilometer   Schedule  
+PAYE-GEN-01-G03-A02 Subsistence allowance in respect of Foreign Travel 
+PAYE-GEN-01-G05 Guide for Employers in respect of Employment Tax Incentive  
+SDL-GEN-01-G01 Guide for Employers in respect of SDL  
+UIF-GEN-01-G01 Guide for Employers in respect of UIF  
+ 
+ 
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+ 
+                                                                                                                                         Effective Date: 12 March 2025 
+             
+GUIDE FOR EMPLOYERS IN RESPECT OF  Revision: 0 Page 43 of 43 
+EMPLOYEES’ TAX (2026 TAX YEAR) –   
+PAYE-GEN-01-G20 
+ 
+DISCLAIMER 
+The information contained in this guide is intended as guidance only and is not considered to be a legal reference, nor is it  a 
+binding ruling. The information does not take the place of legislation and readers who are in doubt regarding any aspect of t he 
+information displayed in the guide should refer to the relevant legislation, or seek a formal opinion from a suitably qualifi ed 
+individual.  
+ 
+For more information about the contents of this publication you may:  
+• Visit the SARS website at www.sars.gov.za  
+• Visit your nearest SARS branch  
+• Contact your own tax advisor/tax practitioner  
+• If calling from within South Africa, contact the SARS Contact Centre on 0800 00 SARS (7277)  
+• If calling from outside South Africa, contact the SARS Contact Centre on +27 11 602 2093 (only between 8am and 4pm 
+South African time).  
+18 DEFINITIONS AND ACRONYMS 
+ 
+Link for centralised definitions, acronyms, and abbreviations: Glossary A-M | South African Revenue Service 
+(sars.gov.za)   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
