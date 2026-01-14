@@ -1,3 +1,9 @@
+/**
+ * IMPORTANT: This function must be deployed with --no-verify-jwt flag
+ * because we handle JWT verification manually in the code below.
+ * 
+ * Deploy with: supabase functions deploy analyze-slip --no-verify-jwt
+ */
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
@@ -29,17 +35,44 @@ serve(async (req) => {
         }
 
         const authHeader = req.headers.get('Authorization')
-        if (!authHeader) throw new Error('Missing Authorization header')
+        if (!authHeader) {
+            console.error("Missing Authorization header");
+            throw new Error('Missing Authorization header. Please sign in again.')
+        }
 
+        // Extract the JWT token from the Authorization header
+        const token = authHeader.replace('Bearer ', '').trim()
+        console.log("Token received (first 20 chars):", token.substring(0, 20) + "...");
+        
+        // Create client with anon key and pass the token in headers
         const userClient = createClient(supabaseUrl, supabaseAnonKey, {
-            global: { headers: { Authorization: authHeader } }
+            global: {
+                headers: {
+                    Authorization: authHeader
+                }
+            },
+            auth: {
+                autoRefreshToken: false,
+                persistSession: false
+            }
         })
 
+        // Verify the user
         const { data: { user }, error: userError } = await userClient.auth.getUser()
         if (userError || !user) {
-            console.error("Auth Error:", userError?.message || "User not found");
-            throw new Error('Invalid user session: ' + (userError?.message || 'User not found'))
+            console.error("Auth Error Details:", {
+                message: userError?.message,
+                status: userError?.status,
+                name: userError?.name
+            });
+            // Provide more specific error messages
+            if (userError?.message?.includes('JWT') || userError?.message?.includes('token') || userError?.message?.includes('expired') || userError?.message?.includes('invalid')) {
+                throw new Error('Invalid JWT: Your session has expired. Please sign out and sign in again.')
+            }
+            throw new Error('Invalid user session: ' + (userError?.message || 'User not found') + '. Please sign in again.')
         }
+        
+        console.log("Authenticated user:", user.id, user.email);
 
         const supabase = createClient(supabaseUrl, supabaseServiceKey)
         const formData = await req.formData()
@@ -55,14 +88,12 @@ serve(async (req) => {
 
         const prompt = 'Act as a South African Tax Specialist. Analyze the provided image of a business slip or invoice. Extract the following fields into a JSON format: { "supplier_name": "string", "supplier_vat_number": "string or null", "supplier_address": "string or null", "date": "YYYY-MM-DD", "invoice_number": "string or null", "description": "string or null", "total_amount_inclusive": 0.00, "vat_amount": 0.00, "recipient_name": "string or null", "recipient_vat_number": "string or null", "recipient_address": "string or null", "volume_quantity": "string or null", "category": "string", "is_deductible": boolean, "vat_claimable": boolean, "compliance_status": "Valid | Invalid | Incomplete", "missing_fields": ["string"], "reasoning": "string" } Validation Logic (SARS 2025/26): 1. Document Type: Ensure the words "Tax Invoice", "VAT Invoice", or "Invoice" are present. 2. If Total <= R50: Mark as Sufficient. 3. If R50 < Total <= R5,000: Check for Abridged Tax Invoice requirements. 4. If Total > R5,000: Check for Full Tax Invoice requirements. Tax Deductibility: 1. General Deduction Formula. 2. Small Item Write-Off (< R7,000). 3. Entertainment Denial. 4. Motor Car Denial. Category Options: General Business, Entertainment, Travel, Stock, Utilities.';
 
-        const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + geminiApiKey, {
+        const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=' + geminiApiKey, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: file.type || 'image/png', data: base64 } }] }],
-                generation_config: {
-                    response_mime_type: "application/json"
-                }
+                generation_config: { }
             })
         })
 
@@ -79,15 +110,17 @@ serve(async (req) => {
             throw new Error('AI Analysis Failed: No candidates returned from Gemini')
         }
 
-        const resultText = geminiData.candidates[0].content.parts[0].text
-        console.log("Gemini Raw Result:", resultText);
-
+        const resultText = geminiData.candidates[0].content.parts[0].text;
+        const jsonMatch = resultText.match(/```json\n([\s\S]*?)\n```/);
+        if (!jsonMatch || jsonMatch.length < 2) {
+            throw new Error('AI Analysis Failed: No valid JSON block found in Gemini response.');
+        }
         let result;
         try {
-            result = JSON.parse(resultText)
+            result = JSON.parse(jsonMatch[1]);
         } catch (e) {
             console.error("JSON Parse Error:", (e as Error).message, "Raw text:", resultText);
-            throw new Error('AI Analysis Failed: Invalid JSON returned from AI')
+            throw new Error('AI Analysis Failed: Invalid JSON returned from AI. Raw response: ' + resultText)
         }
 
         const merchantName = result.supplier_name || result.merchant || "Unknown Merchant"

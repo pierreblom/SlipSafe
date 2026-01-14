@@ -192,11 +192,22 @@ async function analyzeSlip(fileObject) {
         const formData = new FormData();
         formData.append('file', fileObject);
 
-        const { data: { session } } = await supabaseClient.auth.getSession();
-
-        if (!session) {
-            throw new Error("You must be logged in. Please sign out and sign in again.");
+        // Validate user first - this will automatically refresh the token if needed
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+        
+        if (userError || !user) {
+            console.error("User validation failed:", userError);
+            throw new Error("Invalid JWT: Your session has expired. Please sign out and sign in again.");
         }
+
+        // Get a fresh session after user validation
+        const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+        
+        if (sessionError || !session || !session.access_token) {
+            throw new Error("Invalid session. Please sign out and sign in again.");
+        }
+        
+        console.log("Token valid, making request...");
 
         // Use fetch directly to get better error visibility
         const response = await fetch(`${supabaseUrl}/functions/v1/analyze-slip`, {
