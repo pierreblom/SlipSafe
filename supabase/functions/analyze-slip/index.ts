@@ -31,23 +31,22 @@ serve(async (req) => {
 
         // 1. Get User from Auth Header
         const authHeader = req.headers.get('Authorization')
-        console.log("Auth Header present:", !!authHeader);
+        if (!authHeader) throw new Error('Missing Authorization header')
 
-        if (!authHeader) {
-            throw new Error('Missing Authorization header')
-        }
-
-        // Create a client with the user's token to verify them
+        // Create a client with the user's token to verify them manually
         const userClient = createClient(supabaseUrl, supabaseAnonKey, {
             global: { headers: { Authorization: authHeader } }
         })
 
         const { data: { user }, error: userError } = await userClient.auth.getUser()
+
         if (userError || !user) {
             console.error("Auth Error:", userError);
             throw new Error('Invalid user session: ' + (userError?.message || 'User not found'))
         }
-        console.log("User verified:", user.id);
+
+        // Create an admin client for storage and DB operations
+        const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
         // 2. Process File
         const formData = await req.formData()
@@ -71,7 +70,22 @@ serve(async (req) => {
 
         // 3. Call Gemini AI
         console.log("Calling Gemini AI...");
-        const prompt = `Analyze this South African receipt. Return JSON only: { "merchant": "name", "total": 0.00, "vat": 0.00, "date": "YYYY-MM-DD", "vatNumber": "string or null", "isTaxInvoice": boolean }. If restaurant, suggest 'Entertainment'. If total > 5000 and no vatNumber, isTaxInvoice is false.`
+        const prompt = `Analyze this South African receipt. Return JSON only: { 
+            "merchant": "name", 
+            "total": 0.00, 
+            "vat": 0.00, 
+            "date": "YYYY-MM-DD", 
+            "vatNumber": "string or null", 
+            "isTaxInvoice": boolean,
+            "isTaxDeductible": boolean,
+            "category": "string",
+            "notes": "string"
+        }. 
+        Guidelines:
+        - If restaurant/cafe, suggest 'Entertainment' category.
+        - If total > 5000 and no vatNumber, isTaxInvoice is false.
+        - isTaxDeductible: true if it's a business expense (e.g., office supplies, travel, stock). False for personal or non-deductible items like entertainment (per SARS).
+        - category: Choose from 'General Business', 'Entertainment', 'Travel', 'Stock', 'Utilities'.`
 
         const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${geminiApiKey}`, {
             method: 'POST',
@@ -98,8 +112,7 @@ serve(async (req) => {
         console.log("Gemini Result:", resultText);
         const result = JSON.parse(resultText)
 
-        // 4. Initialize Service Role Client for Storage and DB
-        const supabase = createClient(supabaseUrl, supabaseServiceKey)
+        // 4. Use existing Service Role Client for Storage and DB
 
         // 5. Upload Image to Storage
         const fileName = `${user.id}/${Date.now()}_${result.merchant.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
@@ -116,9 +129,7 @@ serve(async (req) => {
             throw new Error('Storage upload failed: ' + uploadError.message)
         }
 
-        const { data: { publicUrl } } = supabase.storage
-            .from('receipt-proofs')
-            .getPublicUrl(fileName)
+        const imagePath = uploadData.path
 
         // 6. Save to Database
         const fingerprint = `${user.id}|${result.merchant}|${result.date}|${result.total}`
@@ -148,7 +159,9 @@ serve(async (req) => {
             date: result.date,
             vat_number: result.vatNumber,
             is_tax_invoice: result.isTaxInvoice,
-            image_url: publicUrl,
+            is_tax_deductible: result.isTaxDeductible,
+            notes: result.notes,
+            image_url: imagePath,
             fingerprint: fingerprint
         }
 
