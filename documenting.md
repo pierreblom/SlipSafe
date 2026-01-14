@@ -1,6 +1,6 @@
 # SlipSafe Pro - Technical Documentation
 
-> **Version:** 1.0  
+> **Version:** 1.1  
 > **Last Updated:** 2026-01-14  
 > **Target Market:** South African SMEs & Freelancers
 
@@ -30,10 +30,11 @@ SlipSafe Pro is a **SARS-compliant receipt management application** designed for
 | Feature | Description |
 |---------|-------------|
 | **AI-Powered OCR** | Uses Google Gemini 2.5 Flash to read receipts |
+| **Google Login** | Secure authentication for multi-user support |
 | **VAT Compliance** | Identifies Tax Invoices vs. simple receipts |
 | **Entertainment Block** | Auto-flags business lunches as non-claimable VAT |
 | **Duplicate Detection** | Prevents claiming the same slip twice |
-| **Cloud Storage** | Images stored in Supabase for 5+ years |
+| **Cloud Storage** | Images stored in user-specific folders in Supabase |
 | **Excel Export** | Audit-ready XLSX with embedded images |
 
 ---
@@ -47,11 +48,12 @@ SlipSafe Pro is a **SARS-compliant receipt management application** designed for
 │   (HTML/JS)     │────▶│  ┌──────────────────┐  ┌─────────────────┐  │
 │                 │     │  │  Edge Function   │  │  Google Gemini  │  │
 │  index.html     │     │  │  (analyze-slip)  │──│  AI (OCR)       │  │
-│                 │     │  │  Holds API Keys  │  └─────────────────┘  │
-└─────────────────┘     │  └────────┬─────────┘                       │
-                        │           │                                  │
-                        │     ┌─────▼─────┐    ┌─────────────────┐    │
-                        │     │ Postgres  │    │ Storage Bucket  │    │
+│                 │     │  │  (Auth Required) │  └─────────────────┘  │
+│  ┌───────────┐  │     │  └────────┬─────────┘                       │
+│  │ Google    │  │     │           │                                  │
+│  │ Auth      │──┼─────┼───────────┘                                  │
+│  └───────────┘  │     │     ┌─────▼─────┐    ┌─────────────────┐    │
+└─────────────────┘     │     │ Postgres  │    │ Storage Bucket  │    │
                         │     │ (slips)   │    │ (receipt-proofs)│    │
                         │     └───────────┘    └─────────────────┘    │
                         └──────────────────────────────────────────────┘
@@ -59,12 +61,13 @@ SlipSafe Pro is a **SARS-compliant receipt management application** designed for
 
 ### Data Flow
 
-1. **User uploads receipt** → Frontend sends image to Edge Function
-2. **Edge Function** → Calls Gemini AI with secure API key
-3. **Gemini AI** → Returns extracted JSON (merchant, total, VAT, date)
-4. **Edge Function** → Uploads image to Storage Bucket
-5. **Edge Function** → Saves metadata to Postgres Database
-6. **Frontend** → Displays result and refreshes list
+1. **User logs in** → Authenticates via Google OAuth (Supabase Auth)
+2. **User uploads receipt** → Frontend sends image + **JWT Token** to Edge Function
+3. **Edge Function** → Verifies user identity and calls Gemini AI
+4. **Gemini AI** → Returns extracted JSON (merchant, total, VAT, date)
+5. **Edge Function** → Uploads image to **user-specific folder** in Storage
+6. **Edge Function** → Saves metadata with `user_id` to Postgres Database
+7. **Frontend** → Displays result and refreshes list (filtered by `user_id`)
 
 ---
 
@@ -111,9 +114,12 @@ SlipSafe/
 ### 1. Receipt Scanning
 
 ```javascript
-// Frontend: Send image to Edge Function
+// Frontend: Send image to Edge Function with Auth Header
 const { data, error } = await supabaseClient.functions.invoke('analyze-slip', {
-    body: formData,  // Contains the image file
+    body: formData,
+    headers: {
+        Authorization: `Bearer ${session.access_token}`
+    }
 });
 ```
 
@@ -135,8 +141,8 @@ const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/..
 ### 3. Duplicate Detection
 
 ```typescript
-// Check for existing slip with same fingerprint
-const fingerprint = `${merchant}|${date}|${total}`;
+// Check for existing slip for THIS user
+const fingerprint = `${user.id}|${merchant}|${date}|${total}`;
 const { data: existing } = await supabase
     .from('slips')
     .select('id')
@@ -151,11 +157,13 @@ if (existing) {
 ### 4. Data Storage
 
 ```typescript
-// Upload image to Storage
+// Upload image to user-specific folder
+const fileName = `${user.id}/${Date.now()}_${merchant}.png`;
 await supabase.storage.from('receipt-proofs').upload(fileName, file);
 
-// Save to Database
+// Save to Database with user_id
 await supabase.from('slips').insert([{
+    user_id: user.id,
     merchant, total, vat, category, date, vat_number,
     is_tax_invoice, image_url, fingerprint
 }]);
@@ -170,7 +178,7 @@ await supabase.from('slips').insert([{
 | Column | Type | Description |
 |--------|------|-------------|
 | `id` | UUID | Primary key (auto-generated) |
-| `user_id` | UUID | User reference (for future auth) |
+| `user_id` | UUID | User reference (Supabase Auth) |
 | `merchant` | TEXT | Store/vendor name |
 | `total` | NUMERIC | Total amount (ZAR) |
 | `vat` | NUMERIC | VAT amount (ZAR) |
@@ -201,6 +209,7 @@ POST https://fezppgnxhbxacuwcejma.supabase.co/functions/v1/analyze-slip
 ### Request
 
 - **Content-Type:** `multipart/form-data`
+- **Headers:** `Authorization: Bearer <user_jwt>`
 - **Body:** `file` (image file)
 
 ### Response (Success - 200)
@@ -255,14 +264,19 @@ POST https://fezppgnxhbxacuwcejma.supabase.co/functions/v1/analyze-slip
 # 1. Link to Supabase project
 supabase link --project-ref fezppgnxhbxacuwcejma
 
-# 2. Set the Gemini API key as a secret
+# 2. Configure Google Auth in Supabase Dashboard
+# - Enable Google Provider
+# - Add Client ID and Secret
+# - Set Redirect URL to http://localhost:3000
+
+# 3. Set the Gemini API key as a secret
 supabase secrets set GEMINI_API_KEY=AIzaSy...
 
-# 3. Deploy the Edge Function
-supabase functions deploy analyze-slip
+# 4. Deploy the Edge Function
+supabase functions deploy analyze-slip --no-verify-jwt
 
-# 4. Open the frontend
-open index.html
+# 5. Run locally
+npx serve .
 ```
 
 ### Netlify Deployment (Optional)
@@ -298,7 +312,7 @@ SUPABASE_SERVICE_ROLE_KEY  # Auto-injected by Supabase
 
 ### Phase 2: Advanced Features
 
-- [ ] **User Authentication** - Multi-user support with Supabase Auth
+- [x] **User Authentication** - Multi-user support with Supabase Auth
 - [ ] **Odometer Log** - Track business travel for SARS claims
 - [ ] **Bank Statement Matching** - Reconcile swipes with receipts
 

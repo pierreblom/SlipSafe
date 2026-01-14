@@ -18,10 +18,43 @@
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
         }
+
+        .auth-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body class="bg-slate-50 min-h-screen pb-24">
+
+    <!-- Login Overlay -->
+    <div id="auth-overlay"
+        class="fixed inset-0 bg-slate-900 z-[60] flex flex-col items-center justify-center p-6 text-center">
+        <div class="bg-blue-600 p-4 rounded-3xl text-white mb-6 shadow-2xl shadow-blue-500/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-black text-white mb-2">SlipSafe Pro</h1>
+        <p class="text-slate-400 mb-8 max-w-xs">Secure your tax proofs with AI-powered VAT compliance tracking.</p>
+
+        <button onclick="loginWithGoogle()"
+            class="w-full max-w-xs bg-white text-slate-900 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 shadow-xl hover:bg-slate-50 transition active:scale-95">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                <path fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
+                <path fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+            </svg>
+            Continue with Google
+        </button>
+    </div>
 
     <!-- Header -->
     <header class="bg-white/80 sticky top-0 z-40 px-4 py-4 border-b border-slate-200 backdrop-blur-md">
@@ -36,10 +69,16 @@
                 </div>
                 <span class="font-extrabold text-slate-800 tracking-tight text-lg">SlipSafe Pro</span>
             </div>
-            <button onclick="exportToExcel()"
-                class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg shadow-emerald-100 flex items-center gap-2">
-                Export XLSX
-            </button>
+            <div class="flex items-center gap-2">
+                <button onclick="exportToExcel()"
+                    class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-2 rounded-full shadow-lg shadow-emerald-100 flex items-center gap-1">
+                    XLSX
+                </button>
+                <button onclick="logout()"
+                    class="bg-slate-100 text-slate-600 text-[10px] font-bold px-3 py-2 rounded-full hover:bg-slate-200 transition">
+                    Logout
+                </button>
+            </div>
         </div>
     </header>
 
@@ -163,8 +202,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // --- CONFIGURATION ---
-        const apiKey = ""; // GEMINI API KEY (Please set this!)
-
         const supabaseUrl = 'https://fezppgnxhbxacuwcejma.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlenBwZ254aGJ4YWN1d2Nlam1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgyMTgyMjcsImV4cCI6MjA4Mzc5NDIyN30.5Hg11t5f3Io0CfPTozh8ptQ8pvdR4LXS0aSa3ksi2-8';
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
@@ -172,15 +209,59 @@
         // --- STATE ---
         let savedSlips = [];
         let currentProcess = null;
+        let currentUser = null;
 
         const fileInput = document.getElementById('file-input');
         const loader = document.getElementById('loader');
         const modal = document.getElementById('modal');
         const slipList = document.getElementById('slip-list');
         const lunchWarning = document.getElementById('lunch-warning');
+        const authOverlay = document.getElementById('auth-overlay');
+
+        // --- AUTHENTICATION ---
+        async function checkUser() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            currentUser = user;
+            if (user) {
+                authOverlay.classList.add('auth-hidden');
+                fetchSlips();
+            } else {
+                authOverlay.classList.remove('auth-hidden');
+            }
+        }
+
+        async function loginWithGoogle() {
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: window.location.origin
+                }
+            });
+            if (error) alert("Login failed: " + error.message);
+        }
+
+        async function logout() {
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) alert("Logout failed: " + error.message);
+            else window.location.reload();
+        }
+
+        // Listen for auth changes
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                currentUser = session.user;
+                authOverlay.classList.add('auth-hidden');
+                fetchSlips();
+            } else if (event === 'SIGNED_OUT') {
+                currentUser = null;
+                authOverlay.classList.remove('auth-hidden');
+                savedSlips = [];
+                renderSlips();
+            }
+        });
 
         // --- INITIALIZATION ---
-        fetchSlips();
+        checkUser();
 
         // --- EVENT LISTENERS ---
         fileInput.addEventListener('change', async (e) => {
@@ -193,7 +274,6 @@
                 const base64 = event.target.result;
                 const base64Clean = base64.split(',')[1];
 
-                // Pass the actual file object for uploading later
                 try {
                     await analyzeSlip(base64Clean, base64, file);
                 } catch (err) {
@@ -211,7 +291,7 @@
             const originalText = saveBtn.innerText;
 
             try {
-                saveBtn.innerText = "Uploading...";
+                saveBtn.innerText = "Saving...";
                 saveBtn.disabled = true;
 
                 const slipData = {
@@ -219,19 +299,18 @@
                     total: parseFloat(document.getElementById('m-total').value),
                     vat: parseFloat(document.getElementById('m-vat').value),
                     category: document.getElementById('m-category').value,
-                    date: currentProcess.date,
-                    vat_number: currentProcess.vatNumber, // Note: DB column is vat_number
-                    is_tax_invoice: currentProcess.isTaxInvoice
+                    vat_number: currentProcess.vat_number,
+                    is_tax_invoice: currentProcess.is_tax_invoice
                 };
 
-                await archiveToCloud(slipData, currentProcess.fileObject);
+                await updateSlip(slipData);
 
                 closeModal();
-                fetchSlips(); // Refresh list
+                fetchSlips();
 
             } catch (err) {
                 console.error(err);
-                alert("Error saving to cloud: " + err.message);
+                alert("Error updating record: " + err.message);
             } finally {
                 saveBtn.innerText = originalText;
                 saveBtn.disabled = false;
@@ -241,48 +320,57 @@
         // --- CORE FUNCTIONS ---
 
         async function analyzeSlip(base64, fullBase64, fileObject) {
-            const saveBtn = document.getElementById('save-btn');
-
             try {
-                // Prepare FormData for Edge Function
+                if (!currentUser) {
+                    alert("Please log in first!");
+                    return;
+                }
+
                 const formData = new FormData();
                 formData.append('file', fileObject);
 
-                // Call Edge Function
+                // Get the session explicitly to ensure we have a fresh token
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (!session) {
+                    alert("Session expired. Please log in again.");
+                    return;
+                }
+
                 const { data, error } = await supabaseClient.functions.invoke('analyze-slip', {
                     body: formData,
+                    headers: {
+                        Authorization: `Bearer ${session.access_token}`
+                    }
                 });
 
-                if (error) throw error;
-                if (data.error) throw new Error(data.error);
+                if (error) {
+                    console.error("Function Error:", error);
+                    // Try to extract message from error object
+                    const msg = error.message || (typeof error === 'string' ? error : JSON.stringify(error));
+                    throw new Error(msg);
+                }
+
+                if (data && data.error) throw new Error(data.error);
 
                 const result = data.data;
 
-                // Update currentProcess with the result from DB
                 currentProcess = {
                     ...result,
-                    imageData: result.image_url, // Use the cloud URL
-                    fileObject: null // No longer needed
+                    imageData: result.image_url
                 };
 
-                // Show Modal (Now it's an "Edit/Verify" modal since it's already saved)
                 openModal();
-
-                // Refresh list to show the new item immediately
                 fetchSlips();
 
             } catch (err) {
-                console.error(err);
+                console.error("Analysis Error:", err);
                 alert("Analysis Failed: " + err.message);
             } finally {
                 loader.classList.add('hidden');
             }
         }
 
-        async function archiveToCloud(slipData, file) {
-            // This function is now largely redundant because the Edge Function does the saving.
-            // However, if the user EDITS the data in the modal, we need to UPDATE the record.
-
+        async function updateSlip(slipData) {
             const { error } = await supabaseClient
                 .from('slips')
                 .update({
@@ -293,12 +381,14 @@
                     vat_number: slipData.vat_number,
                     is_tax_invoice: slipData.is_tax_invoice
                 })
-                .eq('id', currentProcess.id); // We need the ID from the saved record
+                .eq('id', currentProcess.id);
 
             if (error) throw error;
         }
 
         async function fetchSlips() {
+            if (!currentUser) return;
+
             const list = document.getElementById('slip-list');
             list.innerHTML = '<div class="text-center py-10 text-slate-300">Loading from Vault...</div>';
 
@@ -326,7 +416,6 @@
                 list.innerHTML = '<div class="text-center py-20 text-slate-300">No records in Vault.</div>';
             } else {
                 list.innerHTML = savedSlips.map(s => {
-                    // Handle potential nulls
                     const vat = s.vat || 0;
                     const total = s.total || 0;
 
@@ -358,10 +447,10 @@
             document.getElementById('m-merchant').value = currentProcess.merchant;
             document.getElementById('m-total').value = currentProcess.total;
             document.getElementById('m-vat').value = currentProcess.vat;
-            document.getElementById('m-vatno').innerText = "VAT No: " + (currentProcess.vatNumber || "Not found");
+            document.getElementById('m-vatno').innerText = "VAT No: " + (currentProcess.vat_number || "Not found");
 
             const badge = document.getElementById('compliance-badge');
-            if (currentProcess.isTaxInvoice) {
+            if (currentProcess.is_tax_invoice) {
                 badge.innerText = "Valid Tax Invoice";
                 badge.className = "px-3 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-100 text-emerald-700";
             } else {
@@ -369,7 +458,6 @@
                 badge.className = "px-3 py-1 rounded-full text-[10px] font-black uppercase bg-orange-100 text-orange-700";
             }
 
-            // Auto-detect lunch
             const isLunch = currentProcess.merchant.toLowerCase().match(/cafe|restaurant|coffee|mug|bean|spur|nando/);
             document.getElementById('m-category').value = isLunch ? "Entertainment" : "General Business";
             toggleWarning();
@@ -403,12 +491,6 @@
                 { header: 'Image Proof', key: 'img', width: 30 }
             ];
 
-            // Note: For cloud images, ExcelJS needs base64. 
-            // We would need to fetch the image blob and convert to base64 to embed it.
-            // For now, we will just link the URL or try to fetch it.
-            // This is a complex step for a prototype, so I'll simplify to just data for now, 
-            // or we can fetch the image. Let's try to fetch.
-
             alert("Generating Excel... This might take a moment to download images.");
 
             for (let i = 0; i < savedSlips.length; i++) {
@@ -424,7 +506,6 @@
                 row.height = 100;
 
                 try {
-                    // Fetch image to embed
                     const response = await fetch(s.image_url);
                     const blob = await response.blob();
                     const buffer = await blob.arrayBuffer();
