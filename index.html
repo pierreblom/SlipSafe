@@ -414,7 +414,7 @@
                         business lunches. The total will be used for Income Tax only.</p>
                 </div>
 
-                <div class="hidden bg-blue-50 p-5 rounded-3xl space-y-2 border border-blue-100">
+                <div class="bg-blue-50 p-5 rounded-3xl space-y-2 border border-blue-100">
                     <div class="flex items-center gap-2 text-blue-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -424,6 +424,19 @@
                         <span class="text-[10px] font-black uppercase tracking-widest">SARS Reasoning</span>
                     </div>
                     <p id="m-reasoning" class="text-xs text-blue-700 leading-relaxed font-medium"></p>
+                </div>
+
+                <div class="card p-4 bg-slate-50 border-none">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Notes</label>
+                    <textarea id="m-notes"
+                        class="w-full bg-transparent font-medium text-slate-800 outline-none mt-1 h-24 resize-y"
+                        placeholder="Add any relevant notes here..."></textarea>
+                    <button id="add-note-btn"
+                        class="mt-2 w-full py-2 bg-blue-500 text-white rounded-md text-sm font-bold hover:bg-blue-600 transition">Add
+                        Note</button>
+                    <div id="notes-display" class="space-y-2 mt-4">
+                        <!-- Notes will be displayed here -->
+                    </div>
                 </div>
 
                 <div class="flex gap-4 pt-4">

@@ -86,7 +86,7 @@ serve(async (req) => {
         const arrayBuffer = await file.arrayBuffer()
         const base64 = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
 
-        const prompt = 'Act as a South African Tax Specialist. Analyze the provided image of a business slip or invoice. Extract the following fields into a JSON format: { "supplier_name": "string", "supplier_vat_number": "string or null", "supplier_address": "string or null", "date": "YYYY-MM-DD", "invoice_number": "string or null", "description": "string or null", "total_amount_inclusive": 0.00, "vat_amount": 0.00, "recipient_name": "string or null", "recipient_vat_number": "string or null", "recipient_address": "string or null", "volume_quantity": "string or null", "category": "string", "is_deductible": boolean, "vat_claimable": boolean, "compliance_status": "Valid | Invalid | Incomplete", "missing_fields": ["string"], "reasoning": "string" } Validation Logic (SARS 2025/26): 1. Document Type: Ensure the words "Tax Invoice", "VAT Invoice", or "Invoice" are present. 2. If Total <= R50: Mark as Sufficient. 3. If R50 < Total <= R5,000: Check for Abridged Tax Invoice requirements. 4. If Total > R5,000: Check for Full Tax Invoice requirements. Tax Deductibility: 1. General Deduction Formula. 2. Small Item Write-Off (< R7,000). 3. Entertainment Denial. 4. Motor Car Denial. Category Options: General Business, Entertainment, Travel, Stock, Utilities.';
+        const prompt = 'Act as a South African Tax Specialist. Analyze the provided image of a business slip or invoice. Extract the following fields into a JSON format: { "supplier_name": "string", "supplier_vat_number": "string or null", "supplier_address": "string or null", "date": "YYYY-MM-DD", "invoice_number": "string or null", "description": "string or null", "total_amount_inclusive": 0.00, "vat_amount": 0.00, "recipient_name": "string or null", "recipient_vat_number": "string or null", "recipient_address": "string or null", "volume_quantity": "string or null", "category": "string", "is_deductible": boolean, "vat_claimable": boolean, "compliance_status": "Valid | Invalid | Incomplete", "missing_fields": ["string"], "reason": "string" } Validation Logic (SARS 2025/26): 1. Document Type: Ensure the words "Tax Invoice", "VAT Invoice", or "Invoice" are present. 2. If Total <= R50: Mark as Sufficient. 3. If R50 < Total <= R5,000: Check for Abridged Tax Invoice requirements. 4. If Total > R5,000: Check for Full Tax Invoice requirements. Tax Deductibility: 1. General Deduction Formula. 2. Small Item Write-Off (< R7,000). 3. Entertainment Denial. 4. Motor Car Denial. Category Options: General Business, Entertainment, Travel, Stock, Utilities.';
 
         const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=' + geminiApiKey, {
             method: 'POST',
@@ -164,7 +164,7 @@ serve(async (req) => {
             vat_number: result.supplier_vat_number || result.vatNumber,
             is_tax_invoice: result.compliance_status === 'Valid' || result.compliance_status === 'Sufficient' || result.isTaxInvoice || false,
             is_tax_deductible: result.is_deductible ?? result.isTaxDeductible ?? false,
-            notes: result.reasoning || result.notes,
+            notes: Array.isArray(result.notes) ? result.notes : (result.notes ? [result.notes] : []), // Ensure notes is an array
             image_url: uploadData.path,
             fingerprint: fingerprint,
             image_hash: imageHash,
@@ -177,7 +177,7 @@ serve(async (req) => {
             volume_quantity: result.volume_quantity,
             compliance_status: result.compliance_status,
             missing_fields: Array.isArray(result.missing_fields) ? result.missing_fields : (result.missing_fields ? [result.missing_fields] : []),
-            reasoning: result.reasoning
+            reason: result.reason
         }
 
         console.log("Inserting into DB:", JSON.stringify(slipData));

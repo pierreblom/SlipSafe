@@ -233,7 +233,12 @@ async function analyzeSlip(fileObject) {
             throw new Error(data.error || data.message || `Server error (${response.status})`);
         }
 
-        currentProcess = { ...data.data, imageData: data.data.image_url };
+        currentProcess = {
+            ...data.data,
+            imageData: data.data.image_url,
+            notes: [], // Ensure notes is always an empty array initially for AI analysis
+            reason: data.data.reason || "" // Populate reason from AI response
+        };
         await openModal();
         await fetchSlips();
     } catch (err) {
@@ -274,7 +279,9 @@ async function openManualEntry(fileObject) {
             date: new Date().toISOString().split('T')[0],
             is_tax_invoice: false,
             is_tax_deductible: true,
-            id: null
+            id: null,
+            notes: [], // Initialize notes for manual entry
+            reason: "" // Initialize reason for manual entry
         };
         await openModal();
     } catch (err) {
@@ -378,6 +385,19 @@ async function openModal() {
     document.getElementById('m-category').value = currentProcess.category || "General Business";
     document.getElementById('m-deductible').checked = currentProcess.is_tax_deductible;
 
+    // Clear and display notes
+    const notesDisplayEl = document.getElementById('notes-display');
+    notesDisplayEl.innerHTML = '';
+    if (currentProcess.notes && currentProcess.notes.length > 0) {
+        currentProcess.notes.forEach(note => {
+            const noteEl = document.createElement('p');
+            // Keep notes simple without extra background styling
+            noteEl.className = "text-xs text-slate-600 leading-relaxed font-medium";
+            noteEl.innerText = note;
+            notesDisplayEl.appendChild(noteEl);
+        });
+    }
+
     const badge = document.getElementById('compliance-badge');
     const status = currentProcess.compliance_status || (currentProcess.is_tax_invoice ? "Valid" : "Receipt Only");
     badge.innerText = status;
@@ -393,8 +413,8 @@ async function openModal() {
     // Show reasoning if available
     const reasoningEl = document.getElementById('m-reasoning');
     if (reasoningEl) {
-        reasoningEl.innerText = currentProcess.reasoning || "";
-        reasoningEl.parentElement.classList.toggle('hidden', !currentProcess.reasoning);
+        reasoningEl.innerText = currentProcess.reason || "";
+        reasoningEl.parentElement.classList.toggle('hidden', !currentProcess.reason);
     }
 
     toggleWarning();
@@ -427,6 +447,7 @@ if (saveBtn) {
         const vat_number = document.getElementById('m-vatno').value;
         const is_tax_invoice = document.getElementById('compliance-badge').innerText === "Valid" || document.getElementById('compliance-badge').innerText === "Sufficient";
         const date = new Date().toISOString().split('T')[0]; // Default to today for manual
+        const notes = currentProcess.notes || []; // Get existing notes
 
         const slipData = {
             merchant,
@@ -436,7 +457,9 @@ if (saveBtn) {
             is_tax_deductible,
             vat_number,
             is_tax_invoice,
-            date
+            date,
+            notes, // Add notes to slipData
+            reason: currentProcess.reason || "" // Add reason to slipData
         };
 
         // Disable button and show loading
@@ -480,6 +503,22 @@ if (saveBtn) {
             alert("An unexpected error occurred: " + err.message);
             saveBtn.disabled = false;
             saveBtn.innerHTML = 'Save Slip';
+        }
+    };
+}
+
+const addNoteBtn = document.getElementById('add-note-btn');
+if (addNoteBtn) {
+    addNoteBtn.onclick = () => {
+        const noteTextarea = document.getElementById('m-notes');
+        const noteContent = noteTextarea.value.trim();
+        if (noteContent) {
+            if (!currentProcess.notes) {
+                currentProcess.notes = [];
+            }
+            currentProcess.notes.push(noteContent);
+            noteTextarea.value = ''; // Clear the textarea
+            openModal(); // Re-render modal to display new note
         }
     };
 }
