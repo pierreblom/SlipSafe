@@ -147,45 +147,58 @@ serve(async (req) => {
             ? businessContextMap[businessType]
             : null;
 
-        // Build enhanced prompt with business context
-        let prompt = 'Act as a South African Tax Specialist. ';
+        // Build SARS-smart prompt with item-level analysis
+        let prompt = 'You are a South African Tax Specialist AI. Your job is to analyze receipts and determine EXACTLY what can be claimed for VAT and Income Tax purposes.\n\n';
 
         if (businessContext) {
-            prompt += `You are analyzing a receipt for a ${businessContext.label} business in South Africa.\n\n`;
-            prompt += `Business Context:\n`;
-            prompt += `- Common deductible expenses for this business: ${businessContext.commonExpenses}\n`;
-            prompt += `- NOT deductible for this business: ${businessContext.nonDeductible}\n`;
-            prompt += `- SARS tax rules apply\n\n`;
+            prompt += `BUSINESS CONTEXT:\n`;
+            prompt += `- Business Type: ${businessContext.label}\n`;
+            prompt += `- Common business expenses: ${businessContext.commonExpenses}\n`;
+            prompt += `- NOT business expenses: ${businessContext.nonDeductible}\n\n`;
         }
 
-        prompt += 'Analyze the provided image of a business slip or invoice. Extract the following fields into a JSON format: { "supplier_name": "string", "supplier_vat_number": "string or null", "supplier_address": "string or null", "date": "YYYY-MM-DD", "invoice_number": "string or null", "description": "string or null", "total_amount_inclusive": 0.00, "vat_amount": 0.00, "recipient_name": "string or null", "recipient_vat_number": "string or null", "recipient_address": "string or null", "volume_quantity": "string or null", "category": "string", "is_deductible": boolean, "vat_claimable": boolean, "compliance_status": "Valid | Invalid | Incomplete", "missing_fields": ["string"], "reason": "string" } ';
+        prompt += `CRITICAL SARS RULES:\n`;
+        prompt += `1. PERSONAL ITEMS = NEVER CLAIMABLE (beds, bedding, personal clothing, toiletries for home, groceries for family)\n`;
+        prompt += `2. RESTAURANT/FOOD = NO VAT claim, but 50% Income Tax deduction IF it was client entertainment\n`;
+        prompt += `3. OFFICE EQUIPMENT = Fully claimable (desks, chairs, computers, printers, stationery)\n`;
+        prompt += `4. STOCK FOR RESALE = Fully claimable\n`;
+        prompt += `5. PETROL/VEHICLE = Claimable if for business use\n`;
+        prompt += `6. ASSETS > R7,000 = Must be depreciated, not immediately deducted\n\n`;
 
-        prompt += '\n\nValidation Logic (SARS 2025/26): 1. Document Type: Ensure the words "Tax Invoice", "VAT Invoice", or "Invoice" are present. 2. If Total <= R50: Mark as Sufficient. 3. If R50 < Total <= R5,000: Check for Abridged Tax Invoice requirements. 4. If Total > R5,000: Check for Full Tax Invoice requirements. ';
+        prompt += `TASK: Analyze the receipt image and return JSON with these fields:\n`;
+        prompt += `{\n`;
+        prompt += `  "supplier_name": "string",\n`;
+        prompt += `  "date": "YYYY-MM-DD",\n`;
+        prompt += `  "total_amount_inclusive": 0.00,\n`;
+        prompt += `  "vat_amount": 0.00,\n`;
+        prompt += `  "supplier_vat_number": "string or null",\n`;
+        prompt += `  "category": "General Business | Entertainment | Travel | Stock | Utilities",\n`;
+        prompt += `  "is_deductible": boolean,\n`;
+        prompt += `  "vat_claimable": boolean,\n`;
+        prompt += `  "vat_claimable_amount": 0.00,\n`;
+        prompt += `  "income_tax_deductible_amount": 0.00,\n`;
+        prompt += `  "personal_amount": 0.00,\n`;
+        prompt += `  "compliance_status": "Valid | Invalid | Incomplete",\n`;
+        prompt += `  "claim_summary": "Human-readable explanation of what can be claimed and why",\n`;
+        prompt += `  "item_analysis": "Brief description of main items and their claimability"\n`;
+        prompt += `}\n\n`;
 
-        if (businessContext) {
-            prompt += '\n\nTax Deductibility (Business-Specific): ';
-            prompt += '1. Determine if this expense is typical for a ' + businessContext.label + ' business. ';
-            prompt += '2. Check if it matches common expenses: ' + businessContext.commonExpenses + '. ';
-            prompt += '3. Verify it is NOT a personal expense like: ' + businessContext.nonDeductible + '. ';
-            prompt += '4. Apply SARS rules: Entertainment has 50% limit (but mark as deductible), personal items are NOT deductible. ';
-        } else {
-            prompt += '\n\nTax Deductibility: 1. General Deduction Formula. 2. Small Item Write-Off (< R7,000). 3. Entertainment Denial (mark as deductible but note 50% rule). 4. Motor Car Denial. ';
-        }
+        prompt += `CALCULATION RULES:\n`;
+        prompt += `- vat_claimable_amount: The VAT portion of BUSINESS items only (NOT personal items, NOT restaurant food)\n`;
+        prompt += `- income_tax_deductible_amount: Full amount for business items, 50% for entertainment/restaurants, 0 for personal\n`;
+        prompt += `- personal_amount: Any items that are personal/home use = NOT claimable\n`;
+        prompt += `- is_deductible: true ONLY if income_tax_deductible_amount > 0\n`;
+        prompt += `- vat_claimable: true ONLY if vat_claimable_amount > 0\n\n`;
 
-        if (businessContext) {
-            prompt += '\n\nCategory Selection (Business-Specific): ';
-            prompt += 'Based on the receipt and the business type (' + businessContext.label + '), select the MOST APPROPRIATE category from: General Business, Entertainment, Travel, Stock, Utilities. ';
-            prompt += 'Examples: ';
-            prompt += '- Food suppliers for Catering business = Stock ';
-            prompt += '- Petrol for Transport business = Travel ';
-            prompt += '- Office supplies for any business = General Business ';
-            prompt += '- Internet/electricity = Utilities ';
-            prompt += '- Client meals/events = Entertainment ';
-        } else {
-            prompt += '\n\nCategory Options: General Business, Entertainment, Travel, Stock, Utilities.';
-        }
+        prompt += `EXAMPLES:\n`;
+        prompt += `- PEP (bedding/clothing for home) → personal_amount = full total, vat_claimable_amount = 0, claim_summary = "Personal household items cannot be claimed"\n`;
+        prompt += `- Spur (restaurant) → vat_claimable_amount = 0, income_tax_deductible_amount = 50% of total (if client entertainment), claim_summary = "Restaurant meals: No VAT claim. 50% deductible for Income Tax if client entertainment"\n`;
+        prompt += `- Makro (office supplies) → vat_claimable_amount = full VAT, income_tax_deductible_amount = full total, claim_summary = "Office supplies fully claimable"\n`;
+        prompt += `- Engen (petrol) → vat_claimable_amount = full VAT, income_tax_deductible_amount = full total (if business travel), claim_summary = "Petrol for business travel is fully claimable"\n\n`;
 
-        const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=' + geminiApiKey, {
+        prompt += `Validation (SARS 2025/26): Check if document is a valid Tax Invoice. For Total <= R50: Sufficient. For R50 < Total <= R5,000: Abridged Tax Invoice. For Total > R5,000: Full Tax Invoice requirements.\n`;
+
+        const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=' + geminiApiKey, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -284,8 +297,18 @@ serve(async (req) => {
             throw new Error('Database insert failed: ' + dbError.message)
         }
 
+        // Include SARS analysis fields in response (not stored in DB but needed for frontend)
+        const responseData = {
+            ...dbData,
+            vat_claimable_amount: result.vat_claimable_amount || 0,
+            income_tax_deductible_amount: result.income_tax_deductible_amount || 0,
+            personal_amount: result.personal_amount || 0,
+            claim_summary: result.claim_summary || "",
+            item_analysis: result.item_analysis || ""
+        };
+
         console.log("Success!");
-        return new Response(JSON.stringify({ message: 'Success', data: dbData }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 })
+        return new Response(JSON.stringify({ message: 'Success', data: responseData }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 })
     } catch (error) {
         console.error("Function Error:", error.message);
         return new Response(JSON.stringify({ error: error.message }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 })

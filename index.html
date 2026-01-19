@@ -170,30 +170,7 @@
                 <p class="text-slate-500 text-sm">Let's show your wallet who's boss—Pro style.</p>
             </div>
 
-            <!-- Global Search Bar -->
-            <div class="space-y-2">
-                <div class="relative">
-                    <input type="text" id="global-search" placeholder="Search receipts..."
-                        class="w-full bg-slate-100 rounded-2xl px-5 py-4 pl-12 pr-32 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 text-slate-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <button onclick="switchScreen('ai')"
-                        class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#0077b6] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-blue-700 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                        Smart AI
-                    </button>
-                </div>
-                <p class="text-xs text-slate-500 px-1">Search receipts by store, category, amount, or date.</p>
-                <p class="text-xs text-slate-400 px-1">Try: "Coffee" or "Woolworths" or "over R100"</p>
-            </div>
+
 
             <!-- Analytics/Receipts Tabs -->
             <div class="flex gap-2 border-b border-slate-200">
@@ -225,8 +202,30 @@
             <div id="receipts-section" class="space-y-4">
                 <h3 class="font-bold text-slate-800 text-sm">Search receipts.</h3>
 
-                <input type="text" id="receipt-search" placeholder="Search by store name or description..."
-                    class="w-full bg-slate-100 rounded-2xl px-5 py-3 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+                <!-- Smart AI Search Bar -->
+                <div class="space-y-2">
+                    <div class="relative">
+                        <input type="text" id="receipt-search" placeholder="Search receipts..."
+                            class="w-full bg-slate-100 rounded-2xl px-5 py-4 pl-12 pr-32 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-slate-400 absolute left-4 top-1/2 transform -translate-y-1/2"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <button onclick="switchScreen('ai')"
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#0077b6] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-blue-700 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            Smart AI
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 px-1">Search receipts by store, category, amount, or date.</p>
+                    <p class="text-xs text-slate-400 px-1">Try: "Coffee" or "Woolworths" or "over R100"</p>
+                </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <select id="category-filter"
@@ -246,26 +245,15 @@
                     </select>
                 </div>
 
-                <div class="flex gap-3">
-                    <button id="needs-review-btn" onclick="toggleNeedsReview()"
-                        class="flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-xl text-slate-700 text-sm font-bold hover:bg-slate-200 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                        Needs Review
-                    </button>
-                    <button id="bulk-select-btn" onclick="toggleBulkSelect()"
-                        class="flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-xl text-slate-700 text-sm font-bold hover:bg-slate-200 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Bulk Select
-                    </button>
-                </div>
+                <button id="needs-review-btn" onclick="toggleNeedsReview()"
+                    class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 rounded-xl text-slate-700 text-sm font-bold hover:bg-slate-200 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    Needs Review
+                </button>
 
                 <button id="smart-filters-btn" onclick="toggleSmartFilters()"
                     class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 rounded-xl text-slate-700 text-sm font-bold hover:bg-slate-200 transition">
@@ -363,17 +351,7 @@
                             </div>
                             <span class="text-sm font-bold text-slate-800">Tax Info</span>
                         </button>
-                        <button onclick="switchScreen('reports')"
-                            class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
-                            <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                            <span class="text-sm font-bold text-slate-800">View Analytics</span>
-                        </button>
+
                         <button onclick="openBusinessModal('quote')"
                             class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
                             <div class="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center">
@@ -385,17 +363,7 @@
                             </div>
                             <span class="text-sm font-bold text-slate-800">Quotations</span>
                         </button>
-                        <button onclick="exportToExcel()"
-                            class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-blue-200 bg-blue-50 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                            <span class="text-sm font-bold text-slate-800">Exports</span>
-                        </button>
+
                     </div>
                 </div>
 
@@ -435,17 +403,7 @@
                         </div>
                         <span class="text-sm font-bold text-slate-800">Tax Info</span>
                     </button>
-                    <button onclick="switchHomeTab('analytics')"
-                        class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
-                        <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                        </div>
-                        <span class="text-sm font-bold text-slate-800">View Analytics</span>
-                    </button>
+
                     <button onclick="openBusinessModal('quote')"
                         class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
                         <div class="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center">
@@ -457,17 +415,7 @@
                         </div>
                         <span class="text-sm font-bold text-slate-800">Quotations</span>
                     </button>
-                    <button onclick="exportToExcel()"
-                        class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
-                        <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                        </div>
-                        <span class="text-sm font-bold text-slate-800">Exports</span>
-                    </button>
+
                 </div>
             </div>
 
@@ -490,6 +438,17 @@
                         search filters</p>
                 </div>
             </div>
+
+            <!-- Bulk Select Button -->
+            <button id="bulk-select-btn" onclick="toggleBulkSelect()"
+                class="w-full bg-slate-100 text-slate-700 font-bold py-4 rounded-2xl border-2 border-slate-200 hover:bg-slate-200 hover:border-slate-300 active:scale-95 transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Bulk Select
+            </button>
 
             <!-- Scan Receipt Button -->
             <button onclick="document.getElementById('file-input').click()"
@@ -782,7 +741,7 @@
             <div class="card p-6 space-y-4">
                 <h3 class="font-bold text-slate-800">Financial Overview</h3>
                 <p class="text-slate-500 text-sm">Your spending summary at a glance</p>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-3 gap-4">
                     <div class="card p-4 relative overflow-hidden">
                         <div class="relative z-10">
                             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total
@@ -790,6 +749,14 @@
                             <h3 id="total-spending" class="text-2xl font-black text-slate-800">R 0,00</h3>
                             <p class="text-xs text-slate-400">Across <span id="total-receipts-count">0</span> receipts
                             </p>
+                        </div>
+                    </div>
+                    <div class="card p-4 relative overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100">
+                        <div class="relative z-10">
+                            <p class="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mb-1">Total
+                                Claimable</p>
+                            <h3 id="total-claimable" class="text-2xl font-black text-emerald-800">R 0,00</h3>
+                            <p class="text-xs text-emerald-600">Tax deductible</p>
                         </div>
                     </div>
                     <div class="card p-4 relative overflow-hidden">
@@ -1492,6 +1459,20 @@
                             placeholder="0.00">
                     </div>
 
+                    <!-- Claim Amount -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                            Claim
+                            <span class="text-xs font-normal text-slate-400">(Tax Deductible Amount)</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600 font-bold">R</span>
+                            <input id="m-claim" type="number" step="0.01" readonly
+                                class="w-full pl-8 pr-4 py-3 rounded-xl border border-emerald-200 bg-emerald-50 outline-none transition font-bold text-emerald-700"
+                                placeholder="0.00">
+                        </div>
+                    </div>
+
                     <!-- Category -->
                     <div class="space-y-1">
                         <label class="text-sm font-bold text-slate-800">Category</label>
@@ -1553,6 +1534,35 @@
                             <span class="text-slate-600 font-medium group-hover:text-slate-800 transition">This expense
                                 is tax deductible</span>
                         </label>
+                    </div>
+
+                    <!-- SARS Claim Summary -->
+                    <div id="sars-claim-summary"
+                        class="bg-gradient-to-r from-blue-50 to-emerald-50 p-4 rounded-xl border border-blue-100 space-y-3 mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            SARS Claim Summary
+                        </h4>
+
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="bg-white p-3 rounded-lg border border-emerald-100">
+                                <p class="text-slate-500 text-xs font-medium">VAT Claimable</p>
+                                <p id="m-vat-claimable" class="text-emerald-600 font-bold text-lg">R0.00</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-blue-100">
+                                <p class="text-slate-500 text-xs font-medium">Tax Deductible</p>
+                                <p id="m-tax-deductible-amount" class="text-blue-600 font-bold text-lg">R0.00</p>
+                            </div>
+                        </div>
+
+                        <div id="m-claim-summary"
+                            class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-100">
+                            <span class="text-slate-400">AI analysis will appear here after scanning...</span>
+                        </div>
                     </div>
 
                     <!-- Hidden Fields for Logic -->

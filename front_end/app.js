@@ -448,11 +448,23 @@ async function analyzeSlip(fileObject) {
         await fetchSlips();
     } catch (err) {
         console.error("Analysis Failed:", err);
-        const msg = `AI Analysis Failed: ${err.message}\n\nThis is often caused by an expired session.\n\nWould you like to SIGN OUT and try again? (Recommended)`;
-        if (confirm(msg)) {
-            logout();
-        } else if (confirm("Would you like to enter the details manually instead?")) {
-            openManualEntry(fileObject);
+
+        const isQuotaError = err.message.toLowerCase().includes('quota') ||
+            err.message.includes('429') ||
+            err.message.toLowerCase().includes('limit');
+
+        if (isQuotaError) {
+            const msg = `AI Quota Exceeded: The AI is currently busy or has reached its daily limit.\n\nWould you like to enter the details manually instead?`;
+            if (confirm(msg)) {
+                openManualEntry(fileObject);
+            }
+        } else {
+            const msg = `AI Analysis Failed: ${err.message}\n\nThis is often caused by an expired session.\n\nWould you like to SIGN OUT and try again? (Recommended)`;
+            if (confirm(msg)) {
+                logout();
+            } else if (confirm("Would you like to enter the details manually instead?")) {
+                openManualEntry(fileObject);
+            }
         }
     } finally {
         loader.classList.add('hidden');
@@ -558,14 +570,64 @@ async function renderSlips() {
         );
     }
 
-    // Search filter
+    // Smart AI Search filter
     const receiptSearch = document.getElementById('receipt-search');
     if (receiptSearch && receiptSearch.value.trim()) {
-        const searchTerm = receiptSearch.value.toLowerCase();
-        filteredSlips = filteredSlips.filter(s =>
-            s.merchant.toLowerCase().includes(searchTerm) ||
-            (s.category && s.category.toLowerCase().includes(searchTerm))
-        );
+        const searchTerm = receiptSearch.value.toLowerCase().trim();
+
+        // Smart amount-based search (e.g., "over R100", "under R50", "more than 200")
+        const overMatch = searchTerm.match(/(?:over|above|more than|greater than)\s*r?\s*(\d+(?:\.\d+)?)/i);
+        const underMatch = searchTerm.match(/(?:under|below|less than)\s*r?\s*(\d+(?:\.\d+)?)/i);
+        const exactAmountMatch = searchTerm.match(/^r?\s*(\d+(?:\.\d+)?)$/i);
+
+        filteredSlips = filteredSlips.filter(s => {
+            // Amount-based filtering
+            if (overMatch) {
+                const threshold = parseFloat(overMatch[1]);
+                return (s.total || 0) > threshold;
+            }
+            if (underMatch) {
+                const threshold = parseFloat(underMatch[1]);
+                return (s.total || 0) < threshold;
+            }
+            if (exactAmountMatch) {
+                const amount = parseFloat(exactAmountMatch[1]);
+                // Allow some tolerance for exact amount matching (±1)
+                return Math.abs((s.total || 0) - amount) < 1;
+            }
+
+            // Date-based search (e.g., "January", "2026", "Jan 2026")
+            const dateStr = s.date ? s.date.toLowerCase() : '';
+            if (dateStr.includes(searchTerm)) {
+                return true;
+            }
+
+            // Merchant/Store name search (fuzzy matching)
+            const merchantName = (s.merchant || '').toLowerCase();
+            if (merchantName.includes(searchTerm)) {
+                return true;
+            }
+
+            // Category search
+            const category = (s.category || '').toLowerCase();
+            if (category.includes(searchTerm)) {
+                return true;
+            }
+
+            // VAT number search
+            const vatNumber = (s.vat_number || '').toLowerCase();
+            if (vatNumber.includes(searchTerm)) {
+                return true;
+            }
+
+            // Notes search
+            const notes = Array.isArray(s.notes) ? s.notes.join(' ').toLowerCase() : '';
+            if (notes.includes(searchTerm)) {
+                return true;
+            }
+
+            return false;
+        });
     }
 
     // Sort filter
@@ -593,8 +655,10 @@ async function renderSlips() {
     const html = slipsWithUrls.map(s => {
         const vat = s.vat || 0;
         const total = s.total || 0;
+        const claim = s.income_tax_deductible_amount || (s.is_tax_deductible ? total : 0);
+
         if (s.category !== 'Entertainment') claimTotal += vat;
-        if (s.is_tax_deductible) deductionTotal += total;
+        if (s.is_tax_deductible) deductionTotal += claim;
 
         return `
             <div class="card p-4 flex items-center gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="editSlip('${s.id}')">
@@ -605,7 +669,7 @@ async function renderSlips() {
                 </div>
                 <div class="text-right">
                     <p class="font-black text-slate-900 text-lg">R${total.toFixed(2)}</p>
-                    <p class="text-[9px] text-slate-400 uppercase font-bold">VAT: R${vat.toFixed(2)}</p>
+                    <p class="text-[9px] text-emerald-600 uppercase font-bold">Claim: R${claim.toFixed(2)}</p>
                 </div>
             </div>
         `;
@@ -723,6 +787,7 @@ function editSlip(id) {
         vat: slip.vat,
         category: slip.category,
         is_tax_deductible: slip.is_tax_deductible,
+        income_tax_deductible_amount: slip.income_tax_deductible_amount || (slip.is_tax_deductible ? slip.total : 0),
         imageData: slip.image_url,
         vat_number: slip.vat_number,
         is_tax_invoice: slip.is_tax_invoice,
@@ -747,6 +812,13 @@ async function openModal() {
     document.getElementById('m-vatno').value = currentProcess.vat_number || "";
     document.getElementById('m-category').value = currentProcess.category || "General Business";
     document.getElementById('m-deductible').checked = currentProcess.is_tax_deductible;
+
+    // Claim field (Tax Deductible Amount)
+    const claimInput = document.getElementById('m-claim');
+    if (claimInput) {
+        const claimAmount = currentProcess.income_tax_deductible_amount || 0;
+        claimInput.value = parseFloat(claimAmount).toFixed(2);
+    }
 
     // New fields
     document.getElementById('m-date').value = currentProcess.date || new Date().toISOString().split('T')[0];
@@ -786,6 +858,43 @@ async function openModal() {
     if (reasoningEl) {
         reasoningEl.innerText = currentProcess.reason || "";
         reasoningEl.parentElement.classList.toggle('hidden', !currentProcess.reason);
+    }
+
+    // SARS Claim Summary
+    const vatClaimableEl = document.getElementById('m-vat-claimable');
+    const taxDeductibleAmtEl = document.getElementById('m-tax-deductible-amount');
+    const claimSummaryEl = document.getElementById('m-claim-summary');
+
+    if (vatClaimableEl) {
+        const vatClaimable = currentProcess.vat_claimable_amount || 0;
+        vatClaimableEl.innerText = 'R' + parseFloat(vatClaimable).toFixed(2);
+        vatClaimableEl.className = vatClaimable > 0
+            ? 'text-emerald-600 font-bold text-lg'
+            : 'text-slate-400 font-bold text-lg';
+    }
+
+    if (taxDeductibleAmtEl) {
+        const taxDeductible = currentProcess.income_tax_deductible_amount || 0;
+        taxDeductibleAmtEl.innerText = 'R' + parseFloat(taxDeductible).toFixed(2);
+        taxDeductibleAmtEl.className = taxDeductible > 0
+            ? 'text-blue-600 font-bold text-lg'
+            : 'text-slate-400 font-bold text-lg';
+    }
+
+    if (claimSummaryEl) {
+        const summary = currentProcess.claim_summary || currentProcess.item_analysis || '';
+        if (summary) {
+            // Add emoji based on claimability
+            const vatClaimable = currentProcess.vat_claimable_amount || 0;
+            const taxDeductible = currentProcess.income_tax_deductible_amount || 0;
+            let emoji = '❌';
+            if (vatClaimable > 0 && taxDeductible > 0) emoji = '✅';
+            else if (taxDeductible > 0) emoji = '⚠️';
+
+            claimSummaryEl.innerHTML = `<span class="font-medium">${emoji} ${summary}</span>`;
+        } else {
+            claimSummaryEl.innerHTML = '<span class="text-slate-400">AI analysis will appear here after scanning...</span>';
+        }
     }
 
     toggleWarning();
@@ -971,6 +1080,10 @@ function renderMonthlyTrendsChart() {
     const sortedMonths = Object.keys(monthlyTotals).sort();
     const data = sortedMonths.map(month => monthlyTotals[month]);
 
+    // Calculate smart max value based on actual data
+    const maxValue = Math.max(...data, 0);
+    const suggestedMax = maxValue === 0 ? 100 : Math.ceil(maxValue * 1.2 / 100) * 100; // Add 20% padding and round to nearest 100
+
     if (monthlyTrendsChart) monthlyTrendsChart.destroy();
     monthlyTrendsChart = new Chart(ctx, {
         type: 'line',
@@ -980,9 +1093,15 @@ function renderMonthlyTrendsChart() {
                 label: 'Monthly Spending',
                 data: data,
                 borderColor: '#0077b6',
-                backgroundColor: 'rgba(0, 119, 182, 0.2)',
-                fill: true,
-                tension: 0.3
+                backgroundColor: 'rgba(0, 119, 182, 0.1)',
+                fill: false,
+                tension: 0.3,
+                borderWidth: 3,
+                pointRadius: 5,
+                pointBackgroundColor: '#0077b6',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointHoverRadius: 7
             }]
         },
         options: {
@@ -997,6 +1116,7 @@ function renderMonthlyTrendsChart() {
                 },
                 y: {
                     beginAtZero: true,
+                    suggestedMax: suggestedMax,
                     ticks: {
                         callback: function (value) {
                             return 'R' + value.toFixed(2);
@@ -1010,27 +1130,34 @@ function renderMonthlyTrendsChart() {
 
 function updateInsightsDashboard() {
     let totalSpending = 0;
+    let totalClaimable = 0;
     let totalReceipts = savedSlips.length;
     const categoryTotals = {};
     const monthlyTotals = {};
 
     savedSlips.forEach(slip => {
-        totalSpending += (slip.total || 0);
-        categoryTotals[slip.category] = (categoryTotals[slip.category] || 0) + (slip.total || 0);
+        const total = slip.total || 0;
+        const claim = slip.income_tax_deductible_amount || (slip.is_tax_deductible ? total : 0);
+
+        totalSpending += total;
+        totalClaimable += claim;
+        categoryTotals[slip.category] = (categoryTotals[slip.category] || 0) + total;
 
         const date = new Date(slip.date);
         const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-        monthlyTotals[monthYear] = (monthlyTotals[monthYear] || 0) + (slip.total || 0);
+        monthlyTotals[monthYear] = (monthlyTotals[monthYear] || 0) + total;
     });
 
     const averagePerReceipt = totalReceipts > 0 ? totalSpending / totalReceipts : 0;
 
     // Update Financial Overview
     const totalSpendingEl = document.getElementById('total-spending');
+    const totalClaimableEl = document.getElementById('total-claimable');
     const avgPerReceiptEl = document.getElementById('average-per-receipt');
     const totalReceiptsCountEl = document.getElementById('total-receipts-count');
 
     if (totalSpendingEl) totalSpendingEl.innerText = `R ${totalSpending.toFixed(2)}`;
+    if (totalClaimableEl) totalClaimableEl.innerText = `R ${totalClaimable.toFixed(2)}`;
     if (avgPerReceiptEl) avgPerReceiptEl.innerText = `R ${averagePerReceipt.toFixed(2)}`;
     if (totalReceiptsCountEl) totalReceiptsCountEl.innerText = totalReceipts;
 
@@ -1180,21 +1307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (sortFilter) {
         sortFilter.addEventListener('change', () => filterSlips());
-    }
-
-    const globalSearch = document.getElementById('global-search');
-    if (globalSearch) {
-        globalSearch.addEventListener('input', () => {
-            const searchTerm = globalSearch.value.toLowerCase();
-            if (searchTerm) {
-                // Switch to receipts tab and apply search
-                switchHomeTab('receipts');
-                if (receiptSearch) {
-                    receiptSearch.value = searchTerm;
-                }
-                filterSlips();
-            }
-        });
     }
 });
 
