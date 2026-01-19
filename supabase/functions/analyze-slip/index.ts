@@ -43,7 +43,7 @@ serve(async (req) => {
         // Extract the JWT token from the Authorization header
         const token = authHeader.replace('Bearer ', '').trim()
         console.log("Token received (first 20 chars):", token.substring(0, 20) + "...");
-        
+
         // Create client with anon key and pass the token in headers
         const userClient = createClient(supabaseUrl, supabaseAnonKey, {
             global: {
@@ -71,7 +71,7 @@ serve(async (req) => {
             }
             throw new Error('Invalid user session: ' + (userError?.message || 'User not found') + '. Please sign in again.')
         }
-        
+
         console.log("Authenticated user:", user.id, user.email);
 
         const supabase = createClient(supabaseUrl, supabaseServiceKey)
@@ -86,14 +86,111 @@ serve(async (req) => {
         const arrayBuffer = await file.arrayBuffer()
         const base64 = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
 
-        const prompt = 'Act as a South African Tax Specialist. Analyze the provided image of a business slip or invoice. Extract the following fields into a JSON format: { "supplier_name": "string", "supplier_vat_number": "string or null", "supplier_address": "string or null", "date": "YYYY-MM-DD", "invoice_number": "string or null", "description": "string or null", "total_amount_inclusive": 0.00, "vat_amount": 0.00, "recipient_name": "string or null", "recipient_vat_number": "string or null", "recipient_address": "string or null", "volume_quantity": "string or null", "category": "string", "is_deductible": boolean, "vat_claimable": boolean, "compliance_status": "Valid | Invalid | Incomplete", "missing_fields": ["string"], "reason": "string" } Validation Logic (SARS 2025/26): 1. Document Type: Ensure the words "Tax Invoice", "VAT Invoice", or "Invoice" are present. 2. If Total <= R50: Mark as Sufficient. 3. If R50 < Total <= R5,000: Check for Abridged Tax Invoice requirements. 4. If Total > R5,000: Check for Full Tax Invoice requirements. Tax Deductibility: 1. General Deduction Formula. 2. Small Item Write-Off (< R7,000). 3. Entertainment Denial. 4. Motor Car Denial. Category Options: General Business, Entertainment, Travel, Stock, Utilities.';
+        // Get user's business type from metadata
+        const businessType = user.user_metadata?.business_type || null;
+
+        // Business type context mapping
+        const businessContextMap: { [key: string]: { label: string; commonExpenses: string; nonDeductible: string } } = {
+            'accommodation': {
+                label: 'Accommodation (Airbnb, Guest Houses, Hotels, B&Bs)',
+                commonExpenses: 'Bedding, cleaning supplies, guest amenities, Wi-Fi, toiletries',
+                nonDeductible: 'Personal groceries, family meals, personal entertainment'
+            },
+            'catering': {
+                label: 'Catering & Food (Restaurants, Coffee Shops, Spas)',
+                commonExpenses: 'Kitchen equipment, food stock, uniforms, cleaning supplies, packaging',
+                nonDeductible: 'Personal dining, family meals, personal entertainment'
+            },
+            'professional': {
+                label: 'Professional Services (Lawyers, Accountants, Consultants)',
+                commonExpenses: 'Office rent, laptops, software, professional fees, stationery',
+                nonDeductible: 'Personal clothing, gym memberships, personal education'
+            },
+            'tech': {
+                label: 'Tech & Info (IT Support, Web Design, Software)',
+                commonExpenses: 'Servers, software subscriptions, internet, hardware, cloud services',
+                nonDeductible: 'Personal devices, home entertainment, personal software'
+            },
+            'education': {
+                label: 'Education (Tutors, Preschools, Training Centers)',
+                commonExpenses: 'Books, stationery, classroom supplies, teaching materials, educational software',
+                nonDeductible: 'Personal education, family courses, personal books'
+            },
+            'construction': {
+                label: 'Construction (Builders, Plumbers, Electricians)',
+                commonExpenses: 'Tools, safety gear (PPE), building materials, vehicle fuel, equipment',
+                nonDeductible: 'Personal tools, home improvements for personal use'
+            },
+            'retail': {
+                label: 'Retail & Trade (Spaza Shops, Online Stores, Boutiques)',
+                commonExpenses: 'Stock for resale, packaging, delivery costs, POS systems, shelving',
+                nonDeductible: 'Personal shopping, family items, personal clothing'
+            },
+            'manufacturing': {
+                label: 'Manufacturing (Furniture Making, Clothing Factories)',
+                commonExpenses: 'Raw materials, machinery, factory supplies, safety equipment, tools',
+                nonDeductible: 'Personal purchases, home goods, personal equipment'
+            },
+            'personal_services': {
+                label: 'Personal Services (Hairdressers, Spas, Garden Services)',
+                commonExpenses: 'Equipment, beauty products, petrol for client visits, supplies',
+                nonDeductible: 'Personal grooming, family services, personal beauty products'
+            },
+            'transport': {
+                label: 'Transport (Uber/Bolt, Logistics, Deliveries)',
+                commonExpenses: 'Vehicle repairs, petrol, insurance, GPS, safety equipment, car wash',
+                nonDeductible: 'Personal travel, family trips, personal vehicle maintenance'
+            }
+        };
+
+        const businessContext = businessType && businessContextMap[businessType]
+            ? businessContextMap[businessType]
+            : null;
+
+        // Build enhanced prompt with business context
+        let prompt = 'Act as a South African Tax Specialist. ';
+
+        if (businessContext) {
+            prompt += `You are analyzing a receipt for a ${businessContext.label} business in South Africa.\n\n`;
+            prompt += `Business Context:\n`;
+            prompt += `- Common deductible expenses for this business: ${businessContext.commonExpenses}\n`;
+            prompt += `- NOT deductible for this business: ${businessContext.nonDeductible}\n`;
+            prompt += `- SARS tax rules apply\n\n`;
+        }
+
+        prompt += 'Analyze the provided image of a business slip or invoice. Extract the following fields into a JSON format: { "supplier_name": "string", "supplier_vat_number": "string or null", "supplier_address": "string or null", "date": "YYYY-MM-DD", "invoice_number": "string or null", "description": "string or null", "total_amount_inclusive": 0.00, "vat_amount": 0.00, "recipient_name": "string or null", "recipient_vat_number": "string or null", "recipient_address": "string or null", "volume_quantity": "string or null", "category": "string", "is_deductible": boolean, "vat_claimable": boolean, "compliance_status": "Valid | Invalid | Incomplete", "missing_fields": ["string"], "reason": "string" } ';
+
+        prompt += '\n\nValidation Logic (SARS 2025/26): 1. Document Type: Ensure the words "Tax Invoice", "VAT Invoice", or "Invoice" are present. 2. If Total <= R50: Mark as Sufficient. 3. If R50 < Total <= R5,000: Check for Abridged Tax Invoice requirements. 4. If Total > R5,000: Check for Full Tax Invoice requirements. ';
+
+        if (businessContext) {
+            prompt += '\n\nTax Deductibility (Business-Specific): ';
+            prompt += '1. Determine if this expense is typical for a ' + businessContext.label + ' business. ';
+            prompt += '2. Check if it matches common expenses: ' + businessContext.commonExpenses + '. ';
+            prompt += '3. Verify it is NOT a personal expense like: ' + businessContext.nonDeductible + '. ';
+            prompt += '4. Apply SARS rules: Entertainment has 50% limit (but mark as deductible), personal items are NOT deductible. ';
+        } else {
+            prompt += '\n\nTax Deductibility: 1. General Deduction Formula. 2. Small Item Write-Off (< R7,000). 3. Entertainment Denial (mark as deductible but note 50% rule). 4. Motor Car Denial. ';
+        }
+
+        if (businessContext) {
+            prompt += '\n\nCategory Selection (Business-Specific): ';
+            prompt += 'Based on the receipt and the business type (' + businessContext.label + '), select the MOST APPROPRIATE category from: General Business, Entertainment, Travel, Stock, Utilities. ';
+            prompt += 'Examples: ';
+            prompt += '- Food suppliers for Catering business = Stock ';
+            prompt += '- Petrol for Transport business = Travel ';
+            prompt += '- Office supplies for any business = General Business ';
+            prompt += '- Internet/electricity = Utilities ';
+            prompt += '- Client meals/events = Entertainment ';
+        } else {
+            prompt += '\n\nCategory Options: General Business, Entertainment, Travel, Stock, Utilities.';
+        }
 
         const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=' + geminiApiKey, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: file.type || 'image/png', data: base64 } }] }],
-                generation_config: { }
+                generation_config: {}
             })
         })
 
@@ -176,8 +273,8 @@ serve(async (req) => {
             recipient_address: result.recipient_address,
             volume_quantity: result.volume_quantity,
             compliance_status: result.compliance_status,
-            missing_fields: Array.isArray(result.missing_fields) ? result.missing_fields : (result.missing_fields ? [result.missing_fields] : []),
-            reason: result.reason
+            missing_fields: Array.isArray(result.missing_fields) ? result.missing_fields : (result.missing_fields ? [result.missing_fields] : [])
+            // reason: result.reason // Removed: Column does not exist in DB schema
         }
 
         console.log("Inserting into DB:", JSON.stringify(slipData));

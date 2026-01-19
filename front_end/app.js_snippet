@@ -1,0 +1,21 @@
+
+function editSlip(id) {
+    const slip = savedSlips.find(s => s.id == id);
+    if (!slip) return;
+
+    currentProcess = {
+        id: slip.id,
+        merchant: slip.merchant,
+        total: slip.total,
+        vat: slip.vat,
+        category: slip.category,
+        is_tax_deductible: slip.is_tax_deductible,
+        imageData: slip.image_url,
+        vat_number: slip.vat_number,
+        is_tax_invoice: slip.is_tax_invoice,
+        date: slip.date,
+        notes: slip.notes || [],
+        reason: "" // No reason for existing slips
+    };
+    openModal();
+}
