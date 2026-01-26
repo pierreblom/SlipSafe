@@ -504,57 +504,9 @@
                 <p class="text-slate-500 text-sm">Access intelligent tools designed for your financial management</p>
 
                 <div class="space-y-4 pt-2">
-                    <!-- Smart Search -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="alert('Smart Search coming soon')">
-                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-2">
-                                <h4 class="font-bold text-slate-900">Smart Search</h4>
-                                <span class="status-chip status-available">Available</span>
-                            </div>
-                            <p class="text-slate-500 text-sm leading-relaxed">Find receipts using natural language
-                                queries and AI-powered filters</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-
-                    <!-- Scan Receipt -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="document.getElementById('file-input').click()">
-                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-2">
-                                <h4 class="font-bold text-slate-900">Scan Receipt</h4>
-                                <span class="status-chip status-available">Available</span>
-                            </div>
-                            <p class="text-slate-500 text-sm leading-relaxed">Upload receipts with automatic AI
-                                categorization and processing</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-
                     <!-- Budget Intelligence -->
                     <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="alert('Budget Intelligence coming soon')">
+                        onclick="openBudgetModal()">
                         <div
                             class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -577,29 +529,7 @@
                         </svg>
                     </button>
 
-                    <!-- Analytics Dashboard -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="switchScreen('reports')">
-                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-2">
-                                <h4 class="font-bold text-slate-900">Analytics Dashboard</h4>
-                                <span class="status-chip status-available">Available</span>
-                            </div>
-                            <p class="text-slate-500 text-sm leading-relaxed">Advanced spending analytics and
-                                personalized insights</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+
 
                     <!-- Smart Reports -->
                     <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
@@ -627,7 +557,7 @@
 
                     <!-- Expense Predictions -->
                     <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="alert('Expense Predictions coming soon')">
+                        onclick="openPredictionsModal()">
                         <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-red-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -638,10 +568,9 @@
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center justify-between gap-2">
                                 <h4 class="font-bold text-slate-900">Expense Predictions</h4>
-                                <span class="status-chip status-coming-soon">Coming Soon</span>
+                                <span class="status-chip status-available">Active</span>
                             </div>
-                            <p class="text-slate-500 text-sm leading-relaxed">Predict future spending patterns based on
-                                historical data</p>
+                            <p class="text-slate-500 text-sm leading-relaxed">Shows Spending Projections</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -651,81 +580,7 @@
                 </div>
             </div>
 
-            <div class="space-y-3 pt-6">
-                <h3 class="text-xl font-bold text-slate-800">AI Technology</h3>
-                <p class="text-slate-500 text-sm">Powered by advanced machine learning</p>
 
-                <div class="space-y-4">
-                    <!-- Intelligent Receipt Processing -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="document.getElementById('file-input').click()">
-                        <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9.348 13.914l-2.92 2.92a1 1 0 01-1.414 0l-2.92-2.92A1 1 0 011.086 12.5L4 9.586 6.914 12.5a1 1 0 010 1.414zM14.652 10.086l2.92-2.92a1 1 0 011.414 0l2.92 2.92A1 1 0 0122.914 11.5L19 14.414 16.086 11.5a1 1 0 010-1.414zM12 21a9 9 0 100-18 9 9 0 000 18z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-bold text-slate-900">Intelligent Receipt Processing</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Advanced AI capabilities for smarter
-                                financial management</p>
-                        </div>
-                    </button>
-
-                    <!-- Natural Language Search -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="alert('Natural Language Search coming soon')">
-                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-bold text-slate-900">Natural Language Search</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Find receipts by typing in plain English
-                            </p>
-                        </div>
-                    </button>
-
-                    <!-- Smart Categorization -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="alert('Smart Categorization coming soon')">
-                        <div
-                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9.348 13.914l-2.92 2.92a1 1 0 01-1.414 0l-2.92-2.92A1 1 0 011.086 12.5L4 9.586 6.914 12.5a1 1 0 010 1.414zM14.652 10.086l2.92-2.92a1 1 0 011.414 0l2.92 2.92A1 1 0 0122.914 11.5L19 14.414 16.086 11.5a1 1 0 010-1.414zM12 21a9 9 0 100-18 9 9 0 000 18z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-bold text-slate-900">Smart Categorization</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Automatic expense categorization with 95%
-                                accuracy</p>
-                        </div>
-                    </button>
-
-                    <!-- Predictive Insights -->
-                    <button class="card p-5 w-full text-left flex items-center gap-4 hover:shadow-md transition"
-                        onclick="alert('Predictive Insights coming soon')">
-                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M6 4h12v12a3 3 0 01-3 3H9a3 3 0 01-3-3V4z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-bold text-slate-900">Predictive Insights</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Spending patterns and budget predictions
-                            </p>
-                        </div>
-                    </button>
-                </div>
-            </div>
         </section>
 
         <!-- Reports Screen -->
@@ -794,11 +649,24 @@
                 </div>
             </div>
 
-            <!-- Monthly Spending Trends -->
+            <!-- Predictive Monthly Spending Trends -->
             <div class="card p-6">
-                <h4 class="font-bold text-slate-800 mb-6">Monthly Spending Trends</h4>
+                <div class="flex items-center justify-between mb-6">
+                    <h4 class="font-bold text-slate-800">Predictive Monthly Spending Trends</h4>
+                    <span class="status-chip status-available">AI Powered</span>
+                </div>
                 <div class="relative h-64">
                     <canvas id="monthlyTrendsChart"></canvas>
+                </div>
+                <div id="prediction-summary" class="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-100 hidden">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl">🔮</span>
+                        <div>
+                            <p class="text-sm font-bold text-blue-800 mb-1">AI Prediction</p>
+                            <p id="prediction-text" class="text-sm text-blue-700 leading-relaxed">Gathering data for
+                                predictions...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1154,49 +1022,7 @@
                 <h3 class="text-xl font-bold text-slate-800">Account Settings</h3>
                 <p class="text-slate-500 text-sm -mt-4">Customize your account preferences and categories</p>
 
-                <!-- Email-to-Receipt Card -->
-                <div class="card p-6 border-2 border-blue-100 bg-blue-50/30 space-y-4">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-blue-600 p-2 rounded-lg text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                            </svg>
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-bold text-slate-800">Email-to-Receipt</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">Forward or send receipt emails to this
-                                address to automatically import them to your account.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-blue-100 text-slate-600 font-medium text-sm break-all underline"
-                        id="receipt-email-address">
-                        3ebed0d6cd9f@receipts.simpleslips.app
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="copyEmailToReceipt()"
-                            class="flex-1 bg-white border border-slate-200 py-3 rounded-xl font-bold text-slate-700 flex items-center justify-center gap-2 hover:bg-slate-50 transition active:scale-95">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
-                            </svg>
-                            Copy
-                        </button>
-                        <button onclick="regenerateEmailToReceipt()"
-                            class="flex-1 bg-white border border-slate-200 py-3 rounded-xl font-bold text-slate-700 flex items-center justify-center gap-2 hover:bg-slate-50 transition active:scale-95">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            New
-                        </button>
-                    </div>
-                    <p class="text-[10px] text-slate-400 text-center">Regenerating creates a new address and disables
-                        the old one.</p>
-                </div>
+
 
                 <!-- Settings List -->
                 <div class="space-y-3">
@@ -1603,15 +1429,96 @@
         </div>
     </div>
 
-    <!-- Spinner Overlay -->
-    <div id="loader"
-        class="fixed inset-0 bg-white/80 backdrop-blur-sm hidden z-[100] flex flex-col items-center justify-center">
-        <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-        <p class="mt-4 font-bold text-blue-800">Reviewing with AI...</p>
+    <!-- Budget Modal -->
+    <div id="budget-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeBudgetModal()"></div>
+        <div onclick="event.stopPropagation()"
+            class="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-scale-in">
+            <!-- Header -->
+            <div class="p-6 pb-2 flex items-center justify-between shrink-0 bg-white z-10">
+                <h3 class="text-xl font-black text-slate-800">Budget Intelligence</h3>
+                <button onclick="closeBudgetModal()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="px-6 pb-6 overflow-y-auto grow">
+                <div id="budget-content" class="space-y-4 pt-2">
+                    <!-- Dynamic Content Here -->
+                </div>
+
+                <div id="budget-input-container" class="hidden space-y-3 pt-4 border-t border-slate-100 mt-4">
+                    <label class="text-sm font-bold text-slate-800">Set Monthly Budget</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">R</span>
+                        <input id="budget-input" type="number"
+                            class="w-full pl-8 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition font-bold text-slate-800"
+                            placeholder="0.00">
+                    </div>
+                    <button onclick="saveBudget()"
+                        class="w-full py-3 bg-[#0077b6] text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition">
+                        Save Budget
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div id="budget-actions" class="p-6 border-t border-slate-100 bg-slate-50 flex gap-3 shrink-0">
+                <button onclick="showBudgetInput()"
+                    class="flex-1 py-3 font-bold text-[#0077b6] bg-white border border-blue-100 hover:bg-blue-50 rounded-xl transition">
+                    Update Budget
+                </button>
+                <button onclick="closeBudgetModal()"
+                    class="flex-1 py-3 font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition">
+                    Close
+                </button>
+            </div>
+        </div>
     </div>
 
+    <!-- Generic Info Modal -->
+    <div id="info-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeInfoModal()"></div>
+        <div
+            class="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-scale-in">
+            <!-- Header -->
+            <div class="p-6 pb-2 flex items-center justify-between shrink-0 bg-white z-10">
+                <h3 id="info-modal-title" class="text-xl font-black text-slate-800">Info</h3>
+                <button onclick="closeInfoModal()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="px-6 pb-6 overflow-y-auto grow">
+                <div id="info-modal-content" class="text-slate-600 text-sm leading-relaxed space-y-3 pt-2">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="p-6 border-t border-slate-100 bg-slate-50 shrink-0">
+                <button onclick="closeInfoModal()"
+                    class="w-full py-3 font-bold text-white bg-[#0077b6] hover:bg-blue-700 rounded-xl transition shadow-lg shadow-blue-200">
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="front_end/app.js" defer></script>
+    <script src="front_end/app.js?v=2" defer></script>
 </body>
 
 </html>
