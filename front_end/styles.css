@@ -217,27 +217,79 @@ input[type="text"]::placeholder {
     transition: width 0.5s ease-in-out;
 }
 
-/* Modal Animations */
-@keyframes scaleIn {
+/* Modal & Dialog Enhancements */
+.modal-overlay {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.modal-content {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.premium-dialog {
+    background: white;
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.premium-btn-confirm {
+    background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+    box-shadow: 0 10px 15px -3px rgba(0, 119, 182, 0.3);
+}
+
+.premium-btn-cancel {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.premium-btn-cancel:hover {
+    background: #e2e8f0;
+}
+
+.icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.icon-box-error {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.icon-box-success {
+    background: #dcfce7;
+    color: #22c55e;
+}
+
+.icon-box-info {
+    background: #e0f2fe;
+    color: #0ea5e9;
+}
+
+.icon-box-warning {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+@keyframes slideUp {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
     }
 }
 
-.animate-scale-in {
-    animation: scaleIn 0.2s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.2s ease-out forwards;
+.animate-slide-up {
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

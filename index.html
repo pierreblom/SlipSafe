@@ -314,9 +314,11 @@
                 </svg>
                 Scan Receipt
             </button>
+            <p class="text-[10px] text-slate-400 text-center mt-1">Tip: Hold Cmd (⌘) or Shift to select multiple files
+            </p>
 
             <!-- Hidden File Input -->
-            <input type="file" id="file-input" accept="image/*" class="hidden">
+            <input multiple type="file" id="file-input" accept="image/*" class="hidden">
         </section>
 
         <!-- Smart AI Screen -->
@@ -1184,9 +1186,10 @@
 
     <!-- Modal: Receipt Verification -->
     <!-- Upload Receipt Modal -->
-    <div id="modal"
-        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-[80] flex items-center justify-center p-4">
-        <div class="bg-white rounded-[2rem] w-full max-w-md max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+    <div id="modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeModal()"></div>
+        <div
+            class="bg-white rounded-[2.5rem] w-full max-w-md max-h-[90vh] flex flex-col premium-dialog relative z-10 overflow-hidden animate-slide-up">
             <!-- Header -->
             <div class="px-6 pt-6 pb-2">
                 <div class="flex items-center gap-3 mb-1">
@@ -1388,10 +1391,10 @@
     </div>
 
     <!-- Budget Modal -->
-    <div id="budget-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeBudgetModal()"></div>
+    <div id="budget-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeBudgetModal()"></div>
         <div onclick="event.stopPropagation()"
-            class="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-scale-in">
+            class="bg-white w-full max-w-sm rounded-[2.5rem] premium-dialog relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-up">
             <!-- Header -->
             <div class="p-6 pb-2 flex items-center justify-between shrink-0 bg-white z-10">
                 <h3 class="text-xl font-black text-slate-800">Budget Intelligence</h3>
@@ -1428,11 +1431,11 @@
             <!-- Footer -->
             <div id="budget-actions" class="p-6 border-t border-slate-100 bg-slate-50 flex gap-3 shrink-0">
                 <button onclick="showBudgetInput()"
-                    class="flex-1 py-3 font-bold text-[#0077b6] bg-white border border-blue-100 hover:bg-blue-50 rounded-xl transition">
+                    class="flex-1 py-4 font-bold text-white premium-btn-confirm rounded-2xl transition shadow-lg active:scale-95">
                     Update Budget
                 </button>
                 <button onclick="closeBudgetModal()"
-                    class="flex-1 py-3 font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition">
+                    class="flex-1 py-4 font-bold text-slate-600 premium-btn-cancel rounded-2xl transition active:scale-95">
                     Close
                 </button>
             </div>
@@ -1440,10 +1443,10 @@
     </div>
 
     <!-- Generic Info Modal -->
-    <div id="info-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeInfoModal()"></div>
+    <div id="info-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeInfoModal()"></div>
         <div
-            class="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-scale-in">
+            class="bg-white w-full max-w-sm rounded-[2.5rem] premium-dialog relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-up">
             <!-- Header -->
             <div class="p-6 pb-2 flex items-center justify-between shrink-0 bg-white z-10">
                 <h3 id="info-modal-title" class="text-xl font-black text-slate-800">Info</h3>
@@ -1466,7 +1469,7 @@
             <!-- Footer -->
             <div class="p-6 border-t border-slate-100 bg-slate-50 shrink-0">
                 <button onclick="closeInfoModal()"
-                    class="w-full py-3 font-bold text-white bg-[#0077b6] hover:bg-blue-700 rounded-xl transition shadow-lg shadow-blue-200">
+                    class="w-full py-4 font-bold text-white premium-btn-confirm rounded-2xl transition shadow-lg active:scale-95">
                     Got it
                 </button>
             </div>
@@ -1475,8 +1478,32 @@
 
 
 
+    <!-- Premium Dialog (Global) -->
+    <div id="premium-dialog" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-6 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" id="dialog-overlay"></div>
+        <div
+            class="bg-white w-full max-w-sm premium-dialog p-8 relative z-10 flex flex-col items-center text-center animate-slide-up">
+            <div id="dialog-icon-box" class="icon-box">
+                <!-- Dynamic Icon -->
+            </div>
+            <h3 id="dialog-title" class="text-2xl font-black text-slate-800 mb-3">Notice</h3>
+            <p id="dialog-message" class="text-slate-500 text-sm leading-relaxed mb-8">Message body goes here.</p>
+
+            <div class="w-full flex flex-col gap-3">
+                <button id="dialog-confirm-btn"
+                    class="w-full py-4 text-white font-bold rounded-2xl premium-btn-confirm transition active:scale-95 shadow-lg">
+                    Confirm
+                </button>
+                <button id="dialog-cancel-btn"
+                    class="w-full py-4 font-bold rounded-2xl premium-btn-cancel transition active:scale-95">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="front_end/app.js?v=2" defer></script>
+    <script src="front_end/app.js?v=4" defer></script>
 </body>
 
 </html>

@@ -18,6 +18,63 @@ const modal = document.getElementById('modal');
 const lunchWarning = document.getElementById('lunch-warning');
 const authOverlay = document.getElementById('auth-overlay');
 
+// --- PREMIUM DIALOG SYSTEM ---
+/**
+ * Shows a premium custom dialog (alert/confirm)
+ * @param {string} title - The title of the dialog
+ * @param {string} message - The message body
+ * @param {'info'|'success'|'warning'|'error'} type - The type of dialog for icon styling
+ * @param {boolean} showCancel - Whether to show the cancel button (confirm mode)
+ * @param {string} confirmText - Text for the primary button
+ * @returns {Promise<boolean>} - Resolves to true if confirmed, false if cancelled
+ */
+async function showDialog(title, message, type = 'info', showCancel = false, confirmText = 'OK') {
+    const dialog = document.getElementById('premium-dialog');
+    const titleEl = document.getElementById('dialog-title');
+    const messageEl = document.getElementById('dialog-message');
+    const iconBox = document.getElementById('dialog-icon-box');
+    const confirmBtn = document.getElementById('dialog-confirm-btn');
+    const cancelBtn = document.getElementById('dialog-cancel-btn');
+
+    return new Promise((resolve) => {
+        titleEl.innerText = title;
+        messageEl.innerHTML = message;
+        confirmBtn.innerText = confirmText;
+
+        // Set Icon & Styling
+        iconBox.innerHTML = '';
+        iconBox.className = 'icon-box icon-box-' + type;
+
+        let iconSvg = '';
+        if (type === 'error') {
+            iconSvg = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>';
+        } else if (type === 'success') {
+            iconSvg = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>';
+        } else if (type === 'warning') {
+            iconSvg = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>';
+        } else {
+            iconSvg = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+        }
+        iconBox.innerHTML = iconSvg;
+
+        // Visibility
+        if (showCancel) cancelBtn.classList.remove('hidden');
+        else cancelBtn.classList.add('hidden');
+
+        dialog.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+
+        const handleAction = (result) => {
+            dialog.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            resolve(result);
+        };
+
+        confirmBtn.onclick = () => handleAction(true);
+        cancelBtn.onclick = () => handleAction(false);
+    });
+}
+
 // --- AUTHENTICATION ---
 async function checkUser() {
     const { data: { user } } = await supabaseClient.auth.getUser();
@@ -53,7 +110,7 @@ async function handleEmailAuth() {
     const password = document.getElementById('auth-password').value;
 
     if (!email || !password) {
-        alert("Please enter both email and password.");
+        await showDialog("Input Required", "Please enter both email and password.", "warning");
         return;
     }
 
@@ -65,11 +122,11 @@ async function handleEmailAuth() {
         } else {
             const { error } = await supabaseClient.auth.signUp({ email, password });
             if (error) throw error;
-            alert("Signup successful! Please check your email for verification (if enabled) or sign in.");
+            await showDialog("Success", "Signup successful! Please check your email for verification (if enabled) or sign in.", "success");
             toggleAuthMode();
         }
     } catch (err) {
-        alert("Auth failed: " + err.message);
+        await showDialog("Authentication Error", err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -80,12 +137,12 @@ async function loginWithGoogle() {
         provider: 'google',
         options: { redirectTo: window.location.origin }
     });
-    if (error) alert("Login failed: " + error.message);
+    if (error) await showDialog("Login Error", error.message, "error");
 }
 
 async function logout() {
     const { error } = await supabaseClient.auth.signOut();
-    if (error) alert("Logout failed: " + error.message);
+    if (error) await showDialog("Logout Error", error.message, "error");
     else window.location.reload();
 }
 
@@ -405,25 +462,49 @@ async function compressImage(file) {
 }
 
 if (fileInput) {
+    // Force multiple and explicit accept just in case
+    fileInput.multiple = true;
+    fileInput.accept = "image/png,image/jpeg,image/jpg,image/webp,application/pdf";
+    console.log("File input initialized with multiple selection support");
+
     fileInput.addEventListener('change', async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
 
         loader.classList.remove('hidden');
+        const loaderTitle = loader.querySelector('h3');
+        const originalText = loaderTitle ? loaderTitle.innerText : 'AI is analyzing...';
+
         try {
-            const compressedFile = await compressImage(file);
-            await analyzeSlip(compressedFile);
+            for (let i = 0; i < files.length; i++) {
+                if (loaderTitle && files.length > 1) {
+                    loaderTitle.innerText = `Analyzing (${i + 1}/${files.length})...`;
+                }
+                const file = files[i];
+                const compressedFile = await compressImage(file);
+                // Only open modal for single file, and only hide loader on the last file
+                await analyzeSlip(compressedFile, files.length === 1, i === files.length - 1);
+            }
+            if (files.length > 1) {
+                // Short delay to ensure list is updated
+                setTimeout(async () => {
+                    await showDialog("Success!", `Successfully processed ${files.length} receipts! They are now in your list.`, "success");
+                }, 500);
+            }
         } catch (err) {
             console.error("Processing error:", err);
-            alert("Error processing image. You can try manual entry.");
+            await showDialog("Processing Error", "Error processing one or more images. Some were skipped.", "error");
+        } finally {
+            if (loaderTitle) loaderTitle.innerText = originalText;
             loader.classList.add('hidden');
+            fileInput.value = '';
         }
     });
 }
 
 
 
-async function analyzeSlip(fileObject) {
+async function analyzeSlip(fileObject, openReviewModal = true, hideLoaderOnFinish = true) {
     try {
         const formData = new FormData();
         formData.append('file', fileObject);
@@ -476,7 +557,7 @@ async function analyzeSlip(fileObject) {
             reason: data.data.reason || "", // Populate reason from AI response
             isNew: true // Mark as new scan
         };
-        await openModal();
+        if (openReviewModal) await openModal();
         await fetchSlips();
     } catch (err) {
         console.error("Analysis Failed:", err);
@@ -486,20 +567,23 @@ async function analyzeSlip(fileObject) {
             err.message.toLowerCase().includes('limit');
 
         if (isQuotaError) {
-            const msg = `AI Quota Exceeded: The AI is currently busy or has reached its daily limit.\n\nWould you like to enter the details manually instead?`;
-            if (confirm(msg)) {
+            const msg = `The AI is currently busy or has reached its daily limit.<br><br>Would you like to enter the details manually instead?`;
+            if (await showDialog("AI Quota Exceeded", msg, "warning", true, "Yes, Manual Entry")) {
                 openManualEntry(fileObject);
             }
+        } else if (err.message.includes('Duplicate Slip')) {
+            await showDialog("Analysis Failed", "Duplicate Slip! This image has already been uploaded.", "error", false, "oky");
+            switchScreen('home');
         } else {
-            const msg = `AI Analysis Failed: ${err.message}\n\nThis is often caused by an expired session.\n\nWould you like to SIGN OUT and try again? (Recommended)`;
-            if (confirm(msg)) {
+            const msg = `${err.message}<br><br>This is often caused by an expired session.<br><br>Would you like to <b>SIGN OUT</b> and try again? (Recommended)`;
+            if (await showDialog("Analysis Failed", msg, "error", true, "Sign Out")) {
                 logout();
-            } else if (confirm("Would you like to enter the details manually instead?")) {
+            } else if (await showDialog("Manual Entry", "Would you like to enter the details manually instead?", "info", true, "Yes")) {
                 openManualEntry(fileObject);
             }
         }
     } finally {
-        loader.classList.add('hidden');
+        if (hideLoaderOnFinish) loader.classList.add('hidden');
     }
 }
 
@@ -534,7 +618,7 @@ async function openManualEntry(fileObject) {
         };
         await openModal();
     } catch (err) {
-        alert("Failed to upload image: " + err.message);
+        await showDialog("Upload Failed", err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -1673,7 +1757,7 @@ function showBudgetInput() {
     }
 }
 
-function saveBudget() {
+async function saveBudget() {
     const budgetInput = document.getElementById('budget-input');
     if (!budgetInput) return;
 
@@ -1685,7 +1769,7 @@ function saveBudget() {
         // Refresh modal content
         openBudgetModal();
     } else {
-        alert("Please enter a valid budget amount.");
+        await showDialog("Invalid Amount", "Please enter a valid budget amount.", "warning");
     }
 }
 
@@ -2913,24 +2997,24 @@ function handleScreenshotAttach(event) {
     }
 }
 
-function sendSupportMessage() {
+async function sendSupportMessage() {
     const subject = document.getElementById('support-subject')?.value;
     const message = document.getElementById('support-message')?.value?.trim();
     const emailContact = document.getElementById('contact-email')?.checked;
 
     // Validation
     if (!subject) {
-        alert('Please select a subject.');
+        await showDialog("Selection Required", "Please select a subject.", "warning");
         return;
     }
 
     if (!message) {
-        alert('Please enter a message.');
+        await showDialog("Message Required", "Please enter a message.", "warning");
         return;
     }
 
     if (!emailContact) {
-        alert('Please confirm email as your contact method.');
+        await showDialog("Confirmation Required", "Please confirm email as your contact method.", "warning");
         return;
     }
 
@@ -3037,9 +3121,9 @@ async function updateBusinessType(value) {
             'transport': 'Transport'
         };
 
-        alert(`Business type updated to: ${businessTypes[value]}`);
+        await showDialog("Success", `Business type updated to: ${businessTypes[value]}`, "success");
     } catch (err) {
-        alert('Error updating business type: ' + err.message);
+        await showDialog("Update Error", 'Error updating business type: ' + err.message, "error");
     }
 }
 
@@ -3095,33 +3179,36 @@ async function editProfileField(field) {
                     alert('Error updating business type: ' + err.message);
                 }
             } else {
-                alert('Invalid selection. Please enter a number between 1 and 10.');
+                await showDialog("Invalid Selection", 'Invalid selection. Please enter a number between 1 and 10.', "warning");
             }
         }
     } else {
-        alert(`Editing ${field} coming soon! We are building a secure profile editor.`);
+        await showDialog("Coming Soon", `Editing ${field} coming soon! We are building a secure profile editor.`, "info");
     }
 }
 
 
 
-function signOutAllDevices() {
-    if (confirm("This will sign you out of all active sessions. Continue?")) {
+async function signOutAllDevices() {
+    if (await showDialog("Sign Out All Devices", "This will sign you out of all active sessions. Continue?", "warning", true, "Yes, Sign Out")) {
         logout();
     }
 }
 
-function clearAllData() {
-    const confirmText = prompt("To confirm, type 'CLEAR ALL DATA' below. This cannot be undone.");
-    if (confirmText === 'CLEAR ALL DATA') {
-        alert("Clearing all data... Your account will be fresh in a few seconds.");
+async function clearAllData() {
+    // For now, replacing prompt with a clear warning since it's a destructive action
+    const msg = "This will delete all your receipts, categories, and analytics. <b>This cannot be undone.</b><br><br>Are you absolutely sure?";
+    if (await showDialog("Clear All Data", msg, "error", true, "Clear Everything")) {
+        await showDialog("Success", "Clearing all data... Your account will be fresh in a few seconds.", "success");
+        // In a real app, we would call a backend function here
     }
 }
 
-function deleteAccount() {
-    const confirmText = prompt("To confirm deletion, type your email address below. This is permanent.");
-    if (confirmText === currentUser.email) {
-        alert("Account deletion initiated. We're sorry to see you go.");
+async function deleteAccount() {
+    const msg = "Are you sure you want to permanently delete your account? All data will be lost forever.";
+    if (await showDialog("Delete Account", msg, "error", true, "Delete Permanently")) {
+        await showDialog("Account Deleted", "Account deletion initiated. We're sorry to see you go.", "info");
+        // In a real app, we would call a backend function here
     }
 }
 
@@ -3163,13 +3250,13 @@ async function saveClient(event) {
 
         if (error) throw error;
 
-        alert('Client saved successfully!');
+        await showDialog("Success", 'Client saved successfully!', "success");
         // Close modal by refreshing or finding a close method if available. 
         // For now, reloading to ensure state is clean.
         location.reload();
     } catch (err) {
         console.error('Error saving client:', err);
-        alert('Failed to save client: ' + err.message);
+        await showDialog("Failed to Save", 'Failed to save client: ' + err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -3196,11 +3283,11 @@ async function saveQuote(event) {
 
         if (error) throw error;
 
-        alert('Quotation created successfully!');
+        await showDialog("Success", 'Quotation created successfully!', "success");
         location.reload();
     } catch (err) {
         console.error('Error saving quote:', err);
-        alert('Failed to save quotation: ' + err.message);
+        await showDialog("Failed to Save", 'Failed to save quotation: ' + err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -3227,11 +3314,11 @@ async function saveInvoice(event) {
 
         if (error) throw error;
 
-        alert('Invoice created successfully!');
+        await showDialog("Success", 'Invoice created successfully!', "success");
         location.reload();
     } catch (err) {
         console.error('Error saving invoice:', err);
-        alert('Failed to save invoice: ' + err.message);
+        await showDialog("Failed to Save", 'Failed to save invoice: ' + err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -3302,11 +3389,11 @@ async function saveBusinessProfile(event) {
         currentUser = user;
         updateProfileUI(); // Refresh profile UI if needed
 
-        alert('Business profile updated successfully!');
+        await showDialog("Success", 'Business profile updated successfully!', "success");
         location.reload();
     } catch (err) {
         console.error('Error updating business profile:', err);
-        alert('Failed to update profile: ' + err.message);
+        await showDialog("Update Failed", 'Failed to update profile: ' + err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
