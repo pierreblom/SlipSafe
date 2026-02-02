@@ -258,6 +258,7 @@ function switchScreen(screenId) {
     if (screenId === 'ai') generateAIInsights();
     if (screenId === 'home') renderSlips(); // Refresh home screen stats when switching back
     if (screenId === 'business') renderRecentBusinessItems();
+    if (screenId === 'profile') fetchSessions();
 }
 
 // --- HOME TAB SWITCHING ---
@@ -1534,12 +1535,28 @@ function populateInsightsFilter() {
         }
     });
 
-    // Restore selection if valid, otherwise default to "all"
-    const hasValue = Array.from(filterEl.options).some(o => o.value === currentSelection);
-    if (hasValue && currentSelection !== '') {
-        filterEl.value = currentSelection;
+    // Set functionality to default to current month on first load
+    const now = new Date();
+    const currentMonthVal = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+    // Check if we already set the default for this session/load
+    if (!filterEl.hasAttribute('data-default-set')) {
+        // Try to set current month
+        const currentMonthOption = Array.from(filterEl.options).find(o => o.value === currentMonthVal);
+        if (currentMonthOption) {
+            filterEl.value = currentMonthVal;
+        } else {
+            filterEl.value = 'all';
+        }
+        filterEl.setAttribute('data-default-set', 'true');
     } else {
-        filterEl.value = 'all';
+        // Restore selection if valid, otherwise default to "all"
+        const hasValue = Array.from(filterEl.options).some(o => o.value === currentSelection);
+        if (hasValue && currentSelection !== '') {
+            filterEl.value = currentSelection;
+        } else {
+            filterEl.value = 'all';
+        }
     }
 }
 
@@ -3304,8 +3321,120 @@ async function editProfileField(field) {
 
 
 async function signOutAllDevices() {
-    if (await showDialog("Sign Out All Devices", "This will sign you out of all active sessions. Continue?", "warning", true, "Yes, Sign Out")) {
-        logout();
+    if (await showDialog("Sign Out All Devices", "This will sign you out of ALL devices, including this one. Continue?", "warning", true, "Yes, Sign Out All")) {
+        try {
+            // Revoke all on server
+            const { error } = await supabaseClient.rpc('revoke_all_sessions');
+            if (error) throw error;
+
+            // Sign out locally/client-side final cleanup
+            logout();
+        } catch (err) {
+            console.error("Error signing out all:", err);
+            // Fallback to local logout
+            logout();
+        }
+    }
+}
+
+// --- SESSION MANAGEMENT ---
+
+async function fetchSessions() {
+    const list = document.getElementById('active-devices-list');
+    if (!list) return;
+
+    list.innerHTML = '<p class="text-xs text-slate-400 text-center py-2">Loading devices...</p>';
+
+    try {
+        const { data, error } = await supabaseClient.rpc('get_active_sessions');
+        if (error) throw error;
+        renderSessions(data);
+    } catch (err) {
+        console.error("Error fetching sessions:", err);
+        list.innerHTML = `<p class="text-xs text-red-400 text-center py-2">Failed to load devices</p>`;
+    }
+}
+
+function renderSessions(sessions) {
+    const list = document.getElementById('active-devices-list');
+    if (!list) return;
+    list.innerHTML = '';
+
+    if (!sessions || sessions.length === 0) {
+        list.innerHTML = '<p class="text-xs text-slate-400 text-center py-2">No active sessions found</p>';
+        return;
+    }
+
+    // Helper to parse UA
+    const getDeviceName = (ua) => {
+        if (!ua) return 'Unknown Device';
+        if (ua.includes('iPhone')) return 'iPhone';
+        if (ua.includes('iPad')) return 'iPad';
+        if (ua.includes('Macintosh')) return 'Mac';
+        if (ua.includes('Windows')) return 'Windows PC';
+        if (ua.includes('Android')) return 'Android Device';
+        if (ua.includes('Linux')) return 'Linux Device';
+        return 'Unknown Device';
+    };
+
+    const getBrowserName = (ua) => {
+        if (!ua) return 'Unknown Browser';
+        if (ua.includes('Chrome')) return 'Chrome';
+        if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+        if (ua.includes('Firefox')) return 'Firefox';
+        if (ua.includes('Edge')) return 'Edge';
+        return 'Browser';
+    };
+
+    sessions.forEach(session => {
+        const isCurrent = session.is_current;
+        const deviceName = getDeviceName(session.user_agent);
+        const browserName = getBrowserName(session.user_agent);
+        const lastActive = new Date(session.last_active_at).toLocaleString();
+
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100';
+
+        let icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`; // Default Desktop
+        if (deviceName === 'iPhone' || deviceName === 'Android Device') {
+            icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>`;
+        }
+
+        item.innerHTML = `
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
+                    ${icon}
+                </div>
+                <div class="space-y-0.5">
+                    <p class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        ${deviceName}
+                        ${isCurrent ? '<span class="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] font-bold rounded uppercase tracking-wider">Current</span>' : ''}
+                    </p>
+                    <p class="text-[10px] text-slate-400">${browserName} • ${lastActive}</p>
+                </div>
+            </div>
+            ${!isCurrent ? `
+            <button onclick="revokeSession('${session.id}')" class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition" title="Sign Out Device">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </button>` : ''}
+        `;
+        list.appendChild(item);
+    });
+}
+
+async function revokeSession(sessionId) {
+    if (await showDialog("Revoke Session", "Are you sure you want to sign out this device?", "warning", true, "Yes, Sign Out")) {
+        try {
+            const { error } = await supabaseClient.rpc('revoke_session', { target_session_id: sessionId });
+            if (error) throw error;
+            await showDialog("Success", "Device signed out successfully.", "success");
+            fetchSessions();
+        } catch (err) {
+            console.error("Error revoking session:", err);
+            await showDialog("Error", "Failed to sign out device.", "error");
+        }
     }
 }
 
