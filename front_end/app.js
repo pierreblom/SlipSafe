@@ -1153,12 +1153,12 @@ if (addNoteBtn) {
 // --- REPORTS & CHARTS ---
 let monthlyTrendsChart = null;
 
-function renderCharts() {
+function renderCharts(slips = savedSlips) {
     const ctx = document.getElementById('categoryChart');
     if (!ctx) return;
 
     const categories = {};
-    savedSlips.forEach(s => {
+    slips.forEach(s => {
         categories[s.category] = (categories[s.category] || 0) + (s.total || 0);
     });
 
@@ -1490,19 +1490,97 @@ function renderMonthlyTrendsChart(selectedMonth = null, selectedYear = null) {
     });
 }
 
+function populateInsightsFilter() {
+    const filterEl = document.getElementById('insights-month-filter');
+    if (!filterEl) return;
+
+    const currentSelection = filterEl.value;
+
+    // Identify distinct years from data, defaulting to current year if empty
+    const years = new Set();
+    const currentYear = new Date().getFullYear();
+    years.add(currentYear);
+
+    savedSlips.forEach(slip => {
+        if (!slip.date) return;
+        const d = new Date(slip.date);
+        if (!isNaN(d.getTime())) {
+            years.add(d.getFullYear());
+        }
+    });
+
+    const sortedYears = Array.from(years).sort((a, b) => b - a); // Descending years
+
+    // Clear existing
+    filterEl.innerHTML = '';
+
+    const allOption = document.createElement('option');
+    allOption.value = 'all';
+    allOption.innerText = 'All Time';
+    filterEl.appendChild(allOption);
+
+    sortedYears.forEach(year => {
+        // Generate months Jan (0) to Dec (11)
+        for (let m = 0; m < 12; m++) {
+            const date = new Date(year, m, 1);
+            const monthName = date.toLocaleString('default', { month: 'long' });
+            const label = `${monthName} ${year}`;
+            const value = `${year}-${String(m + 1).padStart(2, '0')}`;
+
+            const option = document.createElement('option');
+            option.value = value;
+            option.innerText = label;
+            filterEl.appendChild(option);
+        }
+    });
+
+    // Restore selection if valid, otherwise default to "all"
+    const hasValue = Array.from(filterEl.options).some(o => o.value === currentSelection);
+    if (hasValue && currentSelection !== '') {
+        filterEl.value = currentSelection;
+    } else {
+        filterEl.value = 'all';
+    }
+}
+
 function updateInsightsDashboard() {
+    populateInsightsFilter();
+
+    const filterEl = document.getElementById('insights-month-filter');
+    const selectedValue = filterEl ? filterEl.value : 'all';
+
+    let filteredSlips = savedSlips;
+    if (selectedValue !== 'all') {
+        const [y, m] = selectedValue.split('-');
+        filteredSlips = savedSlips.filter(slip => {
+            if (!slip.date) return false;
+            const date = new Date(slip.date);
+            return date.getFullYear() === parseInt(y) && (date.getMonth() + 1) === parseInt(m);
+        });
+
+        // Update Monthly Trends Chart to selected month
+        renderMonthlyTrendsChart(parseInt(m), parseInt(y));
+    } else {
+        // If All Time, default Monthly Trends to current month or maybe average?
+        // Defaulting to current month is safest for now
+        const now = new Date();
+        renderMonthlyTrendsChart(now.getMonth() + 1, now.getFullYear());
+    }
+
     let totalSpending = 0;
     let totalClaimable = 0;
-    let totalReceipts = savedSlips.length;
+    let deductibleCount = 0;
+    let totalReceipts = filteredSlips.length;
     const categoryTotals = {};
     const monthlyTotals = {};
 
-    savedSlips.forEach(slip => {
+    filteredSlips.forEach(slip => {
         const total = slip.total || 0;
         const claim = slip.income_tax_deductible_amount || (slip.is_tax_deductible ? total : 0);
 
         totalSpending += total;
         totalClaimable += claim;
+        if (slip.is_tax_deductible) deductibleCount++;
         categoryTotals[slip.category] = (categoryTotals[slip.category] || 0) + total;
 
         const date = new Date(slip.date);
@@ -1537,9 +1615,9 @@ function updateInsightsDashboard() {
     if (topCategoryEl) topCategoryEl.innerText = topCategory;
     if (topCategoryAmountEl) topCategoryAmountEl.innerText = `R ${topCategoryAmount.toFixed(2)}`;
 
-    // Render charts
-    renderCharts(); // For Spending by Category (Doughnut)
-    renderMonthlyTrendsChart(); // For Monthly Spending Trends (Line)
+    // Render charts with filtered data
+    renderCharts(filteredSlips); // For Spending by Category (Doughnut)
+    // renderMonthlyTrendsChart is already called above based on selection
 
     // Update Category Breakdown List
     const categoryBreakdownList = document.getElementById('category-breakdown-list');
@@ -1554,6 +1632,57 @@ function updateInsightsDashboard() {
                     <span class="text-xs text-slate-500 font-bold">R ${amount.toFixed(2)}</span>
                 </div>
             `).join('');
+        }
+    }
+
+    // Update Tax Preparation Card
+    const deductibleCountEl = document.getElementById('deductible-count');
+    const taxProgressEl = document.getElementById('tax-progress');
+    const deductionsSummaryEl = document.getElementById('deductions-summary');
+
+    if (deductibleCountEl) deductibleCountEl.innerText = `${deductibleCount} deductible`;
+    if (deductionsSummaryEl) deductionsSummaryEl.innerText = `R ${totalClaimable.toFixed(2)} in deductions`;
+    if (taxProgressEl) {
+        const percentage = totalSpending > 0 ? (totalClaimable / totalSpending) * 100 : 0;
+        taxProgressEl.style.width = `${percentage}%`;
+    }
+
+    // Update Monthly Budget Card (Dashboard)
+    const budgetProgress = document.getElementById('budget-progress');
+    const budgetStatus = document.getElementById('budget-status');
+    const storedBudget = localStorage.getItem('monthlyBudget');
+
+    if (budgetProgress && budgetStatus) {
+        if (storedBudget) {
+            const budgetAmount = parseFloat(storedBudget);
+            // If viewing specific month, use its total. If "all", maybe average or just hide? 
+            // "Monthly Budget" implies a single month view. 
+            // If "All Time" is selected, we can't show a meaningful "Monthly Budget" progress bar for *all time* 
+            // unless we sum ALL budgets (which don't historically exist) or show average.
+            // Let's rely on the requested behavior: "Monthly Budget... must use the top date".
+            // If "All Time" is selected, we'll default to current month for the budget card, 
+            // or perhaps disable it? Let's show filtered spending if a month is selected.
+
+            // If a specific month is selected:
+            if (selectedValue !== 'all') {
+                const percentage = (totalSpending / budgetAmount) * 100;
+                budgetProgress.style.width = `${Math.min(percentage, 100)}%`;
+                budgetProgress.className = `h-full rounded-full transition-all ${percentage > 100 ? 'bg-red-500' : 'bg-blue-600'}`;
+
+                const remaining = budgetAmount - totalSpending;
+                if (remaining >= 0) {
+                    budgetStatus.innerText = `R ${remaining.toFixed(2)} remaining`;
+                } else {
+                    budgetStatus.innerText = `R ${Math.abs(remaining).toFixed(2)} over`;
+                }
+            } else {
+                // For "All Time", we show "N/A" or reset
+                budgetProgress.style.width = `0%`;
+                budgetStatus.innerText = `Select a month`;
+            }
+        } else {
+            budgetStatus.innerText = `No budget set`;
+            budgetProgress.style.width = `0%`;
         }
     }
 }
@@ -1585,8 +1714,24 @@ function openBudgetModal(selectedMonth = null, selectedYear = null) {
     const inputContainer = document.getElementById('budget-input-container');
     const budgetInput = document.getElementById('budget-input');
     const actions = document.getElementById('budget-actions');
+    const filterEl = document.getElementById('insights-month-filter');
 
     if (!modal || !content) return;
+
+    // Default dates
+    const now = new Date();
+    let targetMonth = now.getMonth() + 1;
+    let targetYear = now.getFullYear();
+
+    // Check custom params or filter
+    if (selectedMonth && selectedYear) {
+        targetMonth = selectedMonth;
+        targetYear = selectedYear;
+    } else if (filterEl && filterEl.value !== 'all') {
+        const [y, m] = filterEl.value.split('-');
+        targetMonth = parseInt(m);
+        targetYear = parseInt(y);
+    }
 
     const storedBudget = localStorage.getItem('monthlyBudget');
     let budgetAmount = storedBudget ? parseFloat(storedBudget) : 0;
@@ -1610,9 +1755,6 @@ function openBudgetModal(selectedMonth = null, selectedYear = null) {
         actions.classList.add('hidden'); // Hide standard actions when forcing setup
     } else {
         // Calculate insights
-        const now = new Date();
-        const targetYear = selectedYear || now.getFullYear();
-        const targetMonth = selectedMonth || (now.getMonth() + 1);
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const monthName = monthNames[targetMonth - 1];
 
@@ -1677,35 +1819,7 @@ function openBudgetModal(selectedMonth = null, selectedYear = null) {
             note = `<p class="text-[10px] text-slate-400 mt-2 italic">Note: No spending recorded for <b>${monthName} ${targetYear}</b>.</p>`;
         }
 
-        // Build month selector dropdown
-        const uniqueMonths = new Set();
-        for (let m = 1; m <= 12; m++) uniqueMonths.add(`${now.getFullYear()}-${m}`);
-        savedSlips.forEach(slip => {
-            if (slip.date) {
-                const [y, m] = slip.date.split('-');
-                uniqueMonths.add(`${parseInt(y)}-${parseInt(m)}`);
-            }
-        });
-        const sortedMonths = Array.from(uniqueMonths).sort((a, b) => {
-            const [y1, m1] = a.split('-').map(Number);
-            const [y2, m2] = b.split('-').map(Number);
-            if (y1 !== y2) return y1 - y2;
-            return m1 - m2;
-        });
-        const monthOptionsHtml = sortedMonths.map(key => {
-            const [y, m] = key.split('-').map(Number);
-            const name = `${monthNames[m - 1]} ${y}`;
-            const isSelected = y === targetYear && m === targetMonth;
-            return `<option value="${y}-${m}" ${isSelected ? 'selected' : ''}>${name}</option>`;
-        }).join('');
-
         content.innerHTML = `
-            <div class="mb-4">
-                <select onchange="const [y, m] = this.value.split('-'); openBudgetModal(parseInt(m), parseInt(y))" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:border-blue-500 w-full">
-                    ${monthOptionsHtml}
-                </select>
-            </div>
-
             <div class="grid grid-cols-2 gap-3 mb-2">
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Target</p>
