@@ -206,7 +206,7 @@ function switchScreen(screenId) {
 // --- HOME TAB SWITCHING ---
 let currentHomeTab = 'receipts';
 let needsReviewFilter = false;
-let bulkSelectMode = false;
+
 
 function switchHomeTab(tab) {
     currentHomeTab = tab;
@@ -256,20 +256,7 @@ function toggleNeedsReview() {
     filterSlips();
 }
 
-function toggleBulkSelect() {
-    bulkSelectMode = !bulkSelectMode;
-    const btn = document.getElementById('bulk-select-btn');
-    if (btn) {
-        if (bulkSelectMode) {
-            btn.classList.add('bg-[#0077b6]', 'text-white');
-            btn.classList.remove('bg-slate-100', 'text-slate-700');
-        } else {
-            btn.classList.remove('bg-[#0077b6]', 'text-white');
-            btn.classList.add('bg-slate-100', 'text-slate-700');
-        }
-    }
-    // TODO: Implement bulk select UI
-}
+
 
 function toggleSmartFilters() {
     const htmlContent = `
@@ -338,12 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const budgetCta = document.getElementById('budget-cta');
     if (budgetCta) {
         budgetCta.addEventListener('click', () => {
-            const budgetAmount = prompt('Enter your monthly budget (R):');
-            if (budgetAmount && !isNaN(budgetAmount)) {
-                // Store budget in localStorage (can be moved to database later)
-                localStorage.setItem('monthlyBudget', budgetAmount);
-                updateBudgetDisplay(parseFloat(budgetAmount));
-            }
+            openBudgetModal();
         });
     }
 });
@@ -1096,6 +1078,8 @@ function renderCharts() {
         categories[s.category] = (categories[s.category] || 0) + (s.total || 0);
     });
 
+    const total = Object.values(categories).reduce((sum, val) => sum + val, 0);
+
     if (categoryChart) categoryChart.destroy();
     categoryChart = new Chart(ctx, {
         type: 'doughnut',
@@ -1110,21 +1094,141 @@ function renderCharts() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { family: 'Outfit', weight: 'bold' } } } },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        font: { family: 'Outfit', weight: 'bold' },
+                        generateLabels: (chart) => {
+                            const data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map((label, i) => {
+                                    const value = data.datasets[0].data[i];
+                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
+                                    return {
+                                        text: `${label} (${percentage})`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: isNaN(data.datasets[0].data[i]),
+                                        index: i
+                                    };
+                                });
+                            }
+                            return [];
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            const value = context.raw;
+                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
+                            label += 'R ' + value.toFixed(2) + ' (' + percentage + ')';
+                            return label;
+                        }
+                    }
+                }
+            },
             cutout: '70%'
         }
     });
 }
 
-function renderMonthlyTrendsChart() {
+function renderMonthlyTrendsChart(selectedMonth = null, selectedYear = null) {
+    console.log("Starting renderMonthlyTrendsChart", selectedMonth, selectedYear);
     const ctx = document.getElementById('monthlyTrendsChart');
-    if (!ctx) return;
+    if (!ctx) {
+        console.error("monthlyTrendsChart canvas not found");
+        return;
+    }
 
     const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth() + 1; // 1-12
-    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-    const daysPassed = now.getDate();
+    let targetYear = selectedYear;
+    let targetMonth = selectedMonth;
+
+    // --- POPULATE DROPDOWN ---
+    const monthSelector = document.getElementById('chart-month-selector');
+    if (monthSelector) {
+        // Find all unique months
+        const uniqueMonths = new Set();
+
+        // 1. Force add all 12 months of the current year (Jan-Dec)
+        const currentYearForList = now.getFullYear();
+        for (let m = 1; m <= 12; m++) {
+            uniqueMonths.add(`${currentYearForList}-${m}`);
+        }
+
+        // 2. Add any months from data (handles historical years)
+        savedSlips.forEach(slip => {
+            if (slip.date) {
+                const [y, m] = slip.date.split('-');
+                uniqueMonths.add(`${parseInt(y)}-${parseInt(m)}`);
+            }
+        });
+
+        // Convert to array and sort ASCENDING (Jan -> Dec)
+        const sortedMonths = Array.from(uniqueMonths).sort((a, b) => {
+            const [y1, m1] = a.split('-').map(Number);
+            const [y2, m2] = b.split('-').map(Number);
+            if (y1 !== y2) return y1 - y2; // Year ascending
+            return m1 - m2; // Month ascending
+        });
+
+        // Create options
+        const monthNameList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Rebuild options
+        monthSelector.innerHTML = '';
+        sortedMonths.forEach(key => {
+            const [y, m] = key.split('-').map(Number);
+            const name = `${monthNameList[m - 1]} ${y}`;
+            const option = document.createElement('option');
+            option.value = `${y}-${m}`;
+            option.text = name;
+            monthSelector.appendChild(option);
+        });
+    }
+
+    // --- DETERMINE TARGET IF NOT PROVIDED ---
+    if (!targetYear || !targetMonth) {
+        // Default logic: Current month, or most recent if current has no data
+        targetYear = now.getFullYear();
+        targetMonth = now.getMonth() + 1;
+
+        const currentMonthHasReceipts = savedSlips.some(slip => {
+            if (!slip.date) return false;
+            const [yearStr, monthStr] = slip.date.split('-');
+            return parseInt(yearStr) === targetYear && parseInt(monthStr) === targetMonth;
+        });
+
+        if (!currentMonthHasReceipts && savedSlips.length > 0) {
+            const sortedSlips = [...savedSlips].sort((a, b) => {
+                if (!a.date || !b.date) return 0;
+                return new Date(b.date) - new Date(a.date);
+            });
+
+            if (sortedSlips[0] && sortedSlips[0].date) {
+                const [yearStr, monthStr] = sortedSlips[0].date.split('-');
+                targetYear = parseInt(yearStr);
+                targetMonth = parseInt(monthStr);
+            }
+        }
+    }
+
+    // Sync Dropdown with Target
+    if (monthSelector) {
+        monthSelector.value = `${targetYear}-${targetMonth}`;
+    }
+
+    const daysInMonth = new Date(targetYear, targetMonth, 0).getDate();
+
+    // Calculate days passed (only relevant if showing current month)
+    const isCurrentMonth = targetYear === now.getFullYear() && targetMonth === (now.getMonth() + 1);
+    const daysPassed = isCurrentMonth ? now.getDate() : daysInMonth;
 
     // Initialize daily totals for the entire month (or up to today)
     const dailyTotals = {};
@@ -1147,7 +1251,7 @@ function renderMonthlyTrendsChart() {
         const month = parseInt(monthStr);
         const day = parseInt(dayStr);
 
-        if (year === currentYear && month === currentMonth) {
+        if (year === targetYear && month === targetMonth) {
             dailyTotals[day] += (slip.total || 0);
             currentMonthTotal += (slip.total || 0);
         }
@@ -1186,6 +1290,17 @@ function renderMonthlyTrendsChart() {
 
         predictionText = `Based on your daily average (R${dailyAverage.toFixed(0)}), you are projected to spend <b>R${projectedTotal.toFixed(0)}</b> by month-end.`;
         showPrediction = true;
+    }
+
+    // Update Month Indicator
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthIndicator = document.getElementById('chart-month-indicator');
+    if (monthIndicator) {
+        const monthName = monthNames[targetMonth - 1];
+        const indicatorText = isCurrentMonth
+            ? `Showing data for ${monthName} ${targetYear} (current month)`
+            : `Showing data for ${monthName} ${targetYear} (most recent month with receipts)`;
+        monthIndicator.innerText = indicatorText;
     }
 
     // Update Prediction UI
@@ -1379,7 +1494,8 @@ function generateAIInsights() {
 }
 
 // --- BUDGET INTELLIGENCE ---
-function openBudgetModal() {
+// --- BUDGET INTELLIGENCE ---
+function openBudgetModal(selectedMonth = null, selectedYear = null) {
     const modal = document.getElementById('budget-modal');
     const content = document.getElementById('budget-content');
     const inputContainer = document.getElementById('budget-input-container');
@@ -1411,71 +1527,128 @@ function openBudgetModal() {
     } else {
         // Calculate insights
         const now = new Date();
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
+        const targetYear = selectedYear || now.getFullYear();
+        const targetMonth = selectedMonth || (now.getMonth() + 1);
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const monthName = monthNames[targetMonth - 1];
+
         let monthlyTotal = 0;
+        let anySlipsExist = savedSlips.length > 0;
 
         savedSlips.forEach(slip => {
             const slipDate = new Date(slip.date);
-            if (slipDate.getMonth() === currentMonth && slipDate.getFullYear() === currentYear) {
+            if (slipDate.getMonth() === (targetMonth - 1) && slipDate.getFullYear() === targetYear) {
                 monthlyTotal += (slip.total || 0);
             }
         });
 
         const percentage = (monthlyTotal / budgetAmount) * 100;
         const remaining = budgetAmount - monthlyTotal;
-        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-        const daysRemaining = daysInMonth - now.getDate();
-        const dailyBudget = remaining > 0 ? remaining / daysRemaining : 0;
+        const daysInMonth = new Date(targetYear, targetMonth, 0).getDate();
+        const isPast = new Date(targetYear, targetMonth - 1, 1) < new Date(now.getFullYear(), now.getMonth(), 1);
+        const isFuture = new Date(targetYear, targetMonth - 1, 1) > new Date(now.getFullYear(), now.getMonth(), 1);
+        const isCurrent = !isPast && !isFuture;
+        const daysRemaining = isCurrent ? (daysInMonth - now.getDate()) : (isFuture ? daysInMonth : 0);
 
+        // Insight Generation
         let insight = "";
         let insightColor = "text-slate-600";
         let insightBg = "bg-slate-50";
         let icon = "✅";
 
-        if (percentage > 100) {
-            insight = `You have exceeded your budget by <b>R${Math.abs(remaining).toFixed(2)}</b>. Try to limit discretionary spending.`;
-            insightColor = "text-red-700";
-            insightBg = "bg-red-50";
-            icon = "⚠️";
-        } else if (percentage > 80) {
-            insight = `You have used <b>${percentage.toFixed(1)}%</b> of your budget. You have <b>R${remaining.toFixed(2)}</b> remaining for the next ${daysRemaining} days.`;
-            insightColor = "text-orange-700";
-            insightBg = "bg-orange-50";
-            icon = "⚠️";
+        if (isPast) {
+            if (percentage > 100) {
+                insight = `You exceeded your budget by <b>R${Math.abs(remaining).toFixed(2)}</b> in ${monthName}.`;
+                insightColor = "text-red-700";
+                insightBg = "bg-red-50";
+                icon = "⚠️";
+            } else {
+                insight = `You stayed within budget! You saved <b>R${remaining.toFixed(2)}</b> in ${monthName}.`;
+                insightColor = "text-emerald-700";
+                insightBg = "bg-emerald-50";
+                icon = "✅";
+            }
         } else {
-            insight = `You are on track! You have used <b>${percentage.toFixed(1)}%</b> of your budget. You have <b>R${remaining.toFixed(2)}</b> remaining.`;
-            insightColor = "text-emerald-700";
-            insightBg = "bg-emerald-50";
-            icon = "✅";
+            if (percentage > 100) {
+                insight = `You have exceeded your budget by <b>R${Math.abs(remaining).toFixed(2)}</b>. Try to limit discretionary spending.`;
+                insightColor = "text-red-700";
+                insightBg = "bg-red-50";
+                icon = "⚠️";
+            } else if (percentage > 80) {
+                insight = `You have used <b>${percentage.toFixed(1)}%</b> of your budget. You have <b>R${remaining.toFixed(2)}</b> remaining for the next ${daysRemaining} days.`;
+                insightColor = "text-orange-700";
+                insightBg = "bg-orange-50";
+                icon = "⚠️";
+            } else {
+                insight = `You are on track! You have used <b>${percentage.toFixed(1)}%</b> of your budget. You have <b>R${remaining.toFixed(2)}</b> remaining.`;
+                insightColor = "text-emerald-700";
+                insightBg = "bg-emerald-50";
+                icon = "✅";
+            }
         }
 
+        // Add clarification if total is 0 but user has slips (likely from other months)
+        let note = "";
+        if (monthlyTotal === 0 && anySlipsExist) {
+            note = `<p class="text-[10px] text-slate-400 mt-2 italic">Note: No spending recorded for <b>${monthName} ${targetYear}</b>.</p>`;
+        }
+
+        // Build month selector dropdown
+        const uniqueMonths = new Set();
+        for (let m = 1; m <= 12; m++) uniqueMonths.add(`${now.getFullYear()}-${m}`);
+        savedSlips.forEach(slip => {
+            if (slip.date) {
+                const [y, m] = slip.date.split('-');
+                uniqueMonths.add(`${parseInt(y)}-${parseInt(m)}`);
+            }
+        });
+        const sortedMonths = Array.from(uniqueMonths).sort((a, b) => {
+            const [y1, m1] = a.split('-').map(Number);
+            const [y2, m2] = b.split('-').map(Number);
+            if (y1 !== y2) return y1 - y2;
+            return m1 - m2;
+        });
+        const monthOptionsHtml = sortedMonths.map(key => {
+            const [y, m] = key.split('-').map(Number);
+            const name = `${monthNames[m - 1]} ${y}`;
+            const isSelected = y === targetYear && m === targetMonth;
+            return `<option value="${y}-${m}" ${isSelected ? 'selected' : ''}>${name}</option>`;
+        }).join('');
+
         content.innerHTML = `
+            <div class="mb-4">
+                <select onchange="const [y, m] = this.value.split('-'); openBudgetModal(parseInt(m), parseInt(y))" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-lg px-3 py-2 outline-none focus:border-blue-500 w-full">
+                    ${monthOptionsHtml}
+                </select>
+            </div>
+
             <div class="grid grid-cols-2 gap-3 mb-2">
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Target</p>
                     <p class="text-lg font-black text-slate-800">R${budgetAmount.toFixed(2)}</p>
                 </div>
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Spent</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Spent (${monthName})</p>
                     <p class="text-lg font-black text-blue-600">R${monthlyTotal.toFixed(2)}</p>
                 </div>
             </div>
             
-            <div class="relative h-4 bg-slate-100 rounded-full overflow-hidden">
+            <div class="relative h-4 bg-slate-100 rounded-full overflow-hidden mb-4">
                 <div class="absolute top-0 left-0 h-full ${percentage > 100 ? 'bg-red-500' : 'bg-blue-500'} transition-all duration-1000" style="width: ${Math.min(percentage, 100)}%"></div>
             </div>
 
             <div class="${insightBg} p-4 rounded-xl border border-slate-100 flex gap-3 items-start">
                 <span class="text-xl">${icon}</span>
-                <p class="text-sm ${insightColor} leading-relaxed">${insight}</p>
+                <div class="flex-1">
+                    <p class="text-sm ${insightColor} leading-relaxed">${insight}</p>
+                    ${note}
+                </div>
             </div>
         `;
     }
 
     modal.classList.remove('hidden');
     document.body.classList.add('overflow-hidden'); // Lock background scroll
-    // renderBudgetBreakdown(); // This function is not defined in the provided context, so commenting out or assuming it's meant to be added elsewhere.
 }
 
 function closeBudgetModal() {
@@ -1539,70 +1712,200 @@ function closeInfoModal() {
 }
 
 // --- EXPENSE PREDICTIONS ---
-function openPredictionsModal() {
+// --- EXPENSE PREDICTIONS ---
+function openPredictionsModal(monthOffset = 0) {
     if (savedSlips.length === 0) {
         openInfoModal("Predictions", "We need a bit more data to make predictions! 📊<br><br>Start by scanning a few receipts.");
         return;
     }
 
     const now = new Date();
-    const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const daysPassed = now.getDate();
+    const currentMonth = now.getMonth();
 
-    // Calculate current month stats
-    let monthlyTotal = 0;
-    const categoryTotals = {};
+    // Calculate target date based on offset
+    const targetDate = new Date(currentYear, currentMonth + monthOffset, 1);
+    const targetMonth = targetDate.getMonth();
+    const targetYear = targetDate.getFullYear();
+    const daysInTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+
+    // Format month name (e.g., "January 2026")
+    const monthName = targetDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    const isCurrentMonth = monthOffset === 0;
+    const isFuture = targetDate > now && !isCurrentMonth;
+    const isPast = targetDate < new Date(now.getFullYear(), now.getMonth(), 1);
+
+    // 1. Calculate Stats for Target Month & Collect History
+    let targetMonthTotal = 0;
+    const targetCategoryTotals = {};
+    const historicalMonthTotals = {}; // key: "YYYY-MM"
 
     savedSlips.forEach(slip => {
         const slipDate = new Date(slip.date);
-        if (slipDate.getMonth() === currentMonth && slipDate.getFullYear() === currentYear) {
-            monthlyTotal += (slip.total || 0);
-            categoryTotals[slip.category] = (categoryTotals[slip.category] || 0) + (slip.total || 0);
+        const slipMonth = slipDate.getMonth();
+        const slipYear = slipDate.getFullYear();
+        const monthKey = `${slipYear}-${slipMonth}`;
+
+        if (slipMonth === targetMonth && slipYear === targetYear) {
+            // Target Month Data
+            targetMonthTotal += (slip.total || 0);
+            targetCategoryTotals[slip.category] = (targetCategoryTotals[slip.category] || 0) + (slip.total || 0);
+        } else {
+            // Historical Data (for averages)
+            historicalMonthTotals[monthKey] = (historicalMonthTotals[monthKey] || 0) + (slip.total || 0);
         }
     });
 
-    // Calculate projections
-    const dailyAverage = daysPassed > 0 ? monthlyTotal / daysPassed : 0;
-    const projectedTotal = dailyAverage * daysInMonth;
-    const projectedIncrease = projectedTotal - monthlyTotal;
+    // 2. Calculate Historical Average (for predictions)
+    const pastMonths = Object.values(historicalMonthTotals);
+    let historicalAverage = 0;
+    if (pastMonths.length > 0) {
+        const sumPast = pastMonths.reduce((a, b) => a + b, 0);
+        historicalAverage = sumPast / pastMonths.length;
+    }
 
-    // Identify highest spending category
+    // 3. Logic Branching based on Time
+    let mainValueLabel = "Projected";
+    let mainValue = 0;
+    let secondaryValueLabel = "Current Spending";
+    let secondaryValue = targetMonthTotal;
+    let insight = "";
     let topCategory = "None";
     let topCategoryAmount = 0;
-    for (const [cat, amount] of Object.entries(categoryTotals)) {
+
+    // Identify top category for target month (if any data exists)
+    for (const [cat, amount] of Object.entries(targetCategoryTotals)) {
         if (amount > topCategoryAmount) {
             topCategory = cat;
             topCategoryAmount = amount;
         }
     }
 
-    // Generate insight text
-    let insight = "";
-    if (daysPassed < 5) {
-        insight = "It's early in the month, so predictions might fluctuate. Keep scanning!";
+    if (isPast) {
+        // --- PAST MONTH ---
+        mainValueLabel = "Total Spent";
+        mainValue = targetMonthTotal;
+        secondaryValueLabel = "Budget"; // Could show budget here if available
+        secondaryValue = parseFloat(localStorage.getItem('monthlyBudget') || 0);
+
+        insight = `You spent <b>R${targetMonthTotal.toFixed(2)}</b> in ${monthName}.`;
+        if (topCategory !== "None") {
+            insight += ` Your biggest expense was <b>${topCategory}</b>.`;
+        }
+
+    } else if (isFuture) {
+        // --- FUTURE MONTH ---
+        mainValueLabel = "Predicted";
+        // Future prediction is purely based on historical average
+        mainValue = historicalAverage > 0 ? historicalAverage : 0;
+        secondaryValueLabel = "Historical Avg";
+        secondaryValue = historicalAverage;
+
+        if (historicalAverage === 0) {
+            insight = "We don't have enough history to predict this future month yet.";
+        } else {
+            insight = `Based on your past spending habits, we estimate you'll spend around <b>R${mainValue.toFixed(2)}</b> in ${monthName}.`;
+        }
+
     } else {
-        insight = `Based on your average daily spending of R${dailyAverage.toFixed(2)}, you are on track to spend R${projectedTotal.toFixed(2)} this month.`;
+        // --- CURRENT MONTH (Original blended logic) ---
+        const daysPassed = now.getDate();
+        // Current Trend Projection: (Current Spend / Days Passed) * Total Days
+        const currentTrendProjection = daysPassed > 0 ? (targetMonthTotal / daysPassed) * daysInTargetMonth : 0;
+
+        // Weight factor
+        const weight = daysPassed / daysInTargetMonth;
+
+        if (pastMonths.length === 0) {
+            mainValue = currentTrendProjection;
+            if (daysPassed < 5) {
+                insight = "It's early in the month! Keep scanning to improve accuracy.";
+            } else {
+                insight = `Based on your current spending, you're on track for R${mainValue.toFixed(2)}.`;
+            }
+        } else {
+            // Blend History and Trend
+            mainValue = (currentTrendProjection * weight) + (historicalAverage * (1 - weight));
+
+            if (daysPassed < 7) {
+                insight = `It's early. We used your average (R${historicalAverage.toFixed(0)}) to refine this.`;
+            } else {
+                insight = `Based on history & activity, you're on track for R${mainValue.toFixed(2)}.`;
+            }
+        }
     }
+
+    // Calculate Increase / Variance
+    const projectedIncrease = Math.max(0, mainValue - targetMonthTotal);
+
+    // --- CALENDAR MONTH PICKER ---
+    let monthGridHtml = '<div class="grid grid-cols-4 gap-2 mb-2">';
+    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    monthsShort.forEach((m, index) => {
+        // Calculate offset for this specific month in the targetYear
+        const offset = (targetYear - currentYear) * 12 + (index - currentMonth);
+        const isSelected = index === targetMonth;
+        const activeClass = isSelected
+            ? 'bg-[#0077b6] text-white shadow-md ring-2 ring-blue-200'
+            : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-100';
+
+        monthGridHtml += `
+            <button onclick="openPredictionsModal(${offset})" 
+                class="p-2 rounded-lg text-xs font-bold transition ${activeClass}">
+                ${m}
+            </button>
+        `;
+    });
+    monthGridHtml += '</div>';
+
+    const yearNav = `
+        <div class="flex items-center justify-between mb-3 px-1">
+            <button onclick="openPredictionsModal(${monthOffset - 12})" class="p-2 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                <span class="text-xs font-bold">Prev Year</span>
+            </button>
+            <span class="font-black text-slate-800 text-lg">${targetYear}</span>
+             <button onclick="openPredictionsModal(${monthOffset + 12})" class="p-2 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition flex items-center gap-1">
+                <span class="text-xs font-bold">Next Year</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    `;
 
     const htmlContent = `
         <div class="space-y-4">
+            <div class="bg-white rounded-xl">
+                ${yearNav}
+                ${monthGridHtml}
+            </div>
+
+            <div class="hidden"> <!-- Hidden legacy header for debugging if needed -->
+                Showing: ${monthName}
+            </div>
+
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Current</p>
-                    <p class="text-lg font-black text-slate-800">R${monthlyTotal.toFixed(2)}</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${isPast ? 'Actual' : 'Current'}</p>
+                    <p class="text-lg font-black text-slate-800">R${targetMonthTotal.toFixed(2)}</p>
                 </div>
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Projected</p>
-                    <p class="text-lg font-black text-blue-600">R${projectedTotal.toFixed(2)}</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${mainValueLabel}</p>
+                    <p class="text-lg font-black text-blue-600">R${mainValue.toFixed(2)}</p>
                 </div>
             </div>
             
+            ${!isPast ? `
             <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
                 <p class="text-xs font-bold text-blue-800 mb-1">Est. Remaining Spend</p>
                 <p class="text-2xl font-black text-blue-600">R${projectedIncrease.toFixed(2)}</p>
             </div>
+            ` : ''}
 
             <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <span class="text-xs font-bold text-slate-500">Top Category</span>
