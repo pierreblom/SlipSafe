@@ -198,7 +198,7 @@ serve(async (req) => {
 
         prompt += `Validation (SARS 2025/26): Check if document is a valid Tax Invoice. For Total <= R50: Sufficient. For R50 < Total <= R5,000: Abridged Tax Invoice. For Total > R5,000: Full Tax Invoice requirements.\n`;
 
-        const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=' + geminiApiKey, {
+        const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=' + geminiApiKey, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

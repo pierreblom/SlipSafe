@@ -180,7 +180,7 @@ function updateProfileUI() {
     if (usernameEl) usernameEl.innerText = name.toLowerCase().replace(/\s/g, '');
 
     const displayNameEl = document.getElementById('profile-display-name');
-    if (displayNameEl) displayNameEl.innerText = currentUser.user_metadata.display_name || 'Not set';
+    if (displayNameEl) displayNameEl.innerText = currentUser.user_metadata.business_name || 'Not set';
 
     const emailDisplayEl = document.getElementById('profile-email-display');
     if (emailDisplayEl) emailDisplayEl.innerText = currentUser.email;
@@ -428,7 +428,7 @@ function updateBudgetDisplay(budgetAmount) {
 
 // --- CORE FUNCTIONS ---
 async function compressImage(file) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (e) => {
             const img = new Image();
@@ -456,8 +456,10 @@ async function compressImage(file) {
                     resolve(new File([blob], file.name, { type: 'image/jpeg', lastModified: Date.now() }));
                 }, 'image/jpeg', 0.7); // 70% quality
             };
+            img.onerror = (e) => reject(new Error("Failed to load image for compression"));
             img.src = e.target.result;
         };
+        reader.onerror = (e) => reject(new Error("Failed to read file"));
         reader.readAsDataURL(file);
     });
 }
@@ -482,9 +484,17 @@ if (fileInput) {
                     loaderTitle.innerText = `Analyzing (${i + 1}/${files.length})...`;
                 }
                 const file = files[i];
-                const compressedFile = await compressImage(file);
+                let fileToProcess = file;
+                if (file.type.startsWith('image/')) {
+                    try {
+                        fileToProcess = await compressImage(file);
+                    } catch (err) {
+                        console.error("Compression failed for file " + file.name, err);
+                    }
+                }
+
                 // Only open modal for single file, and only hide loader on the last file
-                await analyzeSlip(compressedFile, files.length === 1, i === files.length - 1);
+                await analyzeSlip(fileToProcess, files.length === 1, i === files.length - 1);
             }
             if (files.length > 1) {
                 // Short delay to ensure list is updated
@@ -2141,13 +2151,13 @@ function openPredictionsModal(monthOffset = 0) {
 async function openBusinessModal(type) {
     const featureNames = {
         'client': 'New Client',
-        'quote': 'New Quotation',
-        'invoice': 'New Invoice',
+        'quote': 'Purchase Invoice',
+        'invoice': 'Sales Invoice',
         'tax-dashboard': 'Tax Dashboard',
         'business-profile': 'Business Profile',
         'pnl-report': 'P&L Report',
-        'invoice-list': 'All Invoices',
-        'quote-list': 'All Quotations',
+        'invoice-list': 'All Sales Invoices',
+        'quote-list': 'All Purchase Invoices',
         'subscription': 'Subscription & Billing',
         'categories': 'Expense Categories',
         'support': 'Support'
@@ -2184,13 +2194,67 @@ async function openBusinessModal(type) {
                 </button>
             </form>
         `;
-    } else if (type === 'quote' || type === 'invoice') {
+    } else if (type === 'quote') {
+        // Purchase Invoice - Scan Mode
+        htmlContent = `
+            <div class="text-center space-y-6">
+                <div class="mx-auto w-24 h-24 bg-blue-50 rounded-3xl flex items-center justify-center">
+                    <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Scan Purchase Invoice</h3>
+                    <p class="text-slate-500 text-sm">Upload an image of your supplier invoice.<br>AI will automatically extract all the details.</p>
+                </div>
+                <button onclick="document.getElementById('purchase-invoice-input').click()" class="w-full bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition">
+                    <div class="flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Upload Invoice Image
+                    </div>
+                </button>
+                <p class="text-xs text-slate-400">Supports: JPG, PNG, PDF</p>
+            </div>
+            <input type="file" id="purchase-invoice-input" accept="image/*,application/pdf" class="hidden">
+        `;
+
+        // Attach event listener after modal is created
+        setTimeout(() => {
+            const purchaseInput = document.getElementById('purchase-invoice-input');
+            if (purchaseInput) {
+                purchaseInput.addEventListener('change', async (e) => {
+                    if (e.target.files.length > 0) {
+                        modal.classList.add('hidden');
+                        const file = e.target.files[0];
+
+                        let fileToUpload = file;
+                        // Only compress images, pass PDFs through directly
+                        if (file.type.startsWith('image/')) {
+                            try {
+                                fileToUpload = await compressImage(file);
+                            } catch (err) {
+                                console.error("Image compression failed, using original", err);
+                            }
+                        }
+
+                        await analyzePurchaseInvoice(fileToUpload);
+                        e.target.value = '';
+                    }
+                });
+            }
+        }, 100);
+    } else if (type === 'invoice') {
         const clients = await fetchClients();
         const clientOptions = clients.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
         const isQuote = type === 'quote';
 
         htmlContent = `
+            <!-- Invoice / Quote Form -->
             <form onsubmit="${isQuote ? 'saveQuote(event)' : 'saveInvoice(event)'}" class="space-y-4 text-left">
+                <!-- Client Selection -->
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Select Client</label>
                     <select name="client_id" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
@@ -2199,20 +2263,54 @@ async function openBusinessModal(type) {
                     </select>
                     ${clients.length === 0 ? '<p class="text-xs text-red-500 mt-1">Please create a client first.</p>' : ''}
                 </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Description</label>
-                    <input type="text" name="description" required placeholder="e.g. Web Design Services" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Amount (R)</label>
-                    <input type="number" name="amount" step="0.01" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
-                </div>
+
+                <!-- Date -->
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">${isQuote ? 'Expiry Date' : 'Due Date'}</label>
                     <input type="date" name="date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
                 </div>
+
+                <hr class="border-slate-100 my-4">
+
+                <!-- Line Items Section -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-bold text-slate-700">Line Items</label>
+                        <button type="button" onclick="addInvoiceItemRow()" class="text-xs text-blue-600 font-bold hover:underline">+ Add Item</button>
+                    </div>
+                    
+                    <div id="invoice-items-container" class="space-y-3">
+                        <!-- Initial Item Row -->
+                        <div class="invoice-item-row grid grid-cols-12 gap-2 items-start">
+                            <div class="col-span-6">
+                                <input type="text" name="item_desc[]" placeholder="Description" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div class="col-span-2">
+                                <input type="number" name="item_qty[]" placeholder="Qty" value="1" min="1" step="0.1" onchange="calculateLineTotal(this)" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div class="col-span-3">
+                                <input type="number" name="item_price[]" placeholder="Price (R)" min="0" step="0.01" onchange="calculateLineTotal(this)" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                            </div>
+                             <div class="col-span-1 flex items-center justify-center pt-2">
+                                <button type="button" onclick="removeInvoiceItemRow(this)" class="text-red-400 hover:text-red-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Totals -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mt-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700">Total</span>
+                        <span id="invoice-total-display" class="font-black text-xl text-blue-600">R 0.00</span>
+                    </div>
+                    <input type="hidden" name="amount" id="invoice-total-input" value="0">
+                </div>
+
                 <button type="submit" class="w-full bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition mt-4">
-                    ${isQuote ? 'Create Quotation' : 'Create Invoice'}
+                    ${isQuote ? 'Create Purchase Invoice' : 'Create Sales Invoice'}
                 </button>
             </form>
         `;
@@ -2277,6 +2375,28 @@ async function openBusinessModal(type) {
                     <label class="block text-sm font-bold text-slate-700 mb-1">Address</label>
                     <textarea name="address" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">${meta.address || ''}</textarea>
                 </div>
+                
+                <hr class="border-slate-100 my-4">
+                <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide mb-3">Banking Details</h3>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Bank Name</label>
+                        <input type="text" name="bank_name" value="${meta.bank_name || ''}" placeholder="e.g. FNB" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Branch Code</label>
+                        <input type="text" name="branch_code" value="${meta.branch_code || ''}" placeholder="e.g. 250655" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Account Holder</label>
+                    <input type="text" name="account_holder" value="${meta.account_holder || ''}" placeholder="e.g. My Business Pty Ltd" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Account Number</label>
+                    <input type="text" name="account_number" value="${meta.account_number || ''}" placeholder="e.g. 62000000000" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition">
+                </div>
                 <button type="submit" class="w-full bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition mt-4">
                     Save Profile
                 </button>
@@ -2323,7 +2443,7 @@ async function openBusinessModal(type) {
             htmlContent = `
                 <div class="space-y-3 max-h-[60vh] overflow-y-auto">
                     ${invoices.map(inv => `
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <div onclick="openInvoiceDetails('${inv.id}')" class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition cursor-pointer active:scale-[0.99]">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <h4 class="font-bold text-slate-800">${clientMap.get(inv.client_id) || 'Unknown Client'}</h4>
@@ -2333,8 +2453,14 @@ async function openBusinessModal(type) {
                                     ${inv.status}
                                 </span>
                             </div>
-                            <div class="flex justify-between items-end">
-                                <p class="text-xs text-slate-400">Due: ${inv.due_date}</p>
+                            <div class="flex justify-between items-end mt-2">
+                                <div>
+                                    <p class="text-xs text-slate-400">Due: ${inv.due_date || 'N/A'}</p>
+                                    <button onclick="event.stopPropagation(); downloadInvoicePDF('${inv.id}')" class="text-blue-600 text-xs font-bold hover:underline flex items-center gap-1 mt-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                        Download PDF
+                                    </button>
+                                </div>
                                 <p class="font-black text-slate-800">R${(inv.amount || 0).toFixed(2)}</p>
                             </div>
                         </div>
@@ -2515,7 +2641,7 @@ async function openBusinessModal(type) {
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="font-semibold text-slate-700">Free Trial:</span>
-                            <span class="text-slate-600">30 days included</span>
+                            <span class="text-slate-600">15 days included</span>
                         </div>
                     </div>
 
@@ -2889,32 +3015,169 @@ function updateSubscriptionPricing(cycle) {
     }
 }
 
-function handleSubscribe() {
+// --- YOCO PAYMENT INTEGRATION ---
+/**
+ * Initiates a Yoco payment checkout
+ * @param {Object} options - Payment options
+ * @param {number} options.amount - Amount in cents (e.g., 4900 = R49.00)
+ * @param {string} options.description - Description of what's being purchased
+ * @param {Object} options.metadata - Additional metadata to store with payment
+ * @param {Array} options.lineItems - Optional line items for the checkout
+ * @returns {Promise<void>}
+ */
+async function initiateYocoPayment(options) {
+    const { amount, description, metadata = {}, lineItems = [] } = options;
+
+    try {
+        // Get current session
+        const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+        if (sessionError || !session) {
+            throw new Error('Please sign in to continue');
+        }
+
+        // Get current URL for redirects
+        const baseUrl = window.location.origin + window.location.pathname;
+
+        // Call the Yoco checkout Edge Function
+        const response = await fetch(`${supabaseUrl}/functions/v1/yoco-checkout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({
+                amount: amount,
+                currency: 'ZAR',
+                successUrl: `${baseUrl}?payment=success`,
+                cancelUrl: `${baseUrl}?payment=cancelled`,
+                failureUrl: `${baseUrl}?payment=failed`,
+                metadata: {
+                    description: description,
+                    user_email: currentUser?.email || '',
+                    ...metadata
+                },
+                lineItems: lineItems.length > 0 ? lineItems : [{
+                    displayName: description,
+                    quantity: 1,
+                    pricingDetails: { price: amount }
+                }]
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Failed to create checkout session');
+        }
+
+        // Redirect to Yoco payment page
+        if (data.redirectUrl) {
+            window.location.href = data.redirectUrl;
+        } else {
+            throw new Error('No redirect URL received');
+        }
+
+    } catch (error) {
+        console.error('Payment error:', error);
+        throw error;
+    }
+}
+
+
+async function handleSubscribe() {
     const cycle = currentBillingCycle;
     const price = cycle === 'yearly' ? 'R529/year' : 'R49/month';
+    const amountCents = cycle === 'yearly' ? 52900 : 4900; // Amount in cents
 
-    // For now, show a coming soon message. In the future, this will integrate with payment providers.
+    // Show loading state
     openInfoModal('Subscribe to Premium', `
-        <div class="text-center space-y-4">
-            <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto">
-                <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-            </div>
+        <div class="text-center space-y-4 py-4">
+            <div class="animate-spin w-12 h-12 border-4 border-blue-200 border-t-[#0077b6] rounded-full mx-auto"></div>
             <div>
-                <h4 class="font-bold text-slate-800 text-lg mb-1">Almost there!</h4>
-                <p class="text-slate-600 text-sm">You selected the <b>${cycle === 'yearly' ? 'Yearly' : 'Monthly'}</b> plan at <b>${price}</b>.</p>
+                <h4 class="font-bold text-slate-800 text-lg mb-1">Preparing checkout...</h4>
+                <p class="text-slate-600 text-sm">Setting up your <b>${cycle === 'yearly' ? 'Yearly' : 'Monthly'}</b> subscription at <b>${price}</b></p>
             </div>
-            <div class="bg-blue-50 p-4 rounded-xl">
-                <p class="text-xs text-blue-700 leading-relaxed">
-                    Payment integration via PayFast is coming soon! You'll be able to subscribe and manage your billing directly in the app.
-                </p>
-            </div>
-            <button onclick="closeInfoModal()" class="w-full bg-[#0077b6] text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">
-                Got it!
-            </button>
         </div>
     `);
+
+    try {
+        // Get current session
+        const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+        if (sessionError || !session) {
+            throw new Error('Please sign in to subscribe');
+        }
+
+        // Get current URL for redirects
+        const baseUrl = window.location.origin + window.location.pathname;
+
+        // Call the Yoco checkout Edge Function
+        const response = await fetch(`${supabaseUrl}/functions/v1/yoco-checkout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({
+                amount: amountCents,
+                currency: 'ZAR',
+                successUrl: `${baseUrl}?payment=success&plan=${cycle}`,
+                cancelUrl: `${baseUrl}?payment=cancelled`,
+                failureUrl: `${baseUrl}?payment=failed`,
+                metadata: {
+                    plan_type: cycle,
+                    user_email: currentUser?.email || ''
+                },
+                lineItems: [{
+                    displayName: `SlipSafe Pro ${cycle === 'yearly' ? 'Yearly' : 'Monthly'} Subscription`,
+                    quantity: 1,
+                    pricingDetails: {
+                        price: amountCents
+                    }
+                }]
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Failed to create checkout session');
+        }
+
+        // Redirect to Yoco payment page
+        if (data.redirectUrl) {
+            window.location.href = data.redirectUrl;
+        } else {
+            throw new Error('No redirect URL received from payment provider');
+        }
+
+    } catch (error) {
+        console.error('Subscription error:', error);
+        closeInfoModal();
+
+        setTimeout(() => {
+            openInfoModal('Payment Error', `
+                <div class="text-center space-y-4">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto">
+                        <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg mb-1">Payment Error</h4>
+                        <p class="text-slate-600 text-sm">${error.message}</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Please try again or contact support if the issue persists.
+                        </p>
+                    </div>
+                    <button onclick="closeInfoModal()" class="w-full bg-[#0077b6] text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">
+                        Try Again
+                    </button>
+                </div>
+            `);
+        }, 150);
+    }
 }
 
 function openTermsOfUse() {
@@ -3223,6 +3486,120 @@ document.addEventListener('DOMContentLoaded', () => {
 checkUser();
 switchScreen('insights');
 
+// --- PAYMENT STATUS HANDLING ---
+// Handle payment return from Yoco
+(function handlePaymentReturn() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get('payment');
+    const planType = urlParams.get('plan');
+
+    if (paymentStatus) {
+        // Remove payment params from URL without reload
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        // Wait for DOM to be ready
+        setTimeout(() => {
+            if (paymentStatus === 'success') {
+                openInfoModal('Payment Successful! 🎉', `
+                    <div class="text-center space-y-4">
+                        <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto">
+                            <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xl mb-2">Welcome to SlipSafe Pro!</h4>
+                            <p class="text-slate-600">Your ${planType === 'yearly' ? 'yearly' : 'monthly'} subscription is now active.</p>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-xl">
+                            <div class="flex items-center justify-center gap-3 text-emerald-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                                <span class="font-medium">All premium features unlocked</span>
+                            </div>
+                        </div>
+                        <ul class="text-left text-sm text-slate-600 space-y-2 px-4">
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Unlimited receipt scans
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                AI-powered SARS compliance
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Export to Excel with images
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Priority support
+                            </li>
+                        </ul>
+                        <button onclick="closeInfoModal()" class="w-full bg-[#0077b6] text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition">
+                            Start Using Pro Features
+                        </button>
+                    </div>
+                `);
+            } else if (paymentStatus === 'cancelled') {
+                openInfoModal('Payment Cancelled', `
+                    <div class="text-center space-y-4">
+                        <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto">
+                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg mb-1">Payment Cancelled</h4>
+                            <p class="text-slate-600 text-sm">No worries! You can subscribe anytime.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl">
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Your card was not charged. You can try again whenever you're ready.
+                            </p>
+                        </div>
+                        <button onclick="closeInfoModal()" class="w-full bg-[#0077b6] text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">
+                            Continue to App
+                        </button>
+                    </div>
+                `);
+            } else if (paymentStatus === 'failed') {
+                openInfoModal('Payment Failed', `
+                    <div class="text-center space-y-4">
+                        <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto">
+                            <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg mb-1">Payment Failed</h4>
+                            <p class="text-slate-600 text-sm">We couldn't process your payment.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-xl">
+                            <p class="text-xs text-red-700 leading-relaxed">
+                                Please check your card details and try again. If the issue persists, contact your bank or try a different payment method.
+                            </p>
+                        </div>
+                        <button onclick="closeInfoModal()" class="w-full bg-[#0077b6] text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">
+                            Try Again
+                        </button>
+                    </div>
+                `);
+            }
+        }, 500);
+    }
+})();
+
 // --- PROFILE ACTIONS ---
 async function updateBusinessType(value) {
     if (!value) return; // User selected the placeholder option
@@ -3526,11 +3903,11 @@ async function saveQuote(event) {
 
         if (error) throw error;
 
-        await showDialog("Success", 'Quotation created successfully!', "success");
+        await showDialog("Success", 'Purchase Invoice created successfully!', "success");
         location.reload();
     } catch (err) {
         console.error('Error saving quote:', err);
-        await showDialog("Failed to Save", 'Failed to save quotation: ' + err.message, "error");
+        await showDialog("Failed to Save", 'Failed to save purchase invoice: ' + err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -3538,30 +3915,202 @@ async function saveQuote(event) {
 
 async function saveInvoice(event) {
     event.preventDefault();
+
+    // Check for VAT Number before proceeding
+    const companyMetadata = currentUser?.user_metadata || {};
+    if (!companyMetadata.vat_number || !companyMetadata.vat_number.trim()) {
+        await showDialog(
+            "VAT Number Missing",
+            "You cannot create an invoice without a configured VAT Number.<br>Please update your <b>Business Profile</b> settings.",
+            "warning"
+        );
+        return;
+    }
+
     const form = event.target;
+    // Extract line items data manually
+    const descriptions = Array.from(form.querySelectorAll('input[name="item_desc[]"]')).map(i => i.value);
+    const quantities = Array.from(form.querySelectorAll('input[name="item_qty[]"]')).map(i => parseFloat(i.value));
+    const prices = Array.from(form.querySelectorAll('input[name="item_price[]"]')).map(i => parseFloat(i.value));
+
+    // Calculate total from items
+    let totalAmount = 0;
+    const items = [];
+
+    for (let i = 0; i < descriptions.length; i++) {
+        if (descriptions[i] && quantities[i] && prices[i]) {
+            const lineTotal = quantities[i] * prices[i];
+            totalAmount += lineTotal;
+            items.push({
+                description: descriptions[i],
+                quantity: quantities[i],
+                unit_price: prices[i],
+                total: lineTotal
+            });
+        }
+    }
+
     const formData = new FormData(form);
     const invoiceData = {
         user_id: currentUser.id,
         client_id: formData.get('client_id'),
         invoice_number: 'INV-' + Date.now().toString().slice(-6),
-        amount: parseFloat(formData.get('amount')),
+        amount: totalAmount,
         due_date: formData.get('date'),
-        status: 'unpaid'
+        status: 'pending' // Default status
     };
+
+    if (items.length === 0) {
+        await showDialog("Error", "Please add at least one line item.", "warning");
+        return;
+    }
 
     loader.classList.remove('hidden');
     try {
-        const { error } = await supabaseClient
+        // 1. Save Invoice Header
+        const { data: savedInvoice, error: invError } = await supabaseClient
             .from('invoices')
-            .insert([invoiceData]);
+            .insert([invoiceData])
+            .select()
+            .single();
 
-        if (error) throw error;
+        if (invError) throw invError;
 
-        await showDialog("Success", 'Invoice created successfully!', "success");
-        location.reload();
+        // 2. Save Invoice Items
+        const itemsToSave = items.map(item => ({
+            ...item,
+            invoice_id: savedInvoice.id
+        }));
+
+        const { error: itemsError } = await supabaseClient
+            .from('invoice_items')
+            .insert(itemsToSave);
+
+        if (itemsError) throw itemsError;
+
+        await showDialog("Success", 'Sales Invoice created successfully!', "success");
+
+        // Fetch Client Data for Preview
+        const { data: clientData, error: clientError } = await supabaseClient
+            .from('clients')
+            .select('*')
+            .eq('id', savedInvoice.client_id)
+            .single();
+
+        if (clientError) {
+            console.error("Error fetching client for preview:", clientError);
+            location.reload();
+            return;
+        }
+
+        // Show Preview
+        await showInvoicePreview(savedInvoice, clientData, itemsToSave);
     } catch (err) {
         console.error('Error saving invoice:', err);
-        await showDialog("Failed to Save", 'Failed to save invoice: ' + err.message, "error");
+        await showDialog("Failed to Save", 'Failed to save sales invoice: ' + err.message, "error");
+    } finally {
+        loader.classList.add('hidden');
+    }
+}
+
+// --- INVOICE HELPER FUNCTIONS ---
+
+function addInvoiceItemRow() {
+    const container = document.getElementById('invoice-items-container');
+    if (!container) return;
+
+    const row = document.createElement('div');
+    row.className = 'invoice-item-row grid grid-cols-12 gap-2 items-start';
+    row.innerHTML = `
+        <div class="col-span-6">
+            <input type="text" name="item_desc[]" placeholder="Description" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="col-span-2">
+            <input type="number" name="item_qty[]" placeholder="Qty" value="1" min="1" step="0.1" onchange="calculateLineTotal(this)" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="col-span-3">
+            <input type="number" name="item_price[]" placeholder="Price (R)" min="0" step="0.01" onchange="calculateLineTotal(this)" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+        </div>
+         <div class="col-span-1 flex items-center justify-center pt-2">
+            <button type="button" onclick="removeInvoiceItemRow(this)" class="text-red-400 hover:text-red-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+        </div>
+    `;
+    container.appendChild(row);
+}
+
+function removeInvoiceItemRow(btn) {
+    const row = btn.closest('.invoice-item-row');
+    const container = document.getElementById('invoice-items-container');
+
+    // Don't remove if it's the only one
+    if (container.children.length > 1) {
+        row.remove();
+        calculateInvoiceTotal();
+    }
+}
+
+function calculateLineTotal(input) {
+    calculateInvoiceTotal();
+}
+
+function calculateInvoiceTotal() {
+    const container = document.getElementById('invoice-items-container');
+    if (!container) return;
+
+    const rows = container.querySelectorAll('.invoice-item-row');
+    let total = 0;
+
+    rows.forEach(row => {
+        const qty = parseFloat(row.querySelector('input[name="item_qty[]"]').value) || 0;
+        const price = parseFloat(row.querySelector('input[name="item_price[]"]').value) || 0;
+        total += qty * price;
+    });
+
+    const displayEl = document.getElementById('invoice-total-display');
+    const inputEl = document.getElementById('invoice-total-input');
+
+    if (displayEl) displayEl.innerText = 'R ' + total.toFixed(2);
+    if (inputEl) inputEl.value = total;
+}
+
+async function downloadInvoicePDF(invoiceId, invoiceDataVal = null) {
+    loader.classList.remove('hidden');
+    try {
+        let invoice = invoiceDataVal;
+
+        // Fetch invoice if not provided
+        if (!invoice) {
+            const { data, error } = await supabaseClient
+                .from('invoices')
+                .select('*')
+                .eq('id', invoiceId)
+                .single();
+            if (error) throw error;
+            invoice = data;
+        }
+
+        // Fetch Client
+        const { data: client, error: clientError } = await supabaseClient
+            .from('clients')
+            .select('*')
+            .eq('id', invoice.client_id)
+            .single();
+        if (clientError) throw clientError;
+
+        // Fetch Items
+        const { data: items, error: itemsError } = await supabaseClient
+            .from('invoice_items')
+            .select('*')
+            .eq('invoice_id', invoice.id);
+        if (itemsError) throw itemsError;
+
+        await generateInvoicePDF(invoice, client, items);
+
+    } catch (err) {
+        console.error("PDF generation error:", err);
+        await showDialog("Error", "Failed to generate PDF: " + err.message, "error");
     } finally {
         loader.classList.add('hidden');
     }
@@ -3616,7 +4165,11 @@ async function saveBusinessProfile(event) {
         business_name: formData.get('business_name'),
         business_type: formData.get('business_type'),
         vat_number: formData.get('vat_number'),
-        address: formData.get('address')
+        address: formData.get('address'),
+        bank_name: formData.get('bank_name'),
+        account_holder: formData.get('account_holder'),
+        account_number: formData.get('account_number'),
+        branch_code: formData.get('branch_code')
     };
 
     loader.classList.remove('hidden');
@@ -3685,27 +4238,8 @@ async function renderRecentBusinessItems() {
         }
     }
 
-    // Render Recent Quotes
-    const recentQuotes = quotes.slice(0, 3);
-    const quoteList = document.getElementById('recent-quotes-list');
-    if (quoteList) {
-        if (recentQuotes.length === 0) {
-            quoteList.innerHTML = '<p class="text-slate-400 text-sm">No quotations yet. Create your first quotation to get started.</p>';
-        } else {
-            quoteList.innerHTML = recentQuotes.map(q => `
-                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
-                    <div>
-                        <p class="font-bold text-slate-800 text-sm">${clientMap.get(q.client_id) || 'Unknown Client'}</p>
-                        <p class="text-xs text-slate-500">${q.quote_number} • ${q.expiry_date}</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="font-bold text-slate-800 text-sm">R${(q.amount || 0).toFixed(2)}</p>
-                        <span class="text-[10px] font-bold uppercase text-blue-600">${q.status}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-    }
+    // Render Recent Purchase Invoices (replacing quotes)
+    await fetchPurchaseInvoices();
 
     // Update Business Stats
     const totalClients = clients.length;
@@ -3729,6 +4263,43 @@ async function renderRecentBusinessItems() {
     if (monthEl) monthEl.innerText = 'R ' + thisMonthSales.toFixed(2);
     if (outstandingEl) outstandingEl.innerText = 'R ' + outstanding.toFixed(2);
 }
+
+async function openInvoiceDetails(invoiceId) {
+    loader.classList.remove('hidden');
+    try {
+        // Fetch full Invoice Data
+        const { data: invoice, error: invError } = await supabaseClient
+            .from('invoices')
+            .select('*')
+            .eq('id', invoiceId)
+            .single();
+        if (invError) throw invError;
+
+        // Fetch Client
+        const { data: client, error: clientError } = await supabaseClient
+            .from('clients')
+            .select('*')
+            .eq('id', invoice.client_id)
+            .single();
+        if (clientError) throw clientError;
+
+        // Fetch Items
+        const { data: items, error: itemsError } = await supabaseClient
+            .from('invoice_items')
+            .select('*')
+            .eq('invoice_id', invoice.id);
+        if (itemsError) throw itemsError;
+
+        await showInvoicePreview(invoice, client, items);
+
+    } catch (err) {
+        console.error("Error opening invoice details:", err);
+        await showDialog("Error", "Failed to load invoice details.", "error");
+    } finally {
+        loader.classList.add('hidden');
+    }
+}
+
 
 // --- TESTING EXPORTS ---
 if (typeof window !== 'undefined') {

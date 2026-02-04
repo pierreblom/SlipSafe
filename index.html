@@ -9,7 +9,9 @@
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧾</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="front_end/invoice_generator.js"></script>
     <link rel="stylesheet" href="front_end/styles.css">
 </head>
 
@@ -275,7 +277,7 @@
                                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                             </svg>
                         </div>
-                        <span class="text-sm font-bold text-slate-800">Quotations</span>
+                        <span class="text-sm font-bold text-slate-800">Purchase Invoices</span>
                     </button>
 
                 </div>
@@ -637,7 +639,7 @@
         <section id="screen-business" class="screen space-y-6">
             <div class="space-y-1">
                 <h2 class="text-3xl font-black text-slate-800">Business Hub</h2>
-                <p class="text-slate-500 text-sm">Manage clients, quotations, and invoices</p>
+                <p class="text-slate-500 text-sm">Manage clients, purchase invoices, and sales invoices</p>
             </div>
 
             <!-- Quick Actions -->
@@ -652,12 +654,12 @@
                     <button onclick="openBusinessModal('quote')"
                         class="w-full bg-[#0077b6] text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-blue-700 transition active:scale-95 flex items-center gap-3">
                         <span class="text-xl">+</span>
-                        <span>New Quotation</span>
+                        <span>Purchase Invoice</span>
                     </button>
                     <button onclick="openBusinessModal('invoice')"
                         class="w-full bg-[#0077b6] text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-blue-700 transition active:scale-95 flex items-center gap-3">
                         <span class="text-xl">+</span>
-                        <span>New Invoice</span>
+                        <span>Sales Invoice</span>
                     </button>
 
                     <div class="pt-2 space-y-2">
@@ -780,7 +782,7 @@
             <!-- Recent Invoices -->
             <div class="card p-6 space-y-6">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-2xl font-bold text-slate-800">Recent Invoices</h3>
+                    <h3 class="text-2xl font-bold text-slate-800">Recent Sales Invoices</h3>
                     <button onclick="openBusinessModal('invoice-list')"
                         class="flex items-center gap-2 text-slate-600 font-bold text-sm hover:text-blue-600 transition">
                         <span>View All</span>
@@ -791,14 +793,15 @@
                     </button>
                 </div>
                 <div id="recent-invoices-list" class="py-10 text-center space-y-2">
-                    <p class="text-slate-400 text-sm">No invoices yet. Create your first invoice to get started.</p>
+                    <p class="text-slate-400 text-sm">No sales invoices yet. Create your first sales invoice to get
+                        started.</p>
                 </div>
             </div>
 
             <!-- Recent Quotations -->
             <div class="card p-6 space-y-6">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-2xl font-bold text-slate-800">Recent Quotations</h3>
+                    <h3 class="text-2xl font-bold text-slate-800">Recent Purchase Invoices</h3>
                     <button onclick="openBusinessModal('quote-list')"
                         class="flex items-center gap-2 text-slate-600 font-bold text-sm hover:text-blue-600 transition">
                         <span>View All</span>
@@ -809,7 +812,8 @@
                     </button>
                 </div>
                 <div id="recent-quotes-list" class="py-10 text-center space-y-2">
-                    <p class="text-slate-400 text-sm">No quotations yet. Create your first quotation to get started.</p>
+                    <p class="text-slate-400 text-sm">No purchase invoices yet. Create your first purchase invoice to
+                        get started.</p>
                 </div>
             </div>
         </section>
@@ -869,9 +873,9 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
-                            Display Name
+                            Business Name
                         </label>
-                        <button onclick="editProfileField('display_name')"
+                        <button onclick="openBusinessModal('business-profile')"
                             class="flex items-center gap-1 bg-white border border-slate-200 px-3 py-1 rounded-full text-xs font-bold text-slate-600 hover:bg-slate-50 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -1497,6 +1501,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="front_end/purchase_invoice_scanner.js?v=1" defer></script>
     <script src="front_end/app.js?v=4" defer></script>
 </body>
 
