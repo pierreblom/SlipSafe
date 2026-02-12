@@ -80,7 +80,10 @@ async function analyzePurchaseInvoice(fileObject) {
         // Show success and refresh
         await showDialog("Success!", `Purchase Invoice from ${invoiceData.vendor_name || 'vendor'} has been saved successfully!`, "success");
         await fetchPurchaseInvoices();
-        location.reload();
+        // location.reload(); // Removed to prevent redirecting to insights
+        if (typeof switchScreen === 'function') {
+            switchScreen('business');
+        }
 
     } catch (err) {
         console.error("Purchase Invoice Analysis Failed:", err);
@@ -186,7 +189,7 @@ async function viewPurchaseInvoice(invoiceId) {
 
         if (error) throw error;
 
-        // Show invoice details in a modal
+        // Build scrollable content (without buttons)
         const modalContent = `
             <div class="space-y-6">
                 <div class="flex justify-between items-start">
@@ -255,32 +258,41 @@ async function viewPurchaseInvoice(invoiceId) {
                     <img src="${await getSignedUrl(invoice.image_url)}" class="w-full rounded-xl border border-slate-200" alt="Invoice">
                 </div>
                 ` : ''}
+            </div>
+        `;
 
-                <div class="flex gap-3">
-                    ${invoice.status === 'unpaid' ? `
-                    <button onclick="markPurchaseInvoiceAsPaid('${invoice.id}')" class="flex-1 bg-green-600 text-white font-bold py-3 rounded-xl hover:bg-green-700 transition">
-                        Mark as Paid
-                    </button>
-                    ` : ''}
-                    <button onclick="deletePurchaseInvoice('${invoice.id}')" class="flex-1 bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">
-                        Delete
-                    </button>
-                </div>
+        // Build action buttons (fixed footer)
+        const actionButtons = `
+            <div class="flex gap-3 p-6 border-t border-slate-100 bg-slate-50">
+                ${invoice.status === 'unpaid' ? `
+                <button onclick="markPurchaseInvoiceAsPaid('${invoice.id}')" class="flex-1 bg-emerald-100 text-emerald-700 font-bold py-3 rounded-xl hover:bg-emerald-200 transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Mark as Paid
+                </button>
+                ` : ''}
+                <button onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200 transition">
+                    Done
+                </button>
+                <button onclick="deletePurchaseInvoice('${invoice.id}')" class="flex-1 bg-red-100 text-red-600 font-bold py-3 rounded-xl hover:bg-red-200 transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    Delete
+                </button>
             </div>
         `;
 
         modal.querySelector('.premium-dialog').innerHTML = `
-            <div class="modal-header">
+            <div class="px-6 pt-6 pb-2 flex items-center justify-between shrink-0">
                 <h2 class="text-2xl font-bold text-slate-800">Purchase Invoice</h2>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600">
+                <button onclick="closeModal()" class="p-2 hover:bg-slate-100 rounded-full transition text-slate-400 hover:text-slate-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="flex-1 overflow-y-auto px-6 py-4">
                 ${modalContent}
             </div>
+            ${actionButtons}
         `;
         modal.classList.remove('hidden');
 
@@ -293,17 +305,32 @@ async function viewPurchaseInvoice(invoiceId) {
 }
 
 async function markPurchaseInvoiceAsPaid(invoiceId) {
+    const confirmed = await showDialog(
+        "Confirm Payment",
+        "Are you sure you want to mark this purchase invoice as PAID?",
+        "warning",
+        true,
+        "Yes, Mark as Paid"
+    );
+
+    if (!confirmed) return;
+
     loader.classList.remove('hidden');
 
     try {
-        const { error } = await supabaseClient
+        const { data, error } = await supabaseClient
             .from('purchase_invoices')
             .update({ status: 'paid' })
-            .eq('id', invoiceId);
+            .eq('id', invoiceId)
+            .select();
 
         if (error) throw error;
 
-        await showDialog("Success", "Invoice marked as paid!", "success");
+        if (!data || data.length === 0) {
+            throw new Error("Update failed - no rows affected. Check RLS policies.");
+        }
+
+        await showDialog("Success", "Purchase invoice marked as paid!", "success");
         closeModal();
         await fetchPurchaseInvoices();
     } catch (err) {

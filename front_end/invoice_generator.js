@@ -303,6 +303,31 @@ async function showInvoicePreview(invoice, client, items) {
     const footer = document.createElement('div');
     footer.className = 'bg-white border-t border-slate-100 p-4 flex justify-end gap-3';
 
+    // Mark as Paid Button
+    if (invoice.status !== 'paid') {
+        const paidBtn = document.createElement('button');
+        paidBtn.className = 'bg-emerald-100 text-emerald-700 font-bold py-2 px-6 rounded-xl hover:bg-emerald-200 transition flex items-center gap-2';
+        paidBtn.innerHTML = `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            Mark as Paid
+        `;
+        paidBtn.onclick = async () => {
+            console.log("Mark as Paid clicked for invoice:", invoice.id);
+            if (typeof window.markInvoiceAsPaid === 'function') {
+                try {
+                    await window.markInvoiceAsPaid(invoice.id);
+                } catch (e) {
+                    console.error("Error invoking markInvoiceAsPaid:", e);
+                    alert("Error: " + e.message);
+                }
+            } else {
+                console.error("window.markInvoiceAsPaid is not defined!");
+                alert("Functionality not fully loaded. Please refresh the page and try again.");
+            }
+        };
+        footer.appendChild(paidBtn);
+    }
+
     const downloadBtn = document.createElement('button');
     downloadBtn.className = 'bg-blue-600 text-white font-bold py-2 px-6 rounded-xl shadow hover:bg-blue-700 transition flex items-center gap-2';
     downloadBtn.innerHTML = `
@@ -327,7 +352,7 @@ async function showInvoicePreview(invoice, client, items) {
     // 4. Event Listeners
     const closePreview = () => {
         document.body.removeChild(modalOverlay);
-        if (window.location.reload) window.location.reload();
+        // if (window.location.reload) window.location.reload(); // Removed to prevent redirecting
     };
 
     modalOverlay.querySelector('#close-preview-btn').onclick = closePreview;

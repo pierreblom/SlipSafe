@@ -2438,30 +2438,24 @@ async function openBusinessModal(type) {
         const clientMap = new Map(clients.map(c => [c.id, c.name]));
 
         if (invoices.length === 0) {
-            htmlContent = '<p class="text-center py-10 text-slate-400">No invoices found.</p>';
+            htmlContent = '<p class="text-center py-10 text-slate-400">No sales invoices found.</p>';
         } else {
             htmlContent = `
                 <div class="space-y-3 max-h-[60vh] overflow-y-auto">
                     ${invoices.map(inv => `
-                        <div onclick="openInvoiceDetails('${inv.id}')" class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition cursor-pointer active:scale-[0.99]">
+                        <div onclick="closeInfoModal(); openInvoiceDetails('${inv.id}')" class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition cursor-pointer">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
                                     <h4 class="font-bold text-slate-800">${clientMap.get(inv.client_id) || 'Unknown Client'}</h4>
-                                    <p class="text-xs text-slate-500">${inv.invoice_number}</p>
+                                    <p class="text-xs text-slate-500">#${inv.invoice_number}</p>
                                 </div>
-                                <span class="text-[10px] font-bold uppercase px-2 py-1 rounded-lg ${inv.status === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase ${inv.status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">
                                     ${inv.status}
                                 </span>
                             </div>
-                            <div class="flex justify-between items-end mt-2">
-                                <div>
-                                    <p class="text-xs text-slate-400">Due: ${inv.due_date || 'N/A'}</p>
-                                    <button onclick="event.stopPropagation(); downloadInvoicePDF('${inv.id}')" class="text-blue-600 text-xs font-bold hover:underline flex items-center gap-1 mt-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                        Download PDF
-                                    </button>
-                                </div>
-                                <p class="font-black text-slate-800">R${(inv.amount || 0).toFixed(2)}</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-500">Due: ${inv.due_date ? new Date(inv.due_date).toLocaleDateString() : 'N/A'}</span>
+                                <span class="font-bold text-blue-600">R ${(inv.amount || 0).toFixed(2)}</span>
                             </div>
                         </div>
                     `).join('')}
@@ -2469,29 +2463,34 @@ async function openBusinessModal(type) {
             `;
         }
     } else if (type === 'quote-list') {
-        const quotes = await fetchQuotes();
-        const clients = await fetchClients();
-        const clientMap = new Map(clients.map(c => [c.id, c.name]));
+        // Fetch purchase invoices instead of old quotes
+        const { data: purchaseInvoices, error } = await supabaseClient
+            .from('purchase_invoices')
+            .select('*')
+            .order('invoice_date', { ascending: false });
 
-        if (quotes.length === 0) {
-            htmlContent = '<p class="text-center py-10 text-slate-400">No quotations found.</p>';
+        if (error) {
+            console.error('Error fetching purchase invoices:', error);
+            htmlContent = '<p class="text-center py-10 text-red-400">Error loading purchase invoices.</p>';
+        } else if (!purchaseInvoices || purchaseInvoices.length === 0) {
+            htmlContent = '<p class="text-center py-10 text-slate-400">No purchase invoices found.</p>';
         } else {
             htmlContent = `
                 <div class="space-y-3 max-h-[60vh] overflow-y-auto">
-                    ${quotes.map(q => `
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    ${purchaseInvoices.map(inv => `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition cursor-pointer" onclick="closeInfoModal(); viewPurchaseInvoice('${inv.id}')">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
-                                    <h4 class="font-bold text-slate-800">${clientMap.get(q.client_id) || 'Unknown Client'}</h4>
-                                    <p class="text-xs text-slate-500">${q.quote_number}</p>
+                                    <h4 class="font-bold text-slate-800">${inv.vendor_name}</h4>
+                                    <p class="text-xs text-slate-500">#${inv.invoice_number}</p>
                                 </div>
-                                <span class="text-[10px] font-bold uppercase px-2 py-1 rounded-lg bg-blue-100 text-blue-700">
-                                    ${q.status}
+                                <span class="text-[10px] font-bold uppercase px-2 py-1 rounded-lg ${inv.status === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-yellow-100 text-yellow-700'}">
+                                    ${inv.status}
                                 </span>
                             </div>
                             <div class="flex justify-between items-end">
-                                <p class="text-xs text-slate-400">Expires: ${q.expiry_date}</p>
-                                <p class="font-black text-slate-800">R${(q.amount || 0).toFixed(2)}</p>
+                                <p class="text-xs text-slate-400">Date: ${new Date(inv.invoice_date).toLocaleDateString()}</p>
+                                <p class="font-black text-blue-600">R ${(inv.total || 0).toFixed(2)}</p>
                             </div>
                         </div>
                     `).join('')}
@@ -4221,17 +4220,20 @@ async function renderRecentBusinessItems() {
     const invoiceList = document.getElementById('recent-invoices-list');
     if (invoiceList) {
         if (recentInvoices.length === 0) {
-            invoiceList.innerHTML = '<p class="text-slate-400 text-sm">No invoices yet. Create your first invoice to get started.</p>';
+            invoiceList.innerHTML = '<p class="text-slate-400 text-sm py-10 text-center">No sales invoices yet. Create your first invoice to get started.</p>';
         } else {
             invoiceList.innerHTML = recentInvoices.map(inv => `
-                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
-                    <div>
-                        <p class="font-bold text-slate-800 text-sm">${clientMap.get(inv.client_id) || 'Unknown Client'}</p>
-                        <p class="text-xs text-slate-500">${inv.invoice_number} • ${inv.due_date}</p>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-blue-200 transition cursor-pointer" onclick="openInvoiceDetails('${inv.id}')">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h4 class="font-bold text-slate-800">${clientMap.get(inv.client_id) || 'Unknown Client'}</h4>
+                            <p class="text-xs text-slate-500">#${inv.invoice_number}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase ${inv.status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">${inv.status}</span>
                     </div>
-                    <div class="text-right">
-                        <p class="font-bold text-slate-800 text-sm">R${(inv.amount || 0).toFixed(2)}</p>
-                        <span class="text-[10px] font-bold uppercase ${inv.status === 'paid' ? 'text-emerald-600' : 'text-orange-500'}">${inv.status}</span>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-500">Due: ${inv.due_date ? new Date(inv.due_date).toLocaleDateString() : 'N/A'}</span>
+                        <span class="font-bold text-blue-600">R ${(inv.amount || 0).toFixed(2)}</span>
                     </div>
                 </div>
             `).join('');
@@ -4309,4 +4311,71 @@ if (typeof window !== 'undefined') {
     window.runUpdateProfileUI = updateProfileUI;
     window.runRenderSlips = renderSlips;
     window.getSupabaseClient = () => supabaseClient;
+    window.markInvoiceAsPaid = markInvoiceAsPaid;
+}
+
+async function markInvoiceAsPaid(invoiceId) {
+    console.log("markInvoiceAsPaid called with ID:", invoiceId);
+
+    const confirmed = await showDialog("Confirm Payment", "Are you sure you want to mark this invoice as PAID? This cannot be undone.", "warning", true, "Yes, Mark as Paid");
+    console.log("Dialog result:", confirmed);
+
+    if (!confirmed) {
+        console.log("User cancelled the dialog");
+        return;
+    }
+
+    console.log("User confirmed, proceeding with update...");
+    loader.classList.remove('hidden');
+    try {
+        console.log("Attempting to update invoice status to 'paid'...");
+        const { data, error } = await supabaseClient
+            .from('invoices')
+            .update({ status: 'paid' })
+            .eq('id', invoiceId)
+            .select();
+
+        console.log("Update response - data:", data, "error:", error);
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            console.warn("Update returned no rows - possible RLS policy issue");
+            throw new Error("Update failed - no rows affected. Check RLS policies on invoices table.");
+        }
+
+        await showDialog("Success", "Invoice marked as PAID.", "success");
+
+        // Close the preview modal
+        const closeBtn = document.getElementById('close-preview-btn');
+        if (closeBtn) closeBtn.click();
+
+        // Refresh the lists
+        renderRecentBusinessItems();
+
+        // If we are in the "All Sales Invoices" list modal (which is an info-modal), we might want to refresh it.
+        // The info-modal content is static HTML once generated.
+        // We can close the info modal or try to refresh it.
+        // Simplest is to just refresh the background data. The user will see it updated if they re-open the list.
+        // If the user opened the preview FROM the list, the list is still in the DOM behind the preview (if preview is a separate overlay).
+        // Let's check modal structure.
+        // showInvoicePreview creates a separate overlay.
+        // openBusinessModal uses 'info-modal' or just populates content?
+        // openBusinessModal calls openInfoModal(name, htmlContent).
+        // openInfoModal puts content in 'info-modal-content'.
+        // So the list is in 'info-modal'.
+        // We should probably refresh the list if it's open.
+
+        const infoModal = document.getElementById('info-modal');
+        if (infoModal && !infoModal.classList.contains('hidden')) {
+            // Re-open the invoices list to refresh content
+            openBusinessModal('invoice-list');
+        }
+
+    } catch (err) {
+        console.error("Error updating invoice:", err);
+        await showDialog("Error", "Failed to update invoice status.", "error");
+    } finally {
+        loader.classList.add('hidden');
+    }
 }
