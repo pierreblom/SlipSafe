@@ -110,20 +110,25 @@ select:focus {
 }
 
 /* Tab Styling */
-#tab-analytics, #tab-receipts {
+#tab-analytics,
+#tab-receipts {
     transition: all 0.2s ease;
 }
 
-#tab-analytics:hover, #tab-receipts:hover {
+#tab-analytics:hover,
+#tab-receipts:hover {
     color: #0077b6;
 }
 
 /* Filter Button Styling */
-#needs-review-btn, #bulk-select-btn, #smart-filters-btn {
+#needs-review-btn,
+#bulk-select-btn,
+#smart-filters-btn {
     transition: all 0.2s ease;
 }
 
-#needs-review-btn.active, #bulk-select-btn.active {
+#needs-review-btn.active,
+#bulk-select-btn.active {
     background: #0077b6;
     color: white;
 }
@@ -134,9 +139,12 @@ button[onclick="openTaxInfo()"] {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
@@ -170,7 +178,8 @@ input[type="text"]::placeholder {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    pointer-events: none; /* Allows clicks to pass through to the chart */
+    pointer-events: none;
+    /* Allows clicks to pass through to the chart */
 }
 
 .chart-center-text .amount {
@@ -181,13 +190,15 @@ input[type="text"]::placeholder {
 
 .chart-center-text .label {
     font-size: 0.75rem;
-    color: #64748b; /* slate-500 */
+    color: #64748b;
+    /* slate-500 */
     text-transform: uppercase;
     font-weight: 700;
 }
 
 .progress-bar-container {
-    background-color: #e2e8f0; /* slate-200 */
+    background-color: #e2e8f0;
+    /* slate-200 */
     border-radius: 999px;
     height: 8px;
     overflow: hidden;
@@ -196,13 +207,15 @@ input[type="text"]::placeholder {
 .progress-bar-fill {
     background-color: var(--primary);
     height: 100%;
-    width: 0%; /* Will be set by JS */
+    width: 0%;
+    /* Will be set by JS */
     border-radius: 999px;
     transition: width 0.5s ease-in-out;
 }
 
 .horizontal-progress-bar-container {
-    background-color: #e2e8f0; /* slate-200 */
+    background-color: #e2e8f0;
+    /* slate-200 */
     border-radius: 999px;
     height: 8px;
     overflow: hidden;
@@ -212,7 +225,8 @@ input[type="text"]::placeholder {
 .horizontal-progress-bar-fill {
     background-color: var(--primary);
     height: 100%;
-    width: 0%; /* Will be set by JS */
+    width: 0%;
+    /* Will be set by JS */
     border-radius: 999px;
     transition: width 0.5s ease-in-out;
 }
@@ -284,6 +298,7 @@ input[type="text"]::placeholder {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -292,4 +307,450 @@ input[type="text"]::placeholder {
 
 .animate-slide-up {
     animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================
+   RESPONSIVE LAYOUT SYSTEM
+   ======================================== */
+
+/* App Layout Container */
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigation (Desktop/Tablet) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    background: white;
+    border-right: 1px solid #f1f5f9;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sidebar-logo-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.sidebar-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar-item:hover {
+    background: #f8fafc;
+}
+
+.sidebar-item.nav-active {
+    background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.2);
+}
+
+.sidebar-item.nav-inactive {
+    color: #64748b;
+}
+
+.sidebar-item-secondary {
+    margin-top: auto;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+}
+
+.sidebar-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.sidebar-text {
+    flex: 1;
+}
+
+/* Desktop Header */
+.desktop-header {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: white;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 1rem 2rem;
+}
+
+.desktop-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* Mobile Header */
+.mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid #f1f5f9;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.hamburger-btn {
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: background 0.2s;
+}
+
+.hamburger-btn:hover {
+    background: #f8fafc;
+}
+
+.mobile-logout-btn {
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.mobile-logout-btn:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* Sidebar Overlay (Mobile) */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 45;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    padding: 2rem 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.main-content>section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* Mobile (<768px) - Default styles above */
+@media (max-width: 767px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .desktop-header {
+        display: none;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    .desktop-header {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 220px;
+        padding: 2rem;
+    }
+
+    /* Responsive grids for tablets */
+    #screen-insights .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop (≥1024px) */
+@media (min-width: 1024px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+
+    .mobile-header {
+        display: none;
+    }
+
+    .desktop-header {
+        display: block;
+        margin-left: 260px;
+    }
+
+    .main-content {
+        margin-left: 260px;
+        padding: 2.5rem 3rem;
+    }
+
+    .sidebar-overlay {
+        display: none !important;
+    }
+
+    /* Responsive grids for desktop */
+    #screen-insights .space-y-4>.card:first-child {
+        grid-column: span 1;
+    }
+
+    /* Stats cards in grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Large Desktop (≥1280px) */
+@media (min-width: 1280px) {
+    .main-content {
+        padding: 3rem 4rem;
+    }
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 1024px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
+
+/* Responsive text sizes */
+@media (max-width: 767px) {
+
+    h1,
+    .text-3xl {
+        font-size: 1.75rem;
+    }
+
+    h2,
+    .text-2xl {
+        font-size: 1.5rem;
+    }
+}
+
+/* Responsive card layouts */
+@media (min-width: 768px) {
+    .responsive-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* ========================================
+   PHASE 3: ONBOARDING WIZARD
+   ======================================== */
+
+.wizard-step {
+    animation: wizardSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wizardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   PHASE 3: SMART FILTER CHIPS
+   ======================================== */
+
+.chip-bar {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.25rem 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.chip-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    padding: 0.5rem 0.875rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #475569;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.filter-chip:hover {
+    background: #e2e8f0;
+}
+
+.filter-chip.active {
+    background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+}
+
+/* ========================================
+   PHASE 3: EXPORT MODAL
+   ======================================== */
+
+.export-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    border: 2px solid #f1f5f9;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.export-option-btn:hover {
+    border-color: #0077b6;
+    background: #f8fafc;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.1);
+    transform: translateY(-1px);
+}
+
+.export-option-btn:active {
+    transform: scale(0.98);
+}
+
+/* Toast Progress Animation */
+@keyframes toastProgress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+.animate-toast-progress {
+    animation: toastProgress 4s linear forwards;
 }

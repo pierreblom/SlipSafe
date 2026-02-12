@@ -12,6 +12,11 @@ let currentScreen = 'insights';
 let categoryChart = null;
 let authMode = 'login'; // 'login' or 'signup'
 
+// --- PHASE 3: SMART FILTER CHIPS STATE ---
+let activeFilterChips = new Set();
+let dateRangeStart = null;
+let dateRangeEnd = null;
+
 const fileInput = document.getElementById('file-input');
 const loader = document.getElementById('loader');
 const modal = document.getElementById('modal');
@@ -76,15 +81,37 @@ async function showDialog(title, message, type = 'info', showCancel = false, con
 }
 
 // --- AUTHENTICATION ---
+// Helper to handle successful login actions
+function handleLoginSuccess() {
+    const path = window.location.pathname;
+    // If on root/index, redirect to main dashboard
+    if (path === '/' || path === '/index.html') {
+        console.log('User logged in on root, redirecting to /home/');
+        window.location.href = '/home/';
+        return;
+    }
+
+    if (authOverlay) authOverlay.classList.add('hidden');
+    updateProfileUI();
+    fetchSlips();
+
+    // Phase 3: Trigger onboarding wizard for new users
+    if (currentUser && !currentUser.user_metadata?.onboarding_complete) {
+        setTimeout(() => showOnboardingWizard(), 800);
+    }
+}
+
 async function checkUser() {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    currentUser = user;
-    if (user) {
-        authOverlay.classList.add('hidden');
-        updateProfileUI();
-        fetchSlips();
-    } else {
-        authOverlay.classList.remove('hidden');
+    try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        currentUser = user;
+        if (user) {
+            handleLoginSuccess();
+        } else {
+            if (authOverlay) authOverlay.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Error checking user:', error);
     }
 }
 
@@ -122,7 +149,7 @@ async function handleEmailAuth() {
         } else {
             const { error } = await supabaseClient.auth.signUp({ email, password });
             if (error) throw error;
-            await showDialog("Success", "Signup successful! Please check your email for verification (if enabled) or sign in.", "success");
+            showToast("Success", "Signup successful! Please check your email for verification.");
             toggleAuthMode();
         }
     } catch (err) {
@@ -132,12 +159,100 @@ async function handleEmailAuth() {
     }
 }
 
-async function loginWithGoogle() {
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: window.location.origin }
+// --- Toast Notifications ---
+function showToast(title, message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const id = Date.now();
+    const isSuccess = type === 'success';
+    const isError = type === 'error';
+
+    let bgColor = 'bg-white border-slate-100';
+    let icon = 'ℹ️';
+    let textColor = 'text-slate-800';
+
+    if (isSuccess) {
+        bgColor = 'bg-emerald-50 border-emerald-100';
+        icon = '✅';
+        textColor = 'text-emerald-800';
+    } else if (isError) {
+        bgColor = 'bg-red-50 border-red-100';
+        icon = '❌';
+        textColor = 'text-red-800';
+    }
+
+    const toastHTML = `
+        <div id="toast-${id}" class="transform translate-x-full transition-all duration-300 ease-out ${bgColor} border shadow-xl rounded-2xl p-4 flex gap-3 items-start pointer-events-auto w-full relative overflow-hidden">
+            <div class="shrink-0 text-xl">${icon}</div>
+            <div class="flex-1 min-w-0">
+                <h4 class="font-bold ${textColor} text-sm">${title}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed mt-0.5">${message}</p>
+            </div>
+            <button onclick="dismissToast('${id}')" class="shrink-0 p-1 text-slate-400 hover:text-slate-600 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            ${isSuccess ? `<div class="absolute bottom-0 left-0 h-1 bg-emerald-500 opacity-20 animate-toast-progress w-full"></div>` : ''}
+        </div>
+    `;
+
+    // Create wrapper to allow HTML injection
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = toastHTML.trim();
+    const toastEl = wrapper.firstElementChild;
+    container.appendChild(toastEl);
+
+    // Animate in (small delay to allow DOM render)
+    requestAnimationFrame(() => {
+        toastEl.classList.remove('translate-x-full');
     });
-    if (error) await showDialog("Login Error", error.message, "error");
+
+    // Auto dismiss for success
+    if (isSuccess) {
+        setTimeout(() => {
+            dismissToast(id);
+        }, 4000);
+    }
+}
+
+function dismissToast(id) {
+    const toast = document.getElementById(`toast-${id}`);
+    if (toast) {
+        toast.classList.add('translate-x-full', 'opacity-0');
+        setTimeout(() => {
+            if (toast.parentElement) toast.remove();
+        }, 300);
+    }
+}
+
+async function loginWithGoogle() {
+    if (window.location.protocol === 'file:') {
+        await showDialog("Environment Error", "Google Login requires running on a local server (http://localhost), not directly from a file.", "warning");
+        return;
+    }
+
+    const redirectUrl = window.location.origin; // Simplified to origin (e.g., http://localhost:8000)
+    console.log('Initiating Google Login with redirect:', redirectUrl);
+
+    try {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: redirectUrl,
+                queryParams: {
+                    access_type: 'offline',
+                    prompt: 'consent'
+                }
+            }
+        });
+
+        if (error) throw error;
+    } catch (err) {
+        console.error('Google Login Error:', err);
+        await showDialog("Login Error", `Failed to sign in with Google: ${err.message}`, "error");
+    }
 }
 
 async function logout() {
@@ -147,15 +262,16 @@ async function logout() {
 }
 
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
+    console.log('Auth State Change:', event);
     if (event === 'SIGNED_IN') {
         currentUser = session.user;
-        authOverlay.classList.add('hidden');
-        updateProfileUI();
-        fetchSlips();
+        handleLoginSuccess();
     } else if (event === 'SIGNED_OUT') {
         currentUser = null;
-        authOverlay.classList.remove('hidden');
+        if (authOverlay) authOverlay.classList.remove('hidden');
         savedSlips = [];
+        // Optional: Redirect to root if signed out from a sub-page? 
+        // For now, just show overlay.
         await renderSlips();
     }
 });
@@ -228,6 +344,114 @@ function updateProfileUI() {
     }
 }
 
+// Global variable for editing
+let editingProfileField = null;
+
+function editProfileField(field) {
+    if (!currentUser) return;
+
+    editingProfileField = field;
+    const modal = document.getElementById('profile-edit-modal');
+    const title = document.getElementById('profile-edit-title');
+    const label = document.getElementById('profile-edit-label');
+    const input = document.getElementById('profile-edit-input');
+    const hint = document.getElementById('profile-edit-hint');
+
+    if (!modal) return;
+
+    // Reset UI
+    hint.classList.add('hidden');
+    input.value = '';
+
+    if (field === 'email') {
+        title.innerText = 'Change Email Address';
+        label.innerText = 'New Email Address';
+        input.type = 'email';
+        input.value = currentUser.email;
+        hint.innerText = "Note: You will need to verify your new email address.";
+        hint.classList.remove('hidden');
+    } else if (field === 'phone') {
+        title.innerText = 'Update Phone Number';
+        label.innerText = 'Phone Number';
+        input.type = 'tel';
+        input.value = currentUser.user_metadata.phone || '';
+    }
+
+    modal.classList.remove('hidden');
+    input.focus();
+}
+
+function closeProfileEditModal() {
+    const modal = document.getElementById('profile-edit-modal');
+    if (modal) modal.classList.add('hidden');
+    editingProfileField = null;
+}
+
+async function saveProfileField() {
+    const input = document.getElementById('profile-edit-input');
+    const btn = document.getElementById('profile-save-btn');
+    const modalTitle = document.getElementById('profile-edit-title');
+
+    if (!input || !editingProfileField) return;
+
+    let newValue = input.value.trim();
+    if (!newValue && editingProfileField === 'email') {
+        await showDialog("Input Required", "Please enter a value.", "warning");
+        return;
+    }
+
+    // Lock UI
+    const originalText = btn.innerText;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="animate-spin inline-block mr-2">⏳</span> Saving...';
+
+    try {
+        let updateData = {};
+        let needsVerification = false;
+
+        if (editingProfileField === 'email') {
+            if (newValue === currentUser.email) {
+                closeProfileEditModal();
+                btn.disabled = false;
+                btn.innerText = originalText;
+                return;
+            }
+            updateData = { email: newValue };
+            needsVerification = true;
+        } else if (editingProfileField === 'phone') {
+            // Update metadata for phone
+            updateData = { data: { phone: newValue } };
+        }
+
+        const { data, error } = await supabaseClient.auth.updateUser(updateData);
+
+        if (error) throw error;
+
+        // Success Handling
+        if (needsVerification) {
+            await showDialog("Check your Inbox", "A confirmation link has been sent to your new email address. Please click it to finalize the change.", "success");
+        } else {
+            // Instant update for metadata
+            if (data.user) {
+                currentUser = data.user;
+                updateProfileUI(); // Refresh UI
+                showToast("Success", "Profile updated successfully!");
+            }
+        }
+
+        closeProfileEditModal();
+
+    } catch (err) {
+        console.error('Profile update error:', err);
+        await showDialog("Update Failed", err.message, "error");
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = originalText;
+        }
+    }
+}
+
 function updateGreeting(name) {
     const greetingEl = document.getElementById('greeting-text');
     if (!greetingEl) return;
@@ -241,16 +465,57 @@ function updateGreeting(name) {
 }
 
 // --- NAVIGATION ---
+function toggleMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+
+        // Prevent body scroll when sidebar is open
+        if (sidebar.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+}
+
 function switchScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(`screen-${screenId}`).classList.add('active');
+    const screenEl = document.getElementById(`screen-${screenId}`);
+    if (screenEl) screenEl.classList.add('active');
 
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('nav-active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.add('nav-inactive'));
+    // Update sidebar nav active states
+    document.querySelectorAll('.sidebar-item').forEach(n => {
+        n.classList.remove('nav-active');
+        n.classList.add('nav-inactive');
+    });
     const navEl = document.getElementById(`nav-${screenId}`);
     if (navEl) {
         navEl.classList.add('nav-active');
         navEl.classList.remove('nav-inactive');
+    }
+
+    // Close mobile sidebar after navigation
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar && overlay && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Update URL hash (without triggering hashchange loop)
+    // IMPORTANT: Do NOT overwrite hash if it contains auth tokens (from Supabase login)
+    const currentHash = window.location.hash;
+    if (!currentHash.includes('access_token') && !currentHash.includes('type=') && !currentHash.includes('error=')) {
+        if (currentHash !== `#${screenId}`) {
+            history.pushState(null, '', `#${screenId}`);
+        }
+    } else {
+        console.log('Preserving auth hash for Supabase processing:', currentHash);
     }
 
     currentScreen = screenId;
@@ -261,9 +526,83 @@ function switchScreen(screenId) {
     if (screenId === 'profile') fetchSessions();
 }
 
+// --- PAGE-BASED INITIALIZATION ---
+const validScreens = ['home', 'ai', 'insights', 'business', 'profile'];
+
+function initPage() {
+    const path = window.location.pathname;
+    let screenId = 'home'; // Default fallback
+
+    if (path.includes('/ai')) screenId = 'ai';
+    else if (path.includes('/insights')) screenId = 'insights';
+    else if (path.includes('/business')) screenId = 'business';
+    else if (path.includes('/profile')) screenId = 'profile';
+    else if (path.includes('/home')) screenId = 'home';
+
+    // If no path match, maybe check hash for backward compatibility? No, strictly separate pages.
+    // If we're on root '/', default to home if home content present? Or redirect?
+    // Assume correct page.
+
+    // If auth hash is present, let Supabase handle it first!
+    if (window.location.hash.includes('access_token') || window.location.hash.includes('type=') || window.location.hash.includes('error=')) {
+        console.log('Skipping initial screen switch due to auth hash.');
+        return;
+    }
+
+    switchScreen(screenId);
+}
+
+// Initialize page on load
+document.addEventListener('DOMContentLoaded', () => {
+    initPage();
+});
+
 // --- HOME TAB SWITCHING ---
 let currentHomeTab = 'receipts';
 let needsReviewFilter = false;
+
+// --- PHASE 3: SMART FILTER CHIP LOGIC ---
+function toggleFilterChip(type) {
+    if (type === 'dateRange') {
+        const picker = document.getElementById('date-range-picker');
+        const chip = document.getElementById('chip-dateRange');
+        if (activeFilterChips.has('dateRange')) {
+            activeFilterChips.delete('dateRange');
+            if (chip) chip.classList.remove('active');
+            if (picker) picker.classList.add('hidden');
+            dateRangeStart = null;
+            dateRangeEnd = null;
+        } else {
+            activeFilterChips.add('dateRange');
+            if (chip) chip.classList.add('active');
+            if (picker) picker.classList.remove('hidden');
+            return; // Don't filter yet — wait for date selection
+        }
+    } else {
+        const chip = document.getElementById(`chip-${type}`);
+        if (activeFilterChips.has(type)) {
+            activeFilterChips.delete(type);
+            if (chip) chip.classList.remove('active');
+        } else {
+            activeFilterChips.add(type);
+            if (chip) chip.classList.add('active');
+        }
+    }
+    filterSlips();
+}
+
+function applyDateRange() {
+    const startInput = document.getElementById('date-range-start');
+    const endInput = document.getElementById('date-range-end');
+    dateRangeStart = startInput?.value || null;
+    dateRangeEnd = endInput?.value || null;
+    if (!dateRangeStart || !dateRangeEnd) {
+        showToast('Missing Dates', 'Please select both start and end dates.', 'error');
+        return;
+    }
+    filterSlips();
+    showToast('Date Range Applied', `Filtering from ${dateRangeStart} to ${dateRangeEnd}`);
+}
 
 
 function switchHomeTab(tab) {
@@ -317,20 +656,9 @@ function toggleNeedsReview() {
 
 
 function toggleSmartFilters() {
-    const htmlContent = `
-        <div class="text-center py-4 space-y-4">
-            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto text-blue-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                </svg>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-800 text-lg mb-1">Smart Filters</h4>
-                <p class="text-slate-500">Advanced filtering options like date ranges, tax status, and merchant grouping are coming soon.</p>
-            </div>
-        </div>
-    `;
-    openInfoModal("Smart Filters", htmlContent);
+    // Phase 3: Now handled by chip bar, kept for backward compatibility
+    const chipBar = document.querySelector('.chip-bar');
+    if (chipBar) chipBar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function filterSlips() {
@@ -468,7 +796,7 @@ if (fileInput) {
     // Force multiple and explicit accept just in case
     fileInput.multiple = true;
     fileInput.accept = "image/png,image/jpeg,image/jpg,image/webp,application/pdf";
-    console.log("File input initialized with multiple selection support");
+    // console.log("File input initialized with multiple selection support");
 
     fileInput.addEventListener('change', async (e) => {
         const files = Array.from(e.target.files);
@@ -499,7 +827,7 @@ if (fileInput) {
             if (files.length > 1) {
                 // Short delay to ensure list is updated
                 setTimeout(async () => {
-                    await showDialog("Success!", `Successfully processed ${files.length} receipts! They are now in your list.`, "success");
+                    showToast("Success", `Successfully processed ${files.length} receipts!`);
                 }, 500);
             }
         } catch (err) {
@@ -563,6 +891,7 @@ async function analyzeSlip(fileObject, openReviewModal = true, hideLoaderOnFinis
 
         currentProcess = {
             ...data.data,
+            id: data.data.id, // Ensure ID is passed for deletion if cancelled
             imageData: data.data.image_url,
             notes: [], // Ensure notes is always an empty array initially for AI analysis
             reason: data.data.reason || "", // Populate reason from AI response
@@ -635,18 +964,101 @@ async function openManualEntry(fileObject) {
     }
 }
 
-async function fetchSlips() {
-    if (!currentUser) return;
-    const { data, error } = await supabaseClient
-        .from('slips')
-        .select('*')
-        .order('date', { ascending: false });
+// Pagination State
+let currentPage = 1;
+const itemsPerPage = 20;
+let hasMoreSlips = true;
+let isLoadingMore = false;
 
-    if (!error) {
-        savedSlips = data;
-        await renderSlips();
-        if (currentScreen === 'insights') updateInsightsDashboard();
+async function fetchSlips(page = 1, append = false) {
+    if (!currentUser) return;
+
+    // If resetting (page 1), clear existing data unless appending
+    if (page === 1 && !append) {
+        savedSlips = [];
+        currentPage = 1;
+        hasMoreSlips = true;
+        renderSkeletonList();
     }
+
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage - 1;
+
+    try {
+        const { data, error, count } = await supabaseClient
+            .from('slips')
+            .select('*', { count: 'exact' })
+            .order('date', { ascending: false })
+            .range(start, end);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            if (append) {
+                savedSlips = [...savedSlips, ...data];
+            } else {
+                savedSlips = data;
+            }
+
+            // Check if we have more records
+            if (count !== null) {
+                hasMoreSlips = savedSlips.length < count;
+            } else {
+                // Fallback if count is not returned
+                hasMoreSlips = data.length === itemsPerPage;
+            }
+        } else {
+            hasMoreSlips = false;
+        }
+
+        await renderSlips(append);
+        if (currentScreen === 'insights') updateInsightsDashboard();
+
+    } catch (err) {
+        console.error('Error fetching slips:', err);
+        await showDialog("Error", "Failed to load receipts.", "error");
+    }
+}
+
+function renderSkeletonList() {
+    const list = document.getElementById('slip-list');
+    const fullList = document.getElementById('full-slip-list');
+    const skeletonHTML = Array(4).fill(0).map(() => `
+        <div class="card p-4 flex items-center gap-4 animate-pulse">
+            <div class="w-14 h-14 rounded-2xl bg-slate-100"></div>
+            <div class="flex-1 space-y-3">
+                <div class="h-4 bg-slate-100 rounded w-3/4"></div>
+                <div class="h-3 bg-slate-100 rounded w-1/2"></div>
+            </div>
+            <div class="space-y-2 text-right">
+                <div class="h-5 bg-slate-100 rounded w-16 ml-auto"></div>
+                <div class="h-3 bg-slate-100 rounded w-10 ml-auto"></div>
+            </div>
+        </div>
+    `).join('');
+
+    if (list) {
+        list.innerHTML = skeletonHTML;
+        list.classList.remove('hidden');
+    }
+    if (fullList) fullList.innerHTML = skeletonHTML;
+}
+
+// Function to load next page
+async function loadMoreSlips() {
+    if (isLoadingMore || !hasMoreSlips) return;
+
+    isLoadingMore = true;
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    if (loadMoreBtn) {
+        loadMoreBtn.innerText = 'Loading...';
+        loadMoreBtn.disabled = true;
+    }
+
+    currentPage++;
+    await fetchSlips(currentPage, true);
+
+    isLoadingMore = false;
 }
 
 const urlCache = new Map();
@@ -673,107 +1085,59 @@ async function getSignedUrl(path) {
     return data.signedUrl;
 }
 
-async function renderSlips() {
+async function renderSlips(append = false) {
     const list = document.getElementById('slip-list');
     const fullList = document.getElementById('full-slip-list');
     let claimTotal = 0;
     let deductionTotal = 0;
 
-    // Apply filters
+    // Apply filters (Client-side filtering for now, as search is complex)
+    // Note: If we have many pages, client-side filtering only filters LOADED items.
+    // For a robust app, we should move filtering to the DB query in fetchSlips.
+    // For Phase 1, we stick to client-side filtering of the loaded subset.
     let filteredSlips = savedSlips;
 
     // Category filter
     const categoryFilter = document.getElementById('category-filter');
     if (categoryFilter && categoryFilter.value) {
-        filteredSlips = filteredSlips.filter(s => s.category === categoryFilter.value);
+        filteredSlips = Logic.applyCategoryFilter(filteredSlips, categoryFilter.value);
     }
 
     // Needs review filter
     if (needsReviewFilter) {
-        // Filter for slips that might need review (e.g., incomplete compliance)
-        filteredSlips = filteredSlips.filter(s =>
-            !s.is_tax_invoice ||
-            (s.compliance_status && s.compliance_status !== 'Valid' && s.compliance_status !== 'Sufficient')
-        );
+        filteredSlips = Logic.applyNeedsReviewFilter(filteredSlips);
+    }
+
+    // Phase 3: Smart Chip Filters
+    if (activeFilterChips.has('thisMonth')) {
+        filteredSlips = Logic.applyThisMonthFilter(filteredSlips);
+    }
+    if (activeFilterChips.has('highValue')) {
+        filteredSlips = Logic.applyHighValueFilter(filteredSlips);
+    }
+    if (activeFilterChips.has('taxDeductible')) {
+        filteredSlips = Logic.applyTaxDeductibleFilter(filteredSlips);
+    }
+    if (activeFilterChips.has('dateRange') && dateRangeStart && dateRangeEnd) {
+        filteredSlips = Logic.applyDateRangeFilter(filteredSlips, dateRangeStart, dateRangeEnd);
     }
 
     // Smart AI Search filter
     const receiptSearch = document.getElementById('receipt-search');
     if (receiptSearch && receiptSearch.value.trim()) {
-        const searchTerm = receiptSearch.value.toLowerCase().trim();
-
-        // Smart amount-based search (e.g., "over R100", "under R50", "more than 200")
-        const overMatch = searchTerm.match(/(?:over|above|more than|greater than)\s*r?\s*(\d+(?:\.\d+)?)/i);
-        const underMatch = searchTerm.match(/(?:under|below|less than)\s*r?\s*(\d+(?:\.\d+)?)/i);
-        const exactAmountMatch = searchTerm.match(/^r?\s*(\d+(?:\.\d+)?)$/i);
-
-        filteredSlips = filteredSlips.filter(s => {
-            // Amount-based filtering
-            if (overMatch) {
-                const threshold = parseFloat(overMatch[1]);
-                return (s.total || 0) > threshold;
-            }
-            if (underMatch) {
-                const threshold = parseFloat(underMatch[1]);
-                return (s.total || 0) < threshold;
-            }
-            if (exactAmountMatch) {
-                const amount = parseFloat(exactAmountMatch[1]);
-                // Allow some tolerance for exact amount matching (±1)
-                return Math.abs((s.total || 0) - amount) < 1;
-            }
-
-            // Date-based search (e.g., "January", "2026", "Jan 2026")
-            const dateStr = s.date ? s.date.toLowerCase() : '';
-            if (dateStr.includes(searchTerm)) {
-                return true;
-            }
-
-            // Merchant/Store name search (fuzzy matching)
-            const merchantName = (s.merchant || '').toLowerCase();
-            if (merchantName.includes(searchTerm)) {
-                return true;
-            }
-
-            // Category search
-            const category = (s.category || '').toLowerCase();
-            if (category.includes(searchTerm)) {
-                return true;
-            }
-
-            // VAT number search
-            const vatNumber = (s.vat_number || '').toLowerCase();
-            if (vatNumber.includes(searchTerm)) {
-                return true;
-            }
-
-            // Notes search
-            const notes = Array.isArray(s.notes) ? s.notes.join(' ').toLowerCase() : '';
-            if (notes.includes(searchTerm)) {
-                return true;
-            }
-
-            return false;
-        });
+        filteredSlips = Logic.applyTextSearch(filteredSlips, receiptSearch.value);
     }
 
     // Sort filter
     const sortFilter = document.getElementById('sort-filter');
     if (sortFilter) {
-        const sortBy = sortFilter.value;
-        filteredSlips = [...filteredSlips].sort((a, b) => {
-            if (sortBy === 'date') {
-                return new Date(b.date) - new Date(a.date);
-            } else if (sortBy === 'amount') {
-                return (b.total || 0) - (a.total || 0);
-            } else if (sortBy === 'merchant') {
-                return (a.merchant || '').localeCompare(b.merchant || '');
-            }
-            return 0;
-        });
+        filteredSlips = Logic.sortSlips(filteredSlips, sortFilter.value);
     }
 
     // Fetch signed URLs for all slips in parallel
+    // OPTIMIZATION: Only fetch URLs for the new items if appending, 
+    // but for simplicity and correct filtering, we re-process filtered set.
+    // Ideally we should cache signed URLs (implemented in getSignedUrl)
     const slipsWithUrls = await Promise.all(filteredSlips.map(async s => {
         const signedUrl = await getSignedUrl(s.image_url);
         return { ...s, displayUrl: signedUrl };
@@ -789,7 +1153,7 @@ async function renderSlips() {
 
         return `
             <div class="card p-4 flex items-center gap-4 cursor-pointer hover:bg-slate-50 transition" onclick="editSlip('${s.id}')">
-                <img src="${s.displayUrl}" class="w-14 h-14 rounded-2xl object-cover border border-slate-50 shadow-sm">
+                <img src="${s.displayUrl}" class="w-14 h-14 rounded-2xl object-cover border border-slate-50 shadow-sm" loading="lazy">
                 <div class="flex-1 min-w-0">
                     <h4 class="font-bold text-slate-800 truncate">${s.merchant}</h4>
                     <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">${s.date} • <span class="${s.category === 'Entertainment' ? 'text-orange-500' : 'text-blue-600'}">${s.category}</span></p>
@@ -802,22 +1166,32 @@ async function renderSlips() {
         `;
     });
 
+    // Load More Button HTML
+    const loadMoreHtml = hasMoreSlips ? `
+        <div class="text-center pt-4 pb-8">
+            <button id="load-more-btn" onclick="loadMoreSlips()" class="px-6 py-2 bg-slate-100 text-slate-600 font-bold rounded-full text-sm hover:bg-slate-200 transition">
+                Load More Receipts
+            </button>
+        </div>
+    ` : '';
+
+
     // Update receipt count display
     const receiptCountEl = document.getElementById('receipt-count');
     const receiptCountText = document.getElementById('receipt-count-text');
     const emptyState = document.getElementById('empty-state');
 
-    if (receiptCountEl) receiptCountEl.innerText = savedSlips.length;
+    if (receiptCountEl) receiptCountEl.innerText = savedSlips.length + (hasMoreSlips ? '+' : '');
 
     // Update receipt count text ("Showing X of Y receipts")
     if (receiptCountText) {
-        receiptCountText.innerText = `Showing ${slipsWithUrls.length} of ${savedSlips.length} receipts`;
+        receiptCountText.innerText = `Showing ${slipsWithUrls.length} receipts`;
     }
 
     // Show/hide empty state and quick actions
     const quickActionsReceipts = document.getElementById('quick-actions-receipts');
     if (emptyState) {
-        if (slipsWithUrls.length === 0) {
+        if (slipsWithUrls.length === 0 && !hasMoreSlips) {
             emptyState.classList.remove('hidden');
             if (list) list.classList.add('hidden');
             if (quickActionsReceipts) quickActionsReceipts.classList.add('hidden');
@@ -831,24 +1205,27 @@ async function renderSlips() {
     }
 
     if (list) {
-        if (slipsWithUrls.length === 0) {
+        if (slipsWithUrls.length === 0 && !hasMoreSlips) {
             list.innerHTML = '';
         } else {
-            list.innerHTML = html.join('');
+            list.innerHTML = html.join('') + loadMoreHtml;
             list.classList.remove('hidden');
         }
     }
-    if (fullList) fullList.innerHTML = html.join('') || '<p class="text-center py-10 text-slate-300 text-sm">No slips found.</p>';
+    if (fullList) fullList.innerHTML = (html.join('') + loadMoreHtml) || '<p class="text-center py-10 text-slate-300 text-sm">No slips found.</p>';
 
     const claimableEl = document.getElementById('stat-claimable');
     const deductionsEl = document.getElementById('stat-deductions');
     const totalReceiptsEl = document.getElementById('stat-total-receipts');
-    const thisMonthEl = document.getElementById('stat-this-month');
 
+    // We calculate totals only from loaded slips for now. 
+    // Ideally, backend should provide aggregate totals.
     if (claimableEl) claimableEl.innerText = "R " + claimTotal.toFixed(2);
     if (deductionsEl) deductionsEl.innerText = "R " + deductionTotal.toFixed(2);
     if (totalReceiptsEl) totalReceiptsEl.innerText = savedSlips.length;
 
+    // Recalculate This Month only from loaded slips (approximate)
+    const thisMonthEl = document.getElementById('stat-this-month');
     if (thisMonthEl) {
         const now = new Date();
         const monthlyTotal = savedSlips.reduce((sum, slip) => {
@@ -859,73 +1236,6 @@ async function renderSlips() {
         thisMonthEl.innerText = "R " + monthlyTotal.toFixed(2);
     }
 }
-
-
-
-
-async function deleteSlip(id) {
-    try {
-        const { error } = await supabaseClient
-            .from('slips')
-            .delete()
-            .eq('id', id);
-
-        if (error) throw error;
-        return true;
-    } catch (error) {
-        console.error('Error deleting slip:', error);
-        return false;
-    }
-}
-
-async function cancelUpload() {
-    // If it's a new scan (automatically saved by AI), delete it on cancel
-    if (currentProcess && currentProcess.isNew && currentProcess.id) {
-        const cancelBtn = document.querySelector('#modal button[onclick="cancelUpload()"]');
-        const originalText = cancelBtn ? cancelBtn.innerText : 'Cancel';
-
-        if (cancelBtn) {
-            cancelBtn.disabled = true;
-            cancelBtn.innerHTML = '<span class="animate-spin inline-block mr-1">⏳</span> Discarding...';
-        }
-
-        await deleteSlip(currentProcess.id);
-
-        if (cancelBtn) {
-            cancelBtn.disabled = false;
-            cancelBtn.innerText = originalText;
-        }
-
-        closeModal();
-        fetchSlips();
-    } else {
-        closeModal();
-    }
-}
-
-function editSlip(id) {
-    const slip = savedSlips.find(s => s.id == id);
-    if (!slip) return;
-
-    currentProcess = {
-        id: slip.id,
-        merchant: slip.merchant,
-        total: slip.total,
-        vat: slip.vat,
-        category: slip.category,
-        is_tax_deductible: slip.is_tax_deductible,
-        income_tax_deductible_amount: slip.income_tax_deductible_amount || (slip.is_tax_deductible ? slip.total : 0),
-        imageData: slip.image_url,
-        vat_number: slip.vat_number,
-        is_tax_invoice: slip.is_tax_invoice,
-        date: slip.date,
-        notes: slip.notes || [],
-        reason: "", // No reason for existing slips
-        isNew: false // Not a new scan
-    };
-    openModal();
-}
-
 async function openModal() {
     const previewImg = document.getElementById('m-preview');
     previewImg.src = ''; // Clear old preview
@@ -952,22 +1262,6 @@ async function openModal() {
     document.getElementById('m-notes').value = Array.isArray(currentProcess.notes) ? currentProcess.notes.join('\n') : (currentProcess.notes || '');
     document.getElementById('m-recurring').checked = currentProcess.is_recurring || false;
 
-    // Clear and display notes (legacy display, can be removed or kept for history if needed, but we use textarea now)
-    // Clear and display notes (legacy display, can be removed or kept for history if needed, but we use textarea now)
-    // const notesDisplayEl = document.getElementById('notes-display');
-    // if (notesDisplayEl) {
-    //    notesDisplayEl.innerHTML = '';
-    //    if (currentProcess.notes && currentProcess.notes.length > 0) {
-    //        currentProcess.notes.forEach(note => {
-    //            const noteEl = document.createElement('p');
-    //            // Keep notes simple without extra background styling
-    //            noteEl.className = "text-xs text-slate-600 leading-relaxed font-medium";
-    //            noteEl.innerText = note;
-    //            notesDisplayEl.appendChild(noteEl);
-    //        });
-    //    }
-    // }
-
     const badge = document.getElementById('compliance-badge');
     const status = currentProcess.compliance_status || (currentProcess.is_tax_invoice ? "Valid" : "Receipt Only");
     if (badge) badge.innerText = status;
@@ -991,6 +1285,51 @@ async function openModal() {
     const vatClaimableEl = document.getElementById('m-vat-claimable');
     const taxDeductibleAmtEl = document.getElementById('m-tax-deductible-amount');
     const claimSummaryEl = document.getElementById('m-claim-summary');
+
+    if (vatClaimableEl) vatClaimableEl.innerText = "R" + (currentProcess.vat_claimable_amount || 0).toFixed(2);
+    if (taxDeductibleAmtEl) taxDeductibleAmtEl.innerText = "R" + (currentProcess.income_tax_deductible_amount || 0).toFixed(2);
+
+    // Use claim_summary from AI if available, else standard text
+    if (claimSummaryEl) {
+        if (currentProcess.claim_summary) {
+            claimSummaryEl.innerHTML = `<p class="font-medium text-slate-700 mb-1">AI Analysis:</p><p>${currentProcess.claim_summary}</p>`;
+        } else {
+            claimSummaryEl.innerHTML = `<span class="text-slate-400">AI analysis will appear here after scanning...</span>`;
+        }
+    }
+
+    // --- Confidence Indicators (Phase 2) ---
+    const confidence = currentProcess.confidence;
+    const confMerchant = document.getElementById('conf-merchant');
+    const confDate = document.getElementById('conf-date');
+    const confTotal = document.getElementById('conf-total');
+    const confScore = document.getElementById('confidence-score');
+
+    const setDot = (el, level) => {
+        if (!el) return;
+        el.classList.remove('hidden', 'bg-emerald-500', 'bg-orange-500', 'bg-red-500');
+        if (!level || level === 'pending') {
+            el.classList.add('hidden');
+            return;
+        }
+        el.classList.remove('hidden');
+        if (level === 'high') el.classList.add('bg-emerald-500');
+        else if (level === 'medium') el.classList.add('bg-orange-500');
+        else el.classList.add('bg-red-500');
+    };
+
+    if (confidence) {
+        setDot(confMerchant, confidence.merchant);
+        setDot(confDate, confidence.date);
+        setDot(confTotal, confidence.total);
+        if (confScore) confScore.innerText = (confidence.overall || 0) + '%';
+    } else {
+        // Hide if no confidence data
+        setDot(confMerchant, null);
+        setDot(confDate, null);
+        setDot(confTotal, null);
+        if (confScore) confScore.innerText = 'N/A';
+    }
 
     if (vatClaimableEl) {
         const vatClaimable = currentProcess.vat_claimable_amount || 0;
@@ -1025,7 +1364,56 @@ async function openModal() {
     }
 
     toggleWarning();
+
+    // Show/Hide Delete Button
+    const deleteBtn = document.getElementById('modal-delete-btn');
+    if (deleteBtn) {
+        if (currentProcess.id && !currentProcess.isNew) {
+            deleteBtn.classList.remove('hidden');
+        } else {
+            deleteBtn.classList.add('hidden');
+        }
+    }
+
     modal.classList.remove('hidden');
+}
+
+// Confirmation for deleting
+async function confirmDeleteCurrentSlip() {
+    if (!currentProcess.id) return;
+
+    const confirm = await showDialog(
+        "Delete Receipt?",
+        "Are you sure you want to delete this receipt? This cannot be undone.",
+        "warning",
+        true, // showCancel
+        "Delete" // confirmText
+    );
+
+    if (confirm) {
+        const deleteBtn = document.getElementById('modal-delete-btn');
+        if (deleteBtn) {
+            deleteBtn.innerHTML = '<span class="animate-spin">⏳</span>';
+            deleteBtn.disabled = true;
+        }
+
+        const success = await deleteSlip(currentProcess.id);
+
+        if (success) {
+            closeModal();
+            fetchSlips();
+            showToast("Success", "Receipt deleted.");
+        } else {
+            if (deleteBtn) {
+                deleteBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>`;
+                deleteBtn.disabled = false;
+            }
+            await showDialog("Error", "Failed to delete receipt.", "error");
+        }
+    }
 }
 
 function toggleWarning() {
@@ -1035,6 +1423,17 @@ function toggleWarning() {
 
 function closeModal() {
     modal.classList.add('hidden');
+
+    // Reset Delete Button State
+    const deleteBtn = document.getElementById('modal-delete-btn');
+    if (deleteBtn) {
+        deleteBtn.disabled = false;
+        deleteBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>`;
+        deleteBtn.classList.add('hidden'); // Default to hidden
+    }
     if (fileInput) fileInput.value = '';
     const saveBtn = document.getElementById('save-btn');
     if (saveBtn) {
@@ -3483,7 +3882,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize
 checkUser();
-switchScreen('insights');
 
 // --- PAYMENT STATUS HANDLING ---
 // Handle payment return from Yoco
@@ -3628,7 +4026,7 @@ async function updateBusinessType(value) {
             'transport': 'Transport'
         };
 
-        await showDialog("Success", `Business type updated to: ${businessTypes[value]}`, "success");
+        showToast("Success", `Business type updated to: ${businessTypes[value]}`);
     } catch (err) {
         await showDialog("Update Error", 'Error updating business type: ' + err.message, "error");
     }
@@ -3869,10 +4267,10 @@ async function saveClient(event) {
 
         if (error) throw error;
 
-        await showDialog("Success", 'Client saved successfully!', "success");
+        showToast("Success", 'Client saved successfully!');
         // Close modal by refreshing or finding a close method if available. 
         // For now, reloading to ensure state is clean.
-        location.reload();
+        setTimeout(() => location.reload(), 1500);
     } catch (err) {
         console.error('Error saving client:', err);
         await showDialog("Failed to Save", 'Failed to save client: ' + err.message, "error");
@@ -3902,8 +4300,8 @@ async function saveQuote(event) {
 
         if (error) throw error;
 
-        await showDialog("Success", 'Purchase Invoice created successfully!', "success");
-        location.reload();
+        showToast("Success", 'Purchase Invoice created successfully!');
+        setTimeout(() => location.reload(), 1500);
     } catch (err) {
         console.error('Error saving quote:', err);
         await showDialog("Failed to Save", 'Failed to save purchase invoice: ' + err.message, "error");
@@ -3987,7 +4385,7 @@ async function saveInvoice(event) {
 
         if (itemsError) throw itemsError;
 
-        await showDialog("Success", 'Sales Invoice created successfully!', "success");
+        showToast("Success", 'Sales Invoice created successfully!');
 
         // Fetch Client Data for Preview
         const { data: clientData, error: clientError } = await supabaseClient
@@ -4184,8 +4582,8 @@ async function saveBusinessProfile(event) {
         currentUser = user;
         updateProfileUI(); // Refresh profile UI if needed
 
-        await showDialog("Success", 'Business profile updated successfully!', "success");
-        location.reload();
+        showToast("Success", 'Business profile updated successfully!');
+        setTimeout(() => location.reload(), 1500);
     } catch (err) {
         console.error('Error updating business profile:', err);
         await showDialog("Update Failed", 'Failed to update profile: ' + err.message, "error");
@@ -4344,7 +4742,7 @@ async function markInvoiceAsPaid(invoiceId) {
             throw new Error("Update failed - no rows affected. Check RLS policies on invoices table.");
         }
 
-        await showDialog("Success", "Invoice marked as PAID.", "success");
+        showToast("Success", "Invoice marked as PAID.");
 
         // Close the preview modal
         const closeBtn = document.getElementById('close-preview-btn');
@@ -4377,5 +4775,399 @@ async function markInvoiceAsPaid(invoiceId) {
         await showDialog("Error", "Failed to update invoice status.", "error");
     } finally {
         loader.classList.add('hidden');
+    }
+}
+
+// --- OFFLINE HANDLING ---
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+
+function updateOnlineStatus() {
+    const banner = document.getElementById('offline-banner');
+    if (!banner) return;
+
+    if (navigator.onLine) {
+        banner.classList.add('hidden');
+    } else {
+        banner.classList.remove('hidden');
+    }
+}
+
+// Initial check
+updateOnlineStatus();
+
+// ========================================
+// PHASE 3: ONBOARDING WIZARD
+// ========================================
+
+function showOnboardingWizard() {
+    const wizard = document.getElementById('onboarding-wizard');
+    if (!wizard) return;
+
+    // Pre-fill business name if already set
+    const nameInput = document.getElementById('wizard-business-name');
+    if (nameInput && currentUser?.user_metadata?.business_name) {
+        nameInput.value = currentUser.user_metadata.business_name;
+    }
+
+    // Pre-fill budget if already set
+    const budgetInput = document.getElementById('wizard-budget');
+    const storedBudget = localStorage.getItem('monthlyBudget');
+    if (budgetInput && storedBudget) {
+        budgetInput.value = storedBudget;
+    }
+
+    wizard.classList.remove('hidden');
+}
+
+function updateWizardDots(activeStep) {
+    for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById(`wizard-dot-${i}`);
+        if (dot) {
+            if (i === activeStep) {
+                dot.className = 'w-3 h-3 rounded-full bg-white transition-all duration-300 scale-125';
+            } else if (i < activeStep) {
+                dot.className = 'w-3 h-3 rounded-full bg-white/70 transition-all duration-300';
+            } else {
+                dot.className = 'w-3 h-3 rounded-full bg-white/30 transition-all duration-300';
+            }
+        }
+    }
+}
+
+async function wizardNext(currentStep) {
+    // Save data from current step
+    if (currentStep === 1) {
+        const businessName = document.getElementById('wizard-business-name')?.value?.trim();
+        if (businessName) {
+            try {
+                await supabaseClient.auth.updateUser({
+                    data: { business_name: businessName }
+                });
+                // Update local user object
+                if (currentUser) currentUser.user_metadata.business_name = businessName;
+            } catch (e) {
+                console.error('Failed to save business name:', e);
+            }
+        }
+    } else if (currentStep === 2) {
+        const budget = parseFloat(document.getElementById('wizard-budget')?.value) || 0;
+        if (budget > 0) {
+            localStorage.setItem('monthlyBudget', budget.toString());
+            updateBudgetDisplay(budget);
+            try {
+                await supabaseClient.auth.updateUser({
+                    data: { monthly_budget: budget }
+                });
+            } catch (e) {
+                console.error('Failed to save budget:', e);
+            }
+        }
+    }
+
+    // Transition to next step
+    const nextStep = currentStep + 1;
+    document.getElementById(`wizard-step-${currentStep}`).classList.add('hidden');
+    const nextEl = document.getElementById(`wizard-step-${nextStep}`);
+    if (nextEl) {
+        nextEl.classList.remove('hidden');
+        // Re-trigger animation
+        nextEl.style.animation = 'none';
+        nextEl.offsetHeight; // Force reflow
+        nextEl.style.animation = '';
+    }
+    updateWizardDots(nextStep);
+}
+
+function wizardBack(currentStep) {
+    const prevStep = currentStep - 1;
+    document.getElementById(`wizard-step-${currentStep}`).classList.add('hidden');
+    const prevEl = document.getElementById(`wizard-step-${prevStep}`);
+    if (prevEl) {
+        prevEl.classList.remove('hidden');
+        prevEl.style.animation = 'none';
+        prevEl.offsetHeight;
+        prevEl.style.animation = '';
+    }
+    updateWizardDots(prevStep);
+}
+
+async function skipOnboarding() {
+    try {
+        await supabaseClient.auth.updateUser({
+            data: { onboarding_complete: true }
+        });
+        if (currentUser) currentUser.user_metadata.onboarding_complete = true;
+    } catch (e) {
+        console.error('Failed to mark onboarding:', e);
+    }
+    const wizard = document.getElementById('onboarding-wizard');
+    if (wizard) wizard.classList.add('hidden');
+    showToast('Welcome!', 'You can update your business details anytime in Profile settings.');
+}
+
+async function completeOnboarding(loadSample) {
+    const wizard = document.getElementById('onboarding-wizard');
+
+    try {
+        // Mark onboarding as complete
+        await supabaseClient.auth.updateUser({
+            data: { onboarding_complete: true }
+        });
+        if (currentUser) currentUser.user_metadata.onboarding_complete = true;
+
+        if (loadSample && currentUser) {
+            // Insert a sample receipt
+            const sampleSlip = {
+                user_id: currentUser.id,
+                merchant: 'Woolworths',
+                total: 345.90,
+                vat: 45.12,
+                date: new Date().toISOString().slice(0, 10),
+                category: 'General Business',
+                is_tax_deductible: true,
+                is_tax_invoice: true,
+                vat_number: '4040109441',
+                compliance_status: 'Valid',
+                image_url: 'sample/sample-receipt.png',
+                notes: ['Sample receipt loaded during onboarding']
+            };
+
+            const { error } = await supabaseClient.from('slips').insert([sampleSlip]);
+            if (error) {
+                console.error('Failed to insert sample slip:', error);
+            } else {
+                await fetchSlips();
+                showToast('Sample Loaded!', 'A sample receipt has been added. Explore the Insights tab!');
+            }
+        } else {
+            showToast('All Set!', 'Start by scanning your first receipt with the button below.');
+        }
+    } catch (e) {
+        console.error('Onboarding completion error:', e);
+    }
+
+    if (wizard) wizard.classList.add('hidden');
+    updateProfileUI();
+}
+
+// ========================================
+// PHASE 3: EXPORT MODAL & FUNCTIONS
+// ========================================
+
+function openExportModal() {
+    if (savedSlips.length === 0) {
+        showToast('No Data', 'Scan some receipts before exporting.', 'error');
+        return;
+    }
+
+    const modal = document.getElementById('export-modal');
+    const countText = document.getElementById('export-count-text');
+
+    // Calculate how many slips would be exported (with current filters)
+    let exportCount = savedSlips.length;
+    if (activeFilterChips.size > 0 || needsReviewFilter) {
+        exportCount = getFilteredSlips().length;
+        if (countText) countText.textContent = `Exporting ${exportCount} filtered receipts`;
+    } else {
+        if (countText) countText.textContent = `Exporting all ${exportCount} receipts`;
+    }
+
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeExportModal() {
+    const modal = document.getElementById('export-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+// Helper: Get currently filtered slips (same logic as renderSlips but returns data)
+function getFilteredSlips() {
+    let filtered = [...savedSlips];
+
+    // Category filter
+    const categoryFilter = document.getElementById('category-filter');
+    if (categoryFilter && categoryFilter.value) {
+        filtered = Logic.applyCategoryFilter(filtered, categoryFilter.value);
+    }
+
+    // Needs review
+    if (needsReviewFilter) {
+        filtered = Logic.applyNeedsReviewFilter(filtered);
+    }
+
+    // Smart chips
+    if (activeFilterChips.has('thisMonth')) {
+        filtered = Logic.applyThisMonthFilter(filtered);
+    }
+    if (activeFilterChips.has('highValue')) {
+        filtered = Logic.applyHighValueFilter(filtered);
+    }
+    if (activeFilterChips.has('taxDeductible')) {
+        filtered = Logic.applyTaxDeductibleFilter(filtered);
+    }
+    if (activeFilterChips.has('dateRange') && dateRangeStart && dateRangeEnd) {
+        filtered = Logic.applyDateRangeFilter(filtered, dateRangeStart, dateRangeEnd);
+    }
+
+    // Text search
+    const receiptSearch = document.getElementById('receipt-search');
+    if (receiptSearch && receiptSearch.value.trim()) {
+        filtered = Logic.applyTextSearch(filtered, receiptSearch.value);
+    }
+
+    return filtered;
+}
+
+// --- CSV Export ---
+function exportToCSV() {
+    const slips = getFilteredSlips();
+    if (slips.length === 0) {
+        showToast('No Data', 'No receipts match your current filters.', 'error');
+        return;
+    }
+
+    closeExportModal();
+
+    const csvContent = Logic.buildCsvContent(slips);
+
+    // const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `SlipSafe_Export_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    showToast('CSV Exported', `${slips.length} receipts exported successfully.`);
+}
+
+// --- PDF Tax Pack ---
+async function exportPDFTaxPack() {
+    const slips = getFilteredSlips();
+    if (slips.length === 0) {
+        showToast('No Data', 'No receipts match your current filters.', 'error');
+        return;
+    }
+
+    closeExportModal();
+
+    openInfoModal("Generating PDF", `
+        <div class="text-center space-y-4 py-2">
+            <div class="animate-spin w-10 h-10 border-4 border-red-200 border-t-red-600 rounded-full mx-auto"></div>
+            <div>
+                <p class="font-bold text-slate-800">Building your Tax Pack...</p>
+                <p class="text-xs text-slate-500 mt-1">Compiling ${slips.length} receipts into a PDF report.</p>
+            </div>
+        </div>
+    `);
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Calculate summary statistics
+    const { totalSpent, totalVat, deductibleTotal, categories } = Logic.calculatePdfSummary(slips);
+
+    const businessName = currentUser?.user_metadata?.business_name || 'My Business';
+    const today = new Date().toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Build HTML for the PDF
+    const pdfHtml = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1e293b; padding: 20px; max-width: 700px; margin: 0 auto;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #0077b6;">
+                <h1 style="font-size: 28px; font-weight: 900; color: #0077b6; margin: 0;">🧾 SlipSafe Tax Pack</h1>
+                <p style="font-size: 14px; color: #64748b; margin: 8px 0 0;">${businessName} • Generated ${today}</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 140px; background: #f0f9ff; border-radius: 12px; padding: 16px; border: 1px solid #bae6fd;">
+                    <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #0077b6; margin: 0 0 4px;">Total Spent</p>
+                    <p style="font-size: 22px; font-weight: 900; color: #0c4a6e; margin: 0;">R ${totalSpent.toFixed(2)}</p>
+                </div>
+                <div style="flex: 1; min-width: 140px; background: #f0fdf4; border-radius: 12px; padding: 16px; border: 1px solid #bbf7d0;">
+                    <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #16a34a; margin: 0 0 4px;">Tax Deductible</p>
+                    <p style="font-size: 22px; font-weight: 900; color: #14532d; margin: 0;">R ${deductibleTotal.toFixed(2)}</p>
+                </div>
+                <div style="flex: 1; min-width: 140px; background: #fefce8; border-radius: 12px; padding: 16px; border: 1px solid #fde68a;">
+                    <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #ca8a04; margin: 0 0 4px;">Total VAT</p>
+                    <p style="font-size: 22px; font-weight: 900; color: #713f12; margin: 0;">R ${totalVat.toFixed(2)}</p>
+                </div>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div style="background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 12px; color: #1e293b;">Category Breakdown</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <tr style="border-bottom: 2px solid #e2e8f0;">
+                        <th style="text-align: left; padding: 8px 4px; font-weight: 700; color: #64748b;">Category</th>
+                        <th style="text-align: center; padding: 8px 4px; font-weight: 700; color: #64748b;">Receipts</th>
+                        <th style="text-align: right; padding: 8px 4px; font-weight: 700; color: #64748b;">Total</th>
+                    </tr>
+                    ${Object.entries(categories).map(([cat, data]) => `
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 8px 4px; font-weight: 600;">${cat}</td>
+                            <td style="padding: 8px 4px; text-align: center; color: #64748b;">${data.count}</td>
+                            <td style="padding: 8px 4px; text-align: right; font-weight: 700;">R ${data.total.toFixed(2)}</td>
+                        </tr>
+                    `).join('')}
+                </table>
+            </div>
+
+            <!-- Receipt Details -->
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 12px; color: #1e293b;">Receipt Details (${slips.length} records)</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 24px;">
+                <tr style="background: #0077b6; color: white;">
+                    <th style="padding: 8px 6px; text-align: left; font-weight: 700; border-radius: 6px 0 0 0;">Date</th>
+                    <th style="padding: 8px 6px; text-align: left; font-weight: 700;">Merchant</th>
+                    <th style="padding: 8px 6px; text-align: left; font-weight: 700;">Category</th>
+                    <th style="padding: 8px 6px; text-align: right; font-weight: 700;">Total</th>
+                    <th style="padding: 8px 6px; text-align: right; font-weight: 700;">VAT</th>
+                    <th style="padding: 8px 6px; text-align: center; font-weight: 700; border-radius: 0 6px 0 0;">Deductible</th>
+                </tr>
+                ${slips.map((s, i) => `
+                    <tr style="background: ${i % 2 === 0 ? '#ffffff' : '#f8fafc'}; border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 8px 6px;">${s.date || 'N/A'}</td>
+                        <td style="padding: 8px 6px; font-weight: 600;">${s.merchant || 'Unknown'}</td>
+                        <td style="padding: 8px 6px;">${s.category || 'Other'}</td>
+                        <td style="padding: 8px 6px; text-align: right; font-weight: 700;">R ${(s.total || 0).toFixed(2)}</td>
+                        <td style="padding: 8px 6px; text-align: right;">R ${(s.vat || 0).toFixed(2)}</td>
+                        <td style="padding: 8px 6px; text-align: center;">${s.is_tax_deductible ? '✅' : '—'}</td>
+                    </tr>
+                `).join('')}
+            </table>
+
+            <!-- Footer -->
+            <div style="text-align: center; padding: 16px; border-top: 2px solid #e2e8f0; color: #94a3b8; font-size: 11px;">
+                <p style="margin: 0;">Generated by SlipSafe Pro • ${today}</p>
+                <p style="margin: 4px 0 0;">This report is for informational purposes. Please consult a tax professional.</p>
+            </div>
+        </div>
+    `;
+
+    // Create a temporary container
+    const container = document.createElement('div');
+    container.innerHTML = pdfHtml;
+    document.body.appendChild(container);
+
+    const opt = {
+        margin: 10,
+        filename: `SlipSafe_Tax_Pack_${new Date().toISOString().slice(0, 10)}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    try {
+        await html2pdf().set(opt).from(container).save();
+        showToast('PDF Exported', `Tax Pack with ${slips.length} receipts downloaded.`);
+    } catch (e) {
+        console.error('PDF generation error:', e);
+        showToast('Export Error', 'Failed to generate PDF. Please try again.', 'error');
+    } finally {
+        document.body.removeChild(container);
+        closeInfoModal();
     }
 }

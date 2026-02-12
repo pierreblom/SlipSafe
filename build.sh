@@ -13,5 +13,8 @@ else
   # We use | as delimiter to avoid issues with slashes in keys
   sed -i "" "s|const apiKey = \"\";|const apiKey = \"$GEMINI_API_KEY\";|g" index.html
 fi
-
+ 
+echo "Building Tailwind CSS..."
+npx tailwindcss -i ./front_end/tailwind-input.css -o ./front_end/tailwind.css --minify
+ 
 echo "Build complete."

@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlipSafe Pro - AI-Powered Business & Tax Management</title>
+    <meta name="description"
+        content="SlipSafe Pro is your AI-powered business hub and tax companion. Scan receipts, track expenses, manage invoices, and stay SARS compliant with intelligent automation.">
+    <meta name="keywords"
+        content="receipt scanner, tax management, business expenses, SARS compliance, invoice management, AI accounting">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧾</text></svg>">
+    <link rel="stylesheet" href="/front_end/tailwind.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/front_end/invoice_generator.js"></script>
+    <link rel="stylesheet" href="/front_end/styles.css">
+</head>
+
+<body class="min-h-screen app-layout">
+
+    <!-- Login Overlay -->
+    <div id="auth-overlay"
+        class="fixed inset-0 bg-[#0077b6] z-[60] flex flex-col items-center justify-center p-6 text-center">
+        <div class="mb-8">
+            <img src="/logo.png" alt="SlipSave Logo" class="h-32 w-auto object-contain drop-shadow-2xl">
+        </div>
+        <p class="text-blue-100 mb-10 max-w-xs text-lg opacity-90">Your AI-powered business hub & tax companion.</p>
+
+        <div id="email-auth-container" class="w-full max-w-xs space-y-4 mb-6">
+            <input type="email" id="auth-email" placeholder="Email Address"
+                class="auth-input w-full px-5 py-4 rounded-2xl focus:outline-none transition">
+            <input type="password" id="auth-password" placeholder="Password"
+                class="auth-input w-full px-5 py-4 rounded-2xl focus:outline-none transition">
+
+            <button id="auth-primary-btn" onclick="handleEmailAuth()"
+                class="w-full bg-white text-[#0077b6] font-bold py-4 rounded-2xl shadow-xl hover:bg-blue-50 transition active:scale-95">
+                Sign In
+            </button>
+
+            <p class="text-blue-100 text-sm">
+                <span id="auth-toggle-text">Don't have an account?</span>
+                <a href="#" onclick="toggleAuthMode()" id="auth-toggle-link" class="font-bold underline ml-1">Sign
+                    Up</a>
+            </p>
+        </div>
+
+        <div class="w-full max-w-xs flex items-center gap-4 mb-6 opacity-50">
+            <div class="flex-1 h-[1px] bg-white/30"></div>
+            <span class="text-white text-xs font-bold uppercase tracking-widest">OR</span>
+            <div class="flex-1 h-[1px] bg-white/30"></div>
+        </div>
+
+        <button onclick="loginWithGoogle()"
+            class="w-full max-w-xs bg-white/10 border border-white/20 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-white/20 transition active:scale-95">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                <path fill="#ffffff"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#ffffff"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#ffffff"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
+                <path fill="#ffffff"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+            </svg>
+            Continue with Google
+        </button>
+    </div>
+
+    <!-- Onboarding Wizard -->
+    <div id="onboarding-wizard" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0077b6] via-[#0096c7] to-[#00b4d8]"></div>
+        <div class="relative z-10 w-full max-w-md">
+            <div class="flex justify-center gap-2 mb-8">
+                <div id="wizard-dot-1" class="w-3 h-3 rounded-full bg-white transition-all duration-300"></div>
+                <div id="wizard-dot-2" class="w-3 h-3 rounded-full bg-white/30 transition-all duration-300"></div>
+                <div id="wizard-dot-3" class="w-3 h-3 rounded-full bg-white/30 transition-all duration-300"></div>
+            </div>
+            <div id="wizard-step-1" class="wizard-step">
+                <div class="bg-white rounded-[2.5rem] p-8 shadow-2xl text-center space-y-6">
+                    <div class="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mx-auto"><span
+                            class="text-4xl">🏪</span></div>
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-800">Welcome to SlipSafe!</h2>
+                        <p class="text-slate-500 text-sm mt-2">Let's personalize your experience. What's your business
+                            called?</p>
+                    </div>
+                    <div class="space-y-2 text-left">
+                        <label class="text-sm font-bold text-slate-700">Business Name</label>
+                        <input id="wizard-business-name" type="text" placeholder="e.g. Pierre's Plumbing"
+                            class="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition font-medium text-slate-800">
+                    </div>
+                    <button onclick="wizardNext(1)"
+                        class="w-full bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition">Continue
+                        →</button>
+                    <button onclick="skipOnboarding()"
+                        class="text-sm text-slate-400 hover:text-slate-600 transition">Skip setup</button>
+                </div>
+            </div>
+            <div id="wizard-step-2" class="wizard-step hidden">
+                <div class="bg-white rounded-[2.5rem] p-8 shadow-2xl text-center space-y-6">
+                    <div class="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center mx-auto"><span
+                            class="text-4xl">💰</span></div>
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-800">Set a Monthly Budget</h2>
+                        <p class="text-slate-500 text-sm mt-2">We'll track your spending and alert you when you're close
+                            to your limit.</p>
+                    </div>
+                    <div class="space-y-2 text-left">
+                        <label class="text-sm font-bold text-slate-700">Monthly Budget (ZAR)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">R</span>
+                            <input id="wizard-budget" type="number" placeholder="5000" min="0" step="100"
+                                class="w-full pl-10 pr-5 py-4 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50 outline-none transition font-medium text-slate-800">
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="wizardBack(2)"
+                            class="flex-1 bg-slate-100 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-200 active:scale-95 transition">←
+                            Back</button>
+                        <button onclick="wizardNext(2)"
+                            class="flex-[2] bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition">Continue
+                            →</button>
+                    </div>
+                </div>
+            </div>
+            <div id="wizard-step-3" class="wizard-step hidden">
+                <div class="bg-white rounded-[2.5rem] p-8 shadow-2xl text-center space-y-6">
+                    <div class="w-20 h-20 bg-purple-50 rounded-3xl flex items-center justify-center mx-auto"><span
+                            class="text-4xl">🧾</span></div>
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-800">You're All Set!</h2>
+                        <p class="text-slate-500 text-sm mt-2">Want to see how it works? We can load a sample receipt so
+                            you can explore the charts and insights.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="wizardBack(3)"
+                            class="flex-1 bg-slate-100 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-200 active:scale-95 transition">←
+                            Back</button>
+                        <button onclick="completeOnboarding(true)"
+                            class="flex-[2] bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition">Load
+                            Sample</button>
+                    </div>
+                    <button onclick="completeOnboarding(false)"
+                        class="text-sm text-slate-400 hover:text-slate-600 transition">Skip — I'll scan my own</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader"
+        class="fixed inset-0 bg-white/90 backdrop-blur-sm z-[100] hidden flex flex-col items-center justify-center p-6 text-center">
+        <div class="relative">
+            <div class="w-24 h-24 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+            </div>
+        </div>
+        <h3 class="mt-8 text-xl font-black text-slate-800">AI is analyzing...</h3>
+        <p class="text-slate-500 mt-2">Checking for SARS compliance & VAT</p>
+    </div>
+
+    <!-- Desktop Header -->
+    <header class="desktop-header">
+        <div class="desktop-header-content">
+            <h1 class="text-xl font-bold text-slate-800">SlipSafe Pro</h1>
+            <button onclick="logout()"
+                class="flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 text-slate-700 font-semibold text-sm hover:from-red-50 hover:to-red-100 hover:text-red-700 transition-all duration-300 border border-slate-300 hover:border-red-300 active:scale-95 shadow-sm hover:shadow-md group">
+                <span>Sign Out</span>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4 transform group-hover:translate-x-0.5 transition-transform" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+
+
+    <!-- Sidebar Navigation (Desktop/Tablet) -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <img src="/logo.png" alt="SlipSafe Logo" class="h-10 w-auto object-contain">
+                <span class="sidebar-logo-text">SlipSafe Pro</span>
+            </div>
+
+            <!-- Navigation Items -->
+            <nav class="sidebar-nav">
+                <a href="/home" class="sidebar-item nav-active" id="nav-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span class="sidebar-text">Home</span>
+                </a>
+                <a href="/ai" class="sidebar-item nav-inactive" id="nav-ai">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="sidebar-text">Smart AI</span>
+                </a>
+                <a href="/insights" class="sidebar-item nav-inactive" id="nav-insights">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span class="sidebar-text">Insights</span>
+                </a>
+                <a href="/business" class="sidebar-item nav-inactive" id="nav-business">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span class="sidebar-text">Business</span>
+                </a>
+                <a href="/profile" class="sidebar-item nav-inactive" id="nav-profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span class="sidebar-text">Profile</span>
+                </a>
+
+                <!-- Tax Info Link -->
+                <button onclick="openTaxInfo()" class="sidebar-item sidebar-item-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <span class="sidebar-text">Tax Info</span>
+                </button>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Mobile Header with Hamburger -->
+    <header class="mobile-header">
+        <button onclick="toggleMobileSidebar()" class="hamburger-btn" id="hamburger-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <img src="/logo.png" alt="SlipSafe Logo" class="h-8 w-auto object-contain">
+        <button onclick="logout()" class="mobile-logout-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
+    <main id="main-content" class="main-content">
+        <!-- Home Screen -->
+        <section id="screen-home" class="screen active space-y-6">
+            <!-- Personalized Greeting -->
+            <div class="space-y-1">
+                <h1 id="greeting-text" class="text-3xl font-black text-slate-800">Good afternoon, Pierre!</h1>
+                <p class="text-slate-500 text-sm">Let's show your wallet who's boss—Pro style.</p>
+            </div>
+
+
+
+
+
+            <!-- Receipt Search Section -->
+            <div id="receipts-section" class="space-y-4">
+                <h3 class="font-bold text-slate-800 text-sm">Search receipts.</h3>
+
+                <!-- Smart AI Search Bar -->
+                <div class="space-y-2">
+                    <div class="relative">
+                        <input type="text" id="receipt-search" placeholder="Search receipts..."
+                            class="w-full bg-slate-100 rounded-2xl px-5 py-4 pl-12 pr-32 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-slate-400 absolute left-4 top-1/2 transform -translate-y-1/2"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <a href="/ai"
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#0077b6] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-blue-700 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            Smart AI
+                        </a>
+                    </div>
+                    <p class="text-xs text-slate-500 px-1">Search receipts by store, category, amount, or date.</p>
+                    <p class="text-xs text-slate-400 px-1">Try: "Coffee" or "Woolworths" or "over R100"</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <select id="category-filter"
+                        class="bg-slate-100 rounded-2xl px-4 py-3 text-slate-800 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+                        <option value="">All categories</option>
+                        <option value="General Business">General Business</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Travel">Travel / Petrol</option>
+                        <option value="Stock">Stock / Inventory</option>
+                        <option value="Utilities">Utilities</option>
+                    </select>
+                    <select id="sort-filter"
+                        class="bg-slate-100 rounded-2xl px-4 py-3 text-slate-800 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+                        <option value="date">Sort by: Date</option>
+                        <option value="amount">Sort by: Amount</option>
+                        <option value="merchant">Sort by: Merchant</option>
+                    </select>
+                </div>
+
+                <!-- Smart Filter Chips -->
+                <div class="chip-bar">
+                    <button id="needs-review-btn" onclick="toggleNeedsReview()" class="filter-chip">
+                        ⚠️ Needs Review
+                    </button>
+                    <button onclick="toggleFilterChip('thisMonth')" id="chip-thisMonth" class="filter-chip">
+                        📅 This Month
+                    </button>
+                    <button onclick="toggleFilterChip('highValue')" id="chip-highValue" class="filter-chip">
+                        💎 &gt;R500
+                    </button>
+                    <button onclick="toggleFilterChip('taxDeductible')" id="chip-taxDeductible" class="filter-chip">
+                        🧾 Tax Deductible
+                    </button>
+                    <button onclick="toggleFilterChip('dateRange')" id="chip-dateRange" class="filter-chip">
+                        📆 Date Range
+                    </button>
+                </div>
+
+                <!-- Date Range Picker (hidden by default) -->
+                <div id="date-range-picker"
+                    class="hidden bg-slate-50 rounded-2xl p-4 space-y-3 border border-slate-200">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span class="text-sm font-bold text-slate-700">Select Date Range</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-slate-500">From</label>
+                            <input type="date" id="date-range-start"
+                                class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-slate-500">To</label>
+                            <input type="date" id="date-range-end"
+                                class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                    <button onclick="applyDateRange()"
+                        class="w-full bg-[#0077b6] text-white text-sm font-bold py-2.5 rounded-xl hover:bg-blue-700 active:scale-95 transition">Apply
+                        Range</button>
+                </div>
+
+                <!-- Export Button -->
+                <button id="export-btn" onclick="openExportModal()"
+                    class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl text-emerald-700 text-sm font-bold hover:from-emerald-100 hover:to-teal-100 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Export Receipts
+                </button>
+
+                <!-- Receipt Count Indicator -->
+                <p id="receipt-count-text" class="text-sm text-slate-500 font-medium px-1">Showing 0 of 0 receipts</p>
+            </div>
+
+
+
+            <!-- Receipt List -->
+            <div id="slip-list" class="space-y-4">
+                <!-- Slips appear here -->
+            </div>
+
+            <!-- Quick Actions Section (in Receipts view) -->
+            <div id="quick-actions-receipts" class="space-y-4 pt-4">
+                <h4 class="font-bold text-slate-800">Quick Actions</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="openTaxInfo()"
+                        class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
+                        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-bold text-slate-800">Tax Info</span>
+                    </button>
+
+                    <button onclick="openBusinessModal('quote')"
+                        class="flex flex-col items-center gap-2 p-6 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-300 hover:shadow-md transition cursor-pointer">
+                        <div class="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-bold text-slate-800">Purchase Invoices</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Empty State (shown when no receipts) -->
+            <div id="empty-state" class="hidden flex flex-col items-center justify-center py-12 px-6 space-y-6">
+                <!-- Large Receipt/Dollar Icon -->
+                <div
+                    class="w-32 h-32 bg-slate-100 rounded-3xl flex items-center justify-center border-4 border-slate-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-slate-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                    </svg>
+                </div>
+
+                <!-- Empty State Text -->
+                <div class="text-center space-y-2">
+                    <h3 class="text-2xl font-black text-slate-800">No receipts found</h3>
+                    <p class="text-slate-500 text-sm max-w-xs">Start by scanning your first receipt or adjust your
+                        search filters</p>
+                </div>
+            </div>
+
+
+
+            <!-- Scan Receipt Button -->
+            <button onclick="document.getElementById('file-input').click()"
+                class="w-full bg-[#0077b6] text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-95 transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Scan Receipt
+            </button>
+            <p class="text-[10px] text-slate-400 text-center mt-1">Tip: Hold Cmd (⌘) or Shift to select multiple files
+            </p>
+
+            <!-- Hidden File Input -->
+            <input multiple type="file" id="file-input" accept="image/*" class="hidden">
+        </section>
+
+        <!-- Smart AI Screen -->
+
+        <!-- Reports Screen -->
+
+        <!-- Business Hub Screen -->
+
+        <!-- Profile Screen -->
+    </main>
+
+    <!-- Modal: Receipt Verification -->
+    <!-- Upload Receipt Modal -->
+    <div id="modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeModal()"></div>
+        <div
+            class="bg-white rounded-[2.5rem] w-full max-w-md max-h-[90vh] flex flex-col premium-dialog relative z-10 overflow-hidden animate-slide-up">
+            <!-- Header -->
+            <div class="px-6 pt-6 pb-2">
+                <div class="flex items-center gap-3 mb-1">
+                    <button onclick="closeModal()" class="p-2 -ml-2 hover:bg-slate-100 rounded-full transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <h3 class="text-2xl font-black text-slate-800">Upload Receipt</h3>
+                </div>
+                <p class="text-slate-500 text-sm">Upload a receipt image to scan and categorize your expenses</p>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto px-6 py-4 space-y-6">
+                <!-- Image Preview -->
+                <div class="relative rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 aspect-[3/4]">
+                    <img id="m-preview" class="w-full h-full object-contain">
+                    <div
+                        class="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-400" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Confidence: <span id="confidence-score">99%</span>
+                    </div>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="space-y-4">
+                    <!-- Store Name -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800">Store Name</label>
+                        <input id="m-merchant"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition font-bold text-slate-800"
+                            placeholder="e.g. Woolworths">
+                    </div>
+
+                    <!-- Date -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800">Date</label>
+                        <input id="m-date" type="date"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition font-bold text-slate-800">
+                    </div>
+
+                    <!-- Total Amount -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800">Total Amount</label>
+                        <input id="m-total" type="number" step="0.01"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition font-bold text-slate-800"
+                            placeholder="0.00">
+                    </div>
+
+                    <!-- Claim Amount -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                            Claim
+                            <span class="text-xs font-normal text-slate-400">(Tax Deductible Amount)</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600 font-bold">R</span>
+                            <input id="m-claim" type="number" step="0.01" readonly
+                                class="w-full pl-8 pr-4 py-3 rounded-xl border border-emerald-200 bg-emerald-50 outline-none transition font-bold text-emerald-700"
+                                placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800">Category</label>
+                        <div class="relative">
+                            <select id="m-category"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition font-bold text-slate-800 appearance-none bg-white">
+                                <option value="General Business">General Business</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Travel">Travel / Petrol</option>
+                                <option value="Stock">Stock / Inventory</option>
+                                <option value="Utilities">Utilities</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-bold text-slate-800">Notes (Optional)</label>
+                        <textarea id="m-notes" rows="3"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition text-slate-600 resize-none"
+                            placeholder="Add any notes about this receipt"></textarea>
+                    </div>
+
+                    <!-- Checkboxes -->
+                    <div class="space-y-3 pt-2">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <div class="relative flex items-center">
+                                <input type="checkbox" id="m-recurring" class="peer sr-only">
+                                <div
+                                    class="w-5 h-5 border-2 border-slate-300 rounded transition peer-checked:bg-blue-600 peer-checked:border-blue-600">
+                                </div>
+                                <svg class="absolute w-3 h-3 text-white left-1 top-1 opacity-0 peer-checked:opacity-100 transition pointer-events-none"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-slate-600 font-medium group-hover:text-slate-800 transition">This is a
+                                recurring expense</span>
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <div class="relative flex items-center">
+                                <input type="checkbox" id="m-deductible" class="peer sr-only">
+                                <div
+                                    class="w-5 h-5 border-2 border-slate-300 rounded transition peer-checked:bg-blue-600 peer-checked:border-blue-600">
+                                </div>
+                                <svg class="absolute w-3 h-3 text-white left-1 top-1 opacity-0 peer-checked:opacity-100 transition pointer-events-none"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-slate-600 font-medium group-hover:text-slate-800 transition">This expense
+                                is tax deductible</span>
+                        </label>
+                    </div>
+
+                    <!-- SARS Claim Summary -->
+                    <div id="sars-claim-summary"
+                        class="bg-gradient-to-r from-blue-50 to-emerald-50 p-4 rounded-xl border border-blue-100 space-y-3 mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            SARS Claim Summary
+                        </h4>
+
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="bg-white p-3 rounded-lg border border-emerald-100">
+                                <p class="text-slate-500 text-xs font-medium">VAT Claimable</p>
+                                <p id="m-vat-claimable" class="text-emerald-600 font-bold text-lg">R0.00</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-blue-100">
+                                <p class="text-slate-500 text-xs font-medium">Tax Deductible</p>
+                                <p id="m-tax-deductible-amount" class="text-blue-600 font-bold text-lg">R0.00</p>
+                            </div>
+                        </div>
+
+                        <div id="m-claim-summary"
+                            class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-100">
+                            <span class="text-slate-400">AI analysis will appear here after scanning...</span>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Fields for Logic -->
+                    <div class="hidden">
+                        <input id="m-vat" type="number">
+                        <input id="m-vatno">
+                        <span id="compliance-badge"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="p-6 border-t border-slate-100 space-y-3 bg-white">
+                <div class="flex gap-3">
+                    <button onclick="cancelUpload()"
+                        class="flex-1 py-3.5 font-bold text-slate-500 hover:bg-slate-50 rounded-xl transition border border-slate-200">Cancel</button>
+                    <button onclick="saveAndScanNext()"
+                        class="flex-1 py-3.5 font-bold text-slate-800 hover:bg-slate-50 rounded-xl transition border border-slate-200 flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Save & Scan Next
+                    </button>
+                </div>
+                <button id="save-btn"
+                    class="w-full py-4 bg-[#0077b6] text-white font-bold rounded-xl shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-95 transition flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Save Receipt
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Budget Modal -->
+    <div id="budget-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeBudgetModal()"></div>
+        <div onclick="event.stopPropagation()"
+            class="bg-white w-full max-w-sm rounded-[2.5rem] premium-dialog relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-up">
+            <!-- Header -->
+            <div class="p-6 pb-2 flex items-center justify-between shrink-0 bg-white z-10">
+                <h3 class="text-xl font-black text-slate-800">Budget Intelligence</h3>
+                <button onclick="closeBudgetModal()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="px-6 pb-6 overflow-y-auto grow">
+                <div id="budget-content" class="space-y-4 pt-2">
+                    <!-- Dynamic Content Here -->
+                </div>
+
+                <div id="budget-input-container" class="hidden space-y-3 pt-4 border-t border-slate-100 mt-4">
+                    <label class="text-sm font-bold text-slate-800">Set Monthly Budget</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">R</span>
+                        <input id="budget-input" type="number"
+                            class="w-full pl-8 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition font-bold text-slate-800"
+                            placeholder="0.00">
+                    </div>
+                    <button onclick="saveBudget()"
+                        class="w-full py-3 bg-[#0077b6] text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition">
+                        Save Budget
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div id="budget-actions" class="p-6 border-t border-slate-100 bg-slate-50 flex gap-3 shrink-0">
+                <button onclick="showBudgetInput()"
+                    class="flex-1 py-4 font-bold text-white premium-btn-confirm rounded-2xl transition shadow-lg active:scale-95">
+                    Update Budget
+                </button>
+                <button onclick="closeBudgetModal()"
+                    class="flex-1 py-4 font-bold text-slate-600 premium-btn-cancel rounded-2xl transition active:scale-95">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Options Modal -->
+    <div id="export-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeExportModal()"></div>
+        <div
+            class="bg-white w-full max-w-sm rounded-[2.5rem] premium-dialog relative z-10 overflow-hidden flex flex-col animate-slide-up">
+            <div class="p-6 pb-4">
+                <div class="flex items-center justify-between mb-1">
+                    <h3 class="text-xl font-black text-slate-800">Export Receipts</h3>
+                    <button onclick="closeExportModal()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-slate-500 text-sm">Choose your preferred format</p>
+            </div>
+            <div class="px-6 pb-6 space-y-3">
+                <button onclick="exportToCSV()" class="export-option-btn">
+                    <div
+                        class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1 text-left">
+                        <h4 class="font-bold text-slate-800">CSV Spreadsheet</h4>
+                        <p class="text-xs text-slate-500">Simple format for any spreadsheet app</p>
+                    </div>
+                    <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg">.csv</span>
+                </button>
+                <button onclick="exportToExcel()" class="export-option-btn">
+                    <div
+                        class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1 text-left">
+                        <h4 class="font-bold text-slate-800">Excel Report</h4>
+                        <p class="text-xs text-slate-500">Detailed report with embedded receipt images</p>
+                    </div>
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">.xlsx</span>
+                </button>
+                <button onclick="exportPDFTaxPack()" class="export-option-btn">
+                    <div class="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-red-600 shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1 text-left">
+                        <h4 class="font-bold text-slate-800">PDF Tax Pack</h4>
+                        <p class="text-xs text-slate-500">Professional report for your accountant</p>
+                    </div>
+                    <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded-lg">.pdf</span>
+                </button>
+            </div>
+            <div class="p-4 pt-0">
+                <p id="export-count-text" class="text-center text-xs text-slate-400">Exporting all receipts</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Info Modal -->
+    <div id="info-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" onclick="closeInfoModal()"></div>
+        <div
+            class="bg-white w-full max-w-sm rounded-[2.5rem] premium-dialog relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-up">
+            <!-- Header -->
+            <div class="p-6 pb-2 flex items-center justify-between shrink-0 bg-white z-10">
+                <h3 id="info-modal-title" class="text-xl font-black text-slate-800">Info</h3>
+                <button onclick="closeInfoModal()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="px-6 pb-6 overflow-y-auto grow">
+                <div id="info-modal-content" class="text-slate-600 text-sm leading-relaxed space-y-3 pt-2">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="p-6 border-t border-slate-100 bg-slate-50 shrink-0">
+                <button onclick="closeInfoModal()"
+                    class="w-full py-4 font-bold text-white premium-btn-confirm rounded-2xl transition shadow-lg active:scale-95">
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Premium Dialog (Global) -->
+    <div id="premium-dialog"
+        class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-6 animate-fade-in">
+        <div class="absolute inset-0 modal-overlay" id="dialog-overlay"></div>
+        <div
+            class="bg-white w-full max-w-sm premium-dialog p-8 relative z-10 flex flex-col items-center text-center animate-slide-up">
+            <div id="dialog-icon-box" class="icon-box">
+                <!-- Dynamic Icon -->
+            </div>
+            <h3 id="dialog-title" class="text-2xl font-black text-slate-800 mb-3">Notice</h3>
+            <p id="dialog-message" class="text-slate-500 text-sm leading-relaxed mb-8">Message body goes here.</p>
+
+            <div class="w-full flex flex-col gap-3">
+                <button id="dialog-confirm-btn"
+                    class="w-full py-4 text-white font-bold rounded-2xl premium-btn-confirm transition active:scale-95 shadow-lg">
+                    Confirm
+                </button>
+                <button id="dialog-cancel-btn"
+                    class="w-full py-4 font-bold rounded-2xl premium-btn-cancel transition active:scale-95">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/front_end/logic.js"></script>
+    <script src="/front_end/purchase_invoice_scanner.js?v=3" defer></script>
+    <script src="/front_end/app.js?v=11" defer></script>
+</body>
+
+</html>

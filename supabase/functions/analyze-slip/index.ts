@@ -180,7 +180,14 @@ serve(async (req) => {
         prompt += `  "personal_amount": 0.00,\n`;
         prompt += `  "compliance_status": "Valid | Invalid | Incomplete",\n`;
         prompt += `  "claim_summary": "Human-readable explanation of what can be claimed and why",\n`;
-        prompt += `  "item_analysis": "Brief description of main items and their claimability"\n`;
+        prompt += `  "item_analysis": "Brief description of main items and their claimability",\n`;
+        prompt += `  "confidence": {\n`;
+        prompt += `    "overall": 0-100,\n`;
+        prompt += `    "merchant": "high" | "medium" | "low",\n`;
+        prompt += `    "date": "high" | "medium" | "low",\n`;
+        prompt += `    "total": "high" | "medium" | "low",\n`;
+        prompt += `    "tax": "high" | "medium" | "low"\n`;
+        prompt += `  }\n`;
         prompt += `}\n\n`;
 
         prompt += `CALCULATION RULES:\n`;
@@ -304,7 +311,8 @@ serve(async (req) => {
             income_tax_deductible_amount: result.income_tax_deductible_amount || 0,
             personal_amount: result.personal_amount || 0,
             claim_summary: result.claim_summary || "",
-            item_analysis: result.item_analysis || ""
+            item_analysis: result.item_analysis || "",
+            confidence: result.confidence || { overall: 100, merchant: "high", date: "high", total: "high" }
         };
 
         console.log("Success!");
